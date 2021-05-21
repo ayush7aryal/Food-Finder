@@ -8,6 +8,7 @@ router.get('/',restaurantCtrl.getAll)
 router.post('/post', restaurantCtrl.postInfo)
 router.post('/update', auth, authAdmin, restaurantCtrl.updateInfo)
 router.post('/similar',restaurantCtrl.getSimilar)
+router.post('/getId',restaurantCtrl.getId)
 
 module.exports = router
 

@@ -2,16 +2,14 @@
 
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-//import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {useState} from 'react';
 import axios from 'axios';
 
-export default function FormDialog({sendDataToParent}) {
+export default function FormDialog({sendDataToParent, dataFromParent}) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
@@ -34,7 +32,7 @@ export default function FormDialog({sendDataToParent}) {
     };
 
     const titleChange = (e)=>{
-        setTitle(e.target.value);
+      setTitle(e.target.value);
     }
 
     const descriptionChange = (e)=>{
@@ -67,7 +65,10 @@ export default function FormDialog({sendDataToParent}) {
               await axios({
                 method: 'post',
                 url: 'http://localhost:5000/api/upload/',
-                data: {data : base64EncodedImage},
+                data: {
+                  fileStr : base64EncodedImage,
+                  id: `${dataFromParent}/menus`
+                },
                 headers : {'content-Type': 'application/json'},
             })
                 .then(res =>{
@@ -98,7 +99,7 @@ export default function FormDialog({sendDataToParent}) {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+        Add Menu
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add Menu</DialogTitle>
@@ -121,21 +122,13 @@ export default function FormDialog({sendDataToParent}) {
               </div>
               
           </form>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={onSubmit} color="primary">
-            Subscribe
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

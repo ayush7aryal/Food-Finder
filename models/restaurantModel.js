@@ -1,6 +1,10 @@
 const mongoose =require('mongoose')
 
 const restaurantSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        unique: true
+    },
     name: {
         type: String,
         required: true
@@ -10,6 +14,9 @@ const restaurantSchema = new mongoose.Schema({
         required: true,
         unique: true,
         trim: true
+    },
+    photos:{
+        type: Array
     },
     category:{ //like [Indian, Nepalese, Italian, Chinese] in array
         type: Array

@@ -7,6 +7,7 @@ export default class resRegister extends Component {
         super(props);
 
         this.state ={
+            id: 1,
             name: '',
             email: '',
             category: [],
@@ -56,6 +57,7 @@ export default class resRegister extends Component {
     }
 
     mainPhoto = '';
+    id = '';
 
     //name
     onChangeName(e){
@@ -81,9 +83,9 @@ export default class resRegister extends Component {
 
     onChangeCategory(e, index){
         e.preventDefault()
+        // eslint-disable-next-line
         this.state.category[index] = e.target.value
 
-        //set the changed state
         this.setState({
             category: this.state.category
         })
@@ -163,7 +165,8 @@ export default class resRegister extends Component {
             const img = await axios({
                 method: 'post',
                 url: 'http://localhost:5000/api/upload/',
-                data: {data : base64EncodedImage},
+                data: {fileStr : base64EncodedImage,
+                id: this.state.id},
                 headers : {'content-Type': 'application/json'},
             })
                 .then(res =>{
@@ -194,6 +197,7 @@ export default class resRegister extends Component {
                 method: 'post',
                 url: 'http://localhost:5000/restaurant/post',
                 data: {
+                    id: this.state.id,
                     name: this.state.name,
                     email: this.state.email,
                     category: this.state.category,
@@ -226,6 +230,20 @@ export default class resRegister extends Component {
         this.setState({
             bestSeller: this.state.menu[0]
         })
+    }
+
+    componentDidMount(){
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/restaurant/getId'
+        })
+            .then(res =>{
+                var id = res.data
+                this.setState({
+                    id: id
+                })
+                console.log("Id from component did mount", this.state.id)
+            }) 
     }
 
     render() {
@@ -271,7 +289,12 @@ export default class resRegister extends Component {
                     <div className="menu">
                         <label>Menus:</label>
                         <hr />
-                            <Menu sendDataToParent = {this.getMenu} />
+                        {console.log("Id from render console", this.state.id)}
+                            <Menu 
+                                sendDataToParent = {this.getMenu}
+                                dataFromParent = {this.state.id}
+                            />
+                            
                     </div>
                     <input type="submit" />
                 </form>  
