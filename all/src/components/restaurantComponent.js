@@ -3,8 +3,11 @@ import {Image} from 'cloudinary-react';
 import axios from 'axios';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import Carousel from 'react-material-ui-carousel'
+import Map from './mapComponent'
 import '../css_styles/similarsStyle.css'
+import '../css_styles/restaurant.css'
 
+var location;
 class restaurant extends Component {  
 
     constructor(props){
@@ -49,6 +52,8 @@ class restaurant extends Component {
         });
     }
 
+    
+
     async componentDidMount(){
         try {
             const id = this.props.match.params.id;
@@ -66,6 +71,7 @@ class restaurant extends Component {
                         this.setState({
                             Restaurant: Restaurant
                         });
+                        location = Restaurant.location;
                     }
                 })
                 .catch(err => console.error(err))
@@ -196,7 +202,6 @@ class restaurant extends Component {
                     {images}
                 </Carousel>
                 </div>
-                
             )
         }
 
@@ -215,12 +220,13 @@ class restaurant extends Component {
                                 <li key='contact'>{this.state.Restaurant.contact}</li>
                                 <li key='email'>{this.state.Restaurant.email}</li>
                             </ul>
+                            {this.state.Restaurant.description}
+                            {renderCategory()}
                         </div>
-                    </div>
-                    <div id="des">
-                        {this.state.Restaurant.description}
-                    </div>
-                    {renderCategory()}
+                        <div className="map">
+                            <Map sendLocation={(e)=>{}} getty={location} />
+                        </div>
+                    </div>                    
                     {renderMenus()}
                     <div id="bestseller">
                         <h3>Bestseller</h3>

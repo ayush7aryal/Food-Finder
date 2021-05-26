@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Menu from './menuComponent';
+import Map from './mapComponent';
 
 export default class resRegister extends Component {
     constructor(props){
         super(props);
 
         this.state ={
-            id: 1,
+            id: 0,
             name: '',
             email: '',
             category: [],
@@ -29,8 +30,8 @@ export default class resRegister extends Component {
                 image: ''
             },
             location: {
-                latitude: '',
-                longitude: ''
+                latitude: 0,
+                longitude: 0
             }
         }
 
@@ -52,12 +53,12 @@ export default class resRegister extends Component {
         this.onChangelongitude = this.onChangelongitude.bind(this);
 
         this.getMenu = this.getMenu.bind(this)
+        this.sendLocation = this.sendLocation.bind(this)
 
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     mainPhoto = '';
-    id = '';
 
     //name
     onChangeName(e){
@@ -231,6 +232,14 @@ export default class resRegister extends Component {
             bestSeller: this.state.menu[0]
         })
     }
+    sendLocation(location){
+        this.setState({
+            location:{
+                latitude: location.latitude,
+                longitude: location.longitude
+            }
+        })
+    }
 
     componentDidMount(){
         axios({
@@ -242,7 +251,6 @@ export default class resRegister extends Component {
                 this.setState({
                     id: id
                 })
-                console.log("Id from component did mount", this.state.id)
             }) 
     }
 
@@ -283,18 +291,17 @@ export default class resRegister extends Component {
                     </div>
                     <div className="location">
                             <h3>Location</h3>
-                            <label>Latitude: <input type= "text" value={this.state.location.latitude} onChange={this.onChangelatitude} /></label>
-                            <label>Longitude: <input type= "text" value={this.state.location.longitude} onChange={this.onChangelongitude} /></label>
+                            <Map sendLocation={this.sendLocation} />
+                            <label>Latitude: <input type= "number" value={this.state.location.latitude} onChange={this.onChangelatitude} /></label>
+                            <label>Longitude: <input type= "number" value={this.state.location.longitude} onChange={this.onChangelongitude} /></label>
                     </div>
                     <div className="menu">
                         <label>Menus:</label>
                         <hr />
-                        {console.log("Id from render console", this.state.id)}
-                            <Menu 
-                                sendDataToParent = {this.getMenu}
-                                dataFromParent = {this.state.id}
-                            />
-                            
+                        <Menu 
+                            sendDataToParent = {this.getMenu}
+                            dataFromParent = {this.state.id}
+                        />
                     </div>
                     <input type="submit" />
                 </form>  

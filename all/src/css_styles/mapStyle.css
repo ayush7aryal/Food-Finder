@@ -1,0 +1,16 @@
+.container{
+    margin: 0;
+    height: 400px;
+    width: 500px;
+}
+
+.map{
+    position: absolute;
+    display: flex;
+}
+
+.getloc{
+    position: absolute;
+    left: 70%;
+    top:10px;
+}
