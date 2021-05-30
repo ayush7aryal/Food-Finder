@@ -6,6 +6,7 @@ import dashboard from  './components/dashboardComponent'
 import restaurant from  './components/restaurantComponent'
 import resRegister from './components/resRegister'
 import './App.css';
+import BrowseBtn, { Footer } from './components/Elements';
 
 function App() {
   return (
@@ -29,9 +30,11 @@ function App() {
           <Route exact path='/restaurant/register' component = {resRegister} />
           <Route exact path='/restaurant/:id' component = {restaurant} />
         </Switch>
+        <Footer />
       </div>
     </Router>
   );
 }
+
 
 export default App;
