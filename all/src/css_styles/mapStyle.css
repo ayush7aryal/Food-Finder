@@ -1,0 +1,15 @@
+.container{
+    margin: 0;
+    height: 400px;
+    width: 500px;
+}
+
+.map{
+    position: inherit;
+}
+
+.getloc{
+    position: relative;
+    bottom: 580px;
+    left: 650px;
+}

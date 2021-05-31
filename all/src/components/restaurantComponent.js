@@ -3,11 +3,14 @@ import {Image} from 'cloudinary-react';
 import axios from 'axios';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import Carousel from 'react-material-ui-carousel'
+import Map from './mapComponent'
 import '../css_styles/similarsStyle.css'
 import '../css_styles/restroStyle.css'
-import BrowseBtn, { Footer} from './Elements.js'
+import BrowseBtn from './Elements.js'
+import '../css_styles/restaurant.css'
 
 
+var location;
 class restaurant extends Component {  
 
     constructor(props){
@@ -58,6 +61,8 @@ class restaurant extends Component {
     
     }
 
+    
+
     async componentDidMount(){
         try {
             const id = this.props.match.params.id;
@@ -76,11 +81,10 @@ class restaurant extends Component {
                         this.setState({
                             Restaurant: Restaurant
                         });
+                        location = Restaurant.location;
                     }
                 })
                 .catch(err => console.error(err))
-                
-        
             await axios({
                 method: 'get',
                 url: `http://localhost:5000/api/images/${id}`,
@@ -128,7 +132,7 @@ class restaurant extends Component {
             const category = this.state.Restaurant.category.map((result,index) => {
                 return (<div key={result+index}>{result}</div>)
               });
-            return (<div className='text' style={{marginLeft: 40}}>Category Filters: <div id='small'>{category}</div></div>)
+            return (<div className='text' style={{marginLeft: 40, marginTop:40}}>Category Filters: <div id='small'>{category}</div></div>)
         }
 
         const renderSimilar = ()=>{
@@ -140,9 +144,11 @@ class restaurant extends Component {
                             publicId={result.mainPhoto}
                             height='150'
                             crop='scale'
+
                     />
                         <div className="labels">
-                        <label className="text">{result.name}</label><br />
+                        <label className="text" style={{fontSize: 18,
+                                                        fontWeight:'bolder'}}>{result.name.toUpperCase()}</label><br />
                         </div>
                         </div>)               
         
@@ -182,8 +188,8 @@ class restaurant extends Component {
                         crop='scale'
                     />
                     <div className="labels">
-                        <label className='text' style={{fontSize:16}}>{result.title}</label> <br />
-                        <label className='price'>Price: {result.price}</label> <br />
+                        <label className='text' style={{fontSize:18, fontWeight:'bolder'}}>{result.title}</label> <br />
+                        <label className='price' style={{color: '#E75A03'}}>Price: {result.price}</label> <br />
                         <label className='text' style={{fontSize:12, fontStyle:'oblique'}}>{result.description}</label> <br />
                     </div>
                     
@@ -214,7 +220,7 @@ class restaurant extends Component {
                         key={result + index}
                         cloudName='foodfinder'
                         publicId={result}
-                        width='1519'
+                        width= '1519'
                         height='570'
                         crop='scale'
                     />)
@@ -223,11 +229,10 @@ class restaurant extends Component {
             //return (<Carousel slides={images} autoplay={true} interval={1000}/>)
             return (
                 <div className="Carousel">
-                    <Carousel navButtonsAlwaysVisible = 'true'>
+                    <Carousel navButtonsAlwaysVisible = 'true' animation='slide'>
                     {images}
                 </Carousel>
                 </div>
-                
             )
         }
 
@@ -245,7 +250,8 @@ class restaurant extends Component {
                         {this.state.Restaurant.description}
                     </div>
                     
-                    {menuButton()}
+                    {menuButton()}  
+                    <div className='menuComponents'>                
                     {renderMenus()}
                     <button className='showMoreBtn' style={{fontSize: 14}} onClick={() => {
                         this.state.showBtn ? this.setState({show: 1000}) : this.setState({show: 1});  
@@ -254,6 +260,7 @@ class restaurant extends Component {
                         }>
                     {this.state.showBtn ? <u style={{fontStyle:'oblique'}}>Show More</u> : <u style={{fontStyle:'oblique'}}>Show Less</u>}
                     </button>
+                    </div>
                     <hr />
                     <div id="bestseller">
                     <div className="text" id='bestSellerText'>BESTSELLERS</div>
@@ -274,21 +281,14 @@ class restaurant extends Component {
                     
                     <div className= 'mapElements'>
                     {mapButton()}                    
-                    <div className='mapImg'>
-                            <Image
-                                key={this.state.Restaurant.mainPhoto}
-                                cloudName='foodfinder'
-                                publicId={this.state.Restaurant.bestSeller.image}
-                                width='800'
-                                height='500'
-                                crop='scale'
-                            />
-
+                    
+                    <div className="mapImg">
+                            <Map sendLocation={(e)=>{}} getty={location} />
                     </div>
                     <div id='catcon'>
                     <div id="bestSellerTitle">
                             <ul>                    
-                                <li key='contact' className="contacts" >Contact: {this.state.Restaurant.contact}</li>
+                                <li key='contact' className="contacts" >Contact: <u>{this.state.Restaurant.contact}</u></li>
                                 <li key='email' className="contacts" >{this.state.Restaurant.email}</li>
                             </ul>
                     </div></div>

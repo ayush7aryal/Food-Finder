@@ -9,20 +9,31 @@
     display: flex;
     flex-direction: column;
     padding: 15px;
+    padding-bottom: 25px;
     font: 1em;
     color: #000;
-    border: hidden;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
+    border: 1px dotted;
+    border-radius: 3px;
     margin: 20px;
     margin-left: 50px;
-    background: inherit;
+    background: #c4c4c4;
 }
+.menuComponents{
+    margin-left: 50px;
+    margin-right: 50px;
+    background: inherit;
+    border: hidden;
+    border-top: 5px solid;
+    border-top-color: #E75A03 ;
+    border-bottom: 5px solid;
+    border-bottom-color: #E75A03 ;
+
+}
+
 #menuContainer{
-    background: #ffe;
+    background: inherit;
     color:rgb(34, 33, 33);
     
-   
 }
 
 .container:hover{
