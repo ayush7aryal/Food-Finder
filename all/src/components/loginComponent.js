@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 
-class register extends Component {  
+class login extends Component {  
     constructor(props){
         super(props);
 
@@ -11,7 +12,7 @@ class register extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: ''            
         }
     }
 
@@ -33,30 +34,58 @@ class register extends Component {
         e.preventDefault();
 
         try {
-
-            const config = {
-                headers:{
-                    'Content-Type' : 'application/json',
-                    'Authorization': localStorage.getItem('token')
-                }
-            }
-
             await axios({
                 method: 'post',
                 url: 'http://localhost:5000/user/login/',
                 data: {
                     email: this.state.email,
                     password: this.state.password
-                },
-                headers : config.headers,
+                }                
+            }, {withCredentials:true}).then(res=> {
+                localStorage.setItem("token", res.data.accesstoken)
+                localStorage.setItem('isLogged', true)
+                Cookies.set("refreshtoken", res.data.refreshtoken, { expires: 7, path: '/' })
+                console.log("Logged In successfully")
+                return res
             })
+
+            var cart_session = JSON.parse(sessionStorage.getItem('cart'))
+            if(cart_session){
+                if(cart_session !== []){
+                    let config = {
+                        headers :{
+                            'Authorization' : localStorage.getItem('token')
+                        }
+                    }
+                    await axios.get('http://localhost:5000/user/info',config)
+                        .then((res) =>{
+                            var count = 0;
+                            var cart = cart_session.filter((result)=>{
+                                var pass = true;
+                                for(count = 0; count < res.data.cart.length; count ++){
+                                    if(result === res.data.cart[count]) pass = false
+                                }
+                                return pass;
+                            })
+                            console.log(cart)
+                            axios.post('http://localhost:5000/user/addCart',{
+                                cart
+                            },config)
+                                .then((res)=> {
+                                    console.log(res)
+                                    sessionStorage.setItem('cart',JSON.stringify([]))
+                                })
+                        })
+                }
+            }
+            
         } catch (err) {
             alert(err)
         }
-        console.log("Logged In successfully")
-        //window.location = 'http://localhost:3000/'
+        
+        
+        window.location = 'http://localhost:3000/'
     }
-
 
     render(){
         return(
@@ -73,4 +102,4 @@ class register extends Component {
     }
 }
 
-export default register;
+export default login;

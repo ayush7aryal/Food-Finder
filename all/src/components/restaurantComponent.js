@@ -50,9 +50,39 @@ class restaurant extends Component {
                 }
             }]
         });
+        this.addMenu = this.addMenu.bind(this);
     }
 
     
+    async addMenu(menu){
+        let config = {
+            headers :{
+                'Authorization' : localStorage.getItem('token')
+            }
+        }
+        var cart_item = {
+            menu,
+            restaurant: this.state.Restaurant.id
+        }
+        var cart = []
+        
+        if(!sessionStorage.getItem("cart")) sessionStorage.setItem("cart", JSON.stringify(cart))
+        cart = JSON.parse(sessionStorage.getItem('cart'))
+        console.log("previous",cart)
+        cart[cart.length] = cart_item;
+        console.log("before post",cart)
+        
+        if(localStorage.getItem('isLogged') !=='true'){ 
+            sessionStorage.setItem('cart', JSON.stringify(cart))
+            console.log("Stored in session storage")
+        } else{
+            axios.post('http://localhost:5000/user/addCart',{
+                cart: cart_item
+            },config)
+            console.log("Stored in database storage")
+        }
+        
+    }
 
     async componentDidMount(){
         try {
@@ -161,18 +191,21 @@ class restaurant extends Component {
         const renderMenus = ()=>{
             const menus = this.state.Restaurant.menus.map((result, index)=>{
                 return (<div key={result.title + index} className="container">
-                    <Image
-                        key={index}
-                        cloudName='foodfinder'
-                        publicId={result.image}
-                        height='150'
-                        crop='scale'
-                    />
-                    <div className="labels">
-                        <label>{result.title}</label> <br />
-                        <label>{result.description}</label> <br />
-                        <label>Price: {result.price}</label> <br />
+                    <div>
+                        <Image
+                            key={index}
+                            cloudName='foodfinder'
+                            publicId={result.image}
+                            height='150'
+                            crop='scale'
+                        />
+                        <div className="labels">
+                            <label>{result.title}</label> <br />
+                            <label>{result.description}</label> <br />
+                            <label>Price: {result.price}</label> <br />
+                        </div>
                     </div>
+                    <button className="menuBtn" onClick={()=>{this.addMenu(result)}}>Add to Cart</button>                    
                 </div>)
             })
 

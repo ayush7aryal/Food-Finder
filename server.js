@@ -6,7 +6,10 @@ const fileUpload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+}));
 app.use(cookieParser());
 app.use(express.json({limit: '10mb'}))
 app.use(express.urlencoded({limit: '10mb', extended: true}))
