@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+.browseBtn{
+    margin-left: 48%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    color: #000;
+    background: #E75A03;
+    border: hidden;
+    border-radius: 7px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px;
+}
+
+.browseBtn:hover{
+    background: #FF6608;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.footerAllElements{
+    display: block;
+    margin-top: 10px;
+    height: 208px;
+    background: #231F20;
+    border: hidden;
+}
+.connectWithUs{
+    position: absolute;
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 50px;
+    margin-left: 60%;
+    color: #d4d1d1;
+ }
+
+ .copyright{
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    top: 180px;
+    margin-left: 49%;
+    color: #d4d1d1;
+}
+
+.list{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    margin-top: 90px;
+    margin-left: 58%;
+    
+    
+}
+.fb{
+    margin-left:10px;
+}
+
+.fb:hover{
+    border-radius: 5px;
+    background-color:blue;
+    padding: 5px 5px 0px 5px;
+    transition: 0.4s;
+}
+
+
+.insta{
+    margin-left:10px;
+}
+
+.insta:hover{
+    border-radius: 10px;
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    padding: 5px 5px 0px 5px;
+    transition: 0.4s;
+}
+
+.blogger{
+    margin-left:10px;
+    margin-top: 1px;
+}
+
+.blogger:hover{
+    border-radius: 5px;
+    background: #F06A35;
+    padding: 5px 5px 0px 5px;
+    transition: 0.4s;
+}
