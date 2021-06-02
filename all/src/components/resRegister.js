@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Menu from './menuComponent';
+import Map from './mapComponent';
 
 export default class resRegister extends Component {
     constructor(props){
         super(props);
 
         this.state ={
+            id: 0,
             name: '',
             email: '',
             category: [],
@@ -28,8 +30,8 @@ export default class resRegister extends Component {
                 image: ''
             },
             location: {
-                latitude: '',
-                longitude: ''
+                latitude: 0,
+                longitude: 0
             }
         }
 
@@ -51,6 +53,7 @@ export default class resRegister extends Component {
         this.onChangelongitude = this.onChangelongitude.bind(this);
 
         this.getMenu = this.getMenu.bind(this)
+        this.sendLocation = this.sendLocation.bind(this)
 
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -81,9 +84,9 @@ export default class resRegister extends Component {
 
     onChangeCategory(e, index){
         e.preventDefault()
+        // eslint-disable-next-line
         this.state.category[index] = e.target.value
 
-        //set the changed state
         this.setState({
             category: this.state.category
         })
@@ -163,7 +166,8 @@ export default class resRegister extends Component {
             const img = await axios({
                 method: 'post',
                 url: 'http://localhost:5000/api/upload/',
-                data: {data : base64EncodedImage},
+                data: {fileStr : base64EncodedImage,
+                id: this.state.id},
                 headers : {'content-Type': 'application/json'},
             })
                 .then(res =>{
@@ -194,6 +198,7 @@ export default class resRegister extends Component {
                 method: 'post',
                 url: 'http://localhost:5000/restaurant/post',
                 data: {
+                    id: this.state.id,
                     name: this.state.name,
                     email: this.state.email,
                     category: this.state.category,
@@ -226,6 +231,27 @@ export default class resRegister extends Component {
         this.setState({
             bestSeller: this.state.menu[0]
         })
+    }
+    sendLocation(location){
+        this.setState({
+            location:{
+                latitude: location.latitude,
+                longitude: location.longitude
+            }
+        })
+    }
+
+    componentDidMount(){
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/restaurant/getId'
+        })
+            .then(res =>{
+                var id = res.data
+                this.setState({
+                    id: id
+                })
+            }) 
     }
 
     render() {
@@ -265,13 +291,17 @@ export default class resRegister extends Component {
                     </div>
                     <div className="location">
                             <h3>Location</h3>
-                            <label>Latitude: <input type= "text" value={this.state.location.latitude} onChange={this.onChangelatitude} /></label>
-                            <label>Longitude: <input type= "text" value={this.state.location.longitude} onChange={this.onChangelongitude} /></label>
+                            <Map sendLocation={this.sendLocation} />
+                            <label>Latitude: <input type= "number" value={this.state.location.latitude} onChange={this.onChangelatitude} /></label>
+                            <label>Longitude: <input type= "number" value={this.state.location.longitude} onChange={this.onChangelongitude} /></label>
                     </div>
                     <div className="menu">
                         <label>Menus:</label>
                         <hr />
-                            <Menu sendDataToParent = {this.getMenu} />
+                        <Menu 
+                            sendDataToParent = {this.getMenu}
+                            dataFromParent = {this.state.id}
+                        />
                     </div>
                     <input type="submit" />
                 </form>  

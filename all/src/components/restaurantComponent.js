@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import {Image} from 'cloudinary-react';
 import axios from 'axios';
+import ScrollMenu from 'react-horizontal-scrolling-menu';
+import Carousel from 'react-material-ui-carousel'
+import Map from './mapComponent'
 import '../css_styles/similarsStyle.css'
+import '../css_styles/restaurant.css'
 
+var location;
 class restaurant extends Component {  
 
     constructor(props){
@@ -10,19 +15,25 @@ class restaurant extends Component {
 
         this.state = ({
             Restaurant: {
+                id: '',
                 name: '',
                 email: '',
                 description: '',
                 contact: '',
                 mainPhoto: '',
                 category: [],
+                menus: [{
+                    title: '',
+                    description: '',
+                    image: '',
+                    price : ''
+                }],
                 bestSeller: {
                     title: '',
                     price: '',
                     description: '',
                     image: ''
                 },
-                menu: [{}],
                 location:{
                     latitude: '',
                     longitude: ''
@@ -41,6 +52,8 @@ class restaurant extends Component {
         });
     }
 
+    
+
     async componentDidMount(){
         try {
             const id = this.props.match.params.id;
@@ -50,6 +63,7 @@ class restaurant extends Component {
             })
                 .then(res => {
                     const Restaurant = res.data;
+                    
                     if(!Restaurant){
                         alert("Could not find the restaurant you are looking for!")
                         window.location = 'http://localhost:3000/';
@@ -57,6 +71,7 @@ class restaurant extends Component {
                         this.setState({
                             Restaurant: Restaurant
                         });
+                        location = Restaurant.location;
                     }
                 })
                 .catch(err => console.error(err))
@@ -68,6 +83,7 @@ class restaurant extends Component {
             })
                 .then(res =>{
                     const data = res.data
+                    console.log(res)
                     this.setState({
                         images: data
                     })
@@ -97,14 +113,14 @@ class restaurant extends Component {
 
         const renderCategory = ()=>{
             const category = this.state.Restaurant.category.map((result,index) => {
-                return (<li>{ result }</li>)
+                return (<li key={result + index}>{ result }</li>)
               });
             return <div><ul>{category}</ul></div>
         }
 
         const renderSimilar = ()=>{
             const ren = this.state.similar.map((result, index)=>{
-                return (<div className="container">
+                return (<div key={result.name + index} className="container">
                         <Image
                             key={index}
                             cloudName='foodfinder'
@@ -112,43 +128,106 @@ class restaurant extends Component {
                             height='150'
                             crop='scale'
                     />
-                        <div class="labels">
+                        <div className="labels">
                         <label className="labels">{result.name}</label><br />
                         <label className="labels">Lat: {result.location.latitude} Lon: {result.location.longitude}</label>
                         </div>
                         </div>)               
         
             })
-            return <div className="Similars">{ren}</div>
+
+            const Arrow = ({ text, className }) => {
+                return (
+                  <div
+                    className={className}
+                  >{text}</div>
+                );
+              };
+              
+              const ArrowLeft = Arrow({ text: '<', className: 'arrow-prev' });
+              const ArrowRight = Arrow({ text: '>', className: 'arrow-next' }); 
+
+              return (
+                  <div className="a">
+                      <ScrollMenu
+                        data={ren}
+                        arrowLeft={ArrowLeft}
+                        arrowRight={ArrowRight}
+                      />
+                  </div>
+              )
+        }
+
+        const renderMenus = ()=>{
+            const menus = this.state.Restaurant.menus.map((result, index)=>{
+                return (<div key={result.title + index} className="container">
+                    <Image
+                        key={index}
+                        cloudName='foodfinder'
+                        publicId={result.image}
+                        height='150'
+                        crop='scale'
+                    />
+                    <div className="labels">
+                        <label>{result.title}</label> <br />
+                        <label>{result.description}</label> <br />
+                        <label>Price: {result.price}</label> <br />
+                    </div>
+                </div>)
+            })
+
+            
+            return (<>MENUS: 
+                <div className="Menu">{menus}</div> </>
+                )
+        }
+
+        const renderImages = ()=>{
+            const images = this.state.images.map((result, index)=>{
+
+                return (<Image
+                        key={result + index}
+                        cloudName='foodfinder'
+                        publicId={result}
+                        width='800'
+                        height='500'
+                        crop='scale'
+                    />)
+            })
+
+            // return (<Carousel slides={images} autoplay={true} interval={1000}/>)
+            return (
+                <div className="Carousel">
+                    <Carousel navButtonsAlwaysVisible = 'true'>
+                    {images}
+                </Carousel>
+                </div>
+            )
         }
 
         return(
             <div>
                 <h1>Restaurant</h1>
                 <hr />
-                {console.log(this.state.Restaurant)}
                 <div className="info">
                     {this.state.Restaurant.name}
-                    <Image
-                        key={this.state.Restaurant._id}
-                        cloudName='foodfinder'
-                        publicId={this.state.Restaurant.mainPhoto}
-                        width='800'
-                        height='800'
-                        crop='scale'
-                    />
+                    <div className='Images'>
+                        {renderImages()}
+                    </div>                    
                     <div className="catcon">
                         <div id="contact">
                             <ul>
-                                <li>{this.state.Restaurant.contact}</li>
-                                <li>{this.state.Restaurant.email}</li>
+                                <li key='contact'>{this.state.Restaurant.contact}</li>
+                                <li key='email'>{this.state.Restaurant.email}</li>
                             </ul>
+                            {this.state.Restaurant.description}
+                            {renderCategory()}
                         </div>
-                    </div>
-                    <div id="des">
-                        {this.state.Restaurant.description}
-                    </div>
-                    {renderCategory()}
+                        <div className="map">
+                            <Map sendLocation={(e)=>{}} getty={location} />
+                        </div>
+                    </div>                    
+                    {renderMenus()}
                     <div id="bestseller">
                         <h3>Bestseller</h3>
                         <div className="bDes">

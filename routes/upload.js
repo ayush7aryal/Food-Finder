@@ -12,8 +12,8 @@ cloudinary.config({
 
 router.post('/upload', async (req, res)=>{
     try {
-        const fileStr = req.body.data
-        await cloudinary.v2.uploader.upload(fileStr,{folder: 'practise'}, async(err, result)=>{
+        const {fileStr, id} = req.body
+        await cloudinary.v2.uploader.upload(fileStr,{folder: id}, async(err, result)=>{
             if(err) throw err;
             res.json({public_id: result.public_id, url: result.secure_url})
         })
@@ -41,26 +41,21 @@ try{
 })
 
 router.get('/images/:id', async (req,res)=>{
-    var id = req.params.id
     try {
-        const {resources} = await cloudinary.v2.search
-            .expression(id)
+        var id = req.params.id
+        const resources = await cloudinary.v2.search
+            .expression(`folder:${id}`)
             .sort_by('public_id', 'desc')
             .max_results(8)
-            .folder(id)
-            .execute();
-        const publicIds = resources.map((file)=> file.public_id)
-        res.json(publicIds)
+            .execute() .then(result => {
+                const publicIds = result.resources.map((file)=> file.public_id)        
+                res.json(publicIds)
+            })
+        
+        
     } catch (err) {
-        return res.status(500).json(err.msg)
+        res.status(500).json({msg: err})
     }
 })
-
-// //remove temporary images that gets saved in the project folder
-// const removeTmp = (path)=>{
-// fs.unlink(path,err=>{
-//     if(err) throw err;
-// })
-// }
 
 module.exports = router
