@@ -167,14 +167,23 @@ const restaurantCtrl = {
 
   getPopular: async (req, res) => {
     try {
-      const restaurant = await restaurants.find(
-        {},
-        { _id: 0, id: 1, name: 1, description: 1, mainPhoto: 1, popularity: 1 },
-        (err, result) => {
-          if (err) return res.status(400).json({ msg: err.msg });
-          return result;
-        }
-      );
+      const restaurant = await restaurants
+        .find(
+          {},
+          {
+            _id: 0,
+            id: 1,
+            name: 1,
+            description: 1,
+            mainPhoto: 1,
+            popularity: 1,
+          },
+          (err, result) => {
+            if (err) return res.status(400).json({ msg: err.msg });
+            return result;
+          }
+        )
+        .sort({ popularity: -1 });
       if (!restaurant) {
         return res.json({ msg: "Could not find any restaurant" });
       }
