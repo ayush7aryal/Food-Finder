@@ -16,7 +16,8 @@ const UserSchema = new mongoose.Schema({
     },
     phone :{
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     password :{
         type: String,
@@ -25,7 +26,10 @@ const UserSchema = new mongoose.Schema({
     role :{
         type: Number,
         default: 0
-    }
+    },
+    cart:[{
+        type: Object
+    }]
 },{
     timestamps:true
 })

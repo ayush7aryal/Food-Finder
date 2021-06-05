@@ -11,6 +11,7 @@ router.post("/similar", restaurantCtrl.getSimilar);
 router.post("/getId", restaurantCtrl.getId);
 router.post("/setPopular", restaurantCtrl.setPopular);
 router.post("/getPopular", restaurantCtrl.getPopular);
+router.post("/recentlyAdded", restaurantCtrl.getRecentlyAdded);
 module.exports = router;
 
 //https://res.cloudinary.com/foodfinder/image/upload/v1619458129/41-dGxRSi1L._SX331_BO1_204_203_200__ozppxj.jpg

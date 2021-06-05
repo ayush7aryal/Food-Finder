@@ -44,7 +44,6 @@ const restaurantCtrl = {
         location,
       });
       await newRestaurant.save();
-
       res.json({ msg: "Detail about the restaurant posted successfully!" });
     } catch (err) {
       res.json({ msg: err.msg });
@@ -93,7 +92,7 @@ const restaurantCtrl = {
     try {
       const allRestaurants = await restaurants.find(
         {},
-        { _id: 0, id: 1, name: 1, location: 1 },
+        { _id: 0, id: 1, name: 1, location: 1, mainPhoto: 1 },
         (err, result) => {
           if (err) {
             return res.status(500).json({ msg: err.msg });
@@ -184,6 +183,33 @@ const restaurantCtrl = {
           }
         )
         .sort({ popularity: -1 });
+      if (!restaurant) {
+        return res.json({ msg: "Could not find any restaurant" });
+      }
+      res.json({ restaurant });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  getRecentlyAdded: async (req, res) => {
+    try {
+      const restaurant = await restaurants
+        .find(
+          {},
+          {
+            _id: 0,
+            id: 1,
+            name: 1,
+            description: 1,
+            mainPhoto: 1,
+            popularity: 1,
+          },
+          (err, result) => {
+            if (err) return res.status(400).json({ msg: err.msg });
+            return result;
+          }
+        )
+        .sort({ id: -1 });
       if (!restaurant) {
         return res.json({ msg: "Could not find any restaurant" });
       }

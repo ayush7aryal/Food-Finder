@@ -116,7 +116,7 @@ const Map = ({sendLocation, getty}) => {
   ), [restaurant]);
 
   return (
-    <div className="container">
+    <div className="mapcontainer">
       <div className="map">
         
       <MapGL
@@ -151,7 +151,7 @@ const Map = ({sendLocation, getty}) => {
           <div>{showPopup.name}</div>
         </Popup>}
       </MapGL>
-      <button className="getloc" onClick={_locateUser}>Get Current Location</button>
+      {!getty &&(<button className="getloc" onClick={_locateUser}>Get Current Location</button>)}
       </div>
     </div>
   );

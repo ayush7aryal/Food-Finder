@@ -27,12 +27,11 @@ const userCtrl = {
       const accesstoken = createAccessToken({ id: newUser._id });
       const refreshtoken = createRefreshToken({ id: newUser._id });
 
-      res.cookie("refreshtoken", refreshtoken, {
-        httpOnly: true,
-        path: "/user/refreshToken",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+      res.json({
+        accesstoken: accesstoken,
+        refreshtoken: refreshtoken,
+        msg: "Registered successfully!",
       });
-      res.json({ accesstoken: accesstoken });
       // res.json({msg: "Registered successfully!"})
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -47,24 +46,20 @@ const userCtrl = {
       if (!(await bcrypt.compare(password, user.password))) {
         return res.status(400).json({ msg: "Wrong password!" });
       }
+      const id = user._id + "";
 
       //Login success so creating web tokens
-      const accesstoken = createAccessToken({ id: user._id });
-      const refreshtoken = createRefreshToken({ id: user._id });
+      const accesstoken = createAccessToken({ id: id });
+      const refreshtoken = createRefreshToken({ id: id });
 
-      res.cookie("refreshtoken", refreshtoken, {
-        httpOnly: true,
-        path: "/user/refreshToken",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      });
-      res.json("Logged in successfully!");
+      res.json({ accesstoken: accesstoken, refreshtoken: refreshtoken });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
   logout: async (req, res) => {
     try {
-      res.clearCookie("refreshtoken", { path: "/user/refreshToken" });
+      await res.clearCookie("refreshtoken");
       return res.json({ msg: "Logged out successfully!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -73,14 +68,12 @@ const userCtrl = {
   refreshToken: (req, res) => {
     try {
       const rf_token = req.cookies.refreshtoken;
-      if (!rf_token)
-        return res.status(400).json({ msg: "User not authenticated" });
+      if (!rf_token) return res.json({ msg: "User not authenticated" });
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN, (err, user) => {
-        if (err)
-          return res.status(400).json({ msg: "User not authenticated!" });
+        if (err) return res.status(400).json({ msg: err.message });
         const accesstoken = createAccessToken({ id: user.id });
-        res.json({ accesstoken });
+        res.json({ user, accesstoken });
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -97,7 +90,7 @@ const userCtrl = {
   },
   roleChange: async (req, res) => {
     try {
-      await Users.findByIdAndUpdate(req.body.email, { $set: { role: 1 } });
+      await Users.findByIdAndUpdate(req.user.id, { $set: { role: 1 } });
       res.json({ msg: "Updated successfully!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -105,10 +98,48 @@ const userCtrl = {
   },
   deleteUser: async (req, res) => {
     try {
-      const { email } = req.body;
-      await Users.remove({ email: email });
+      await Users.remove({ _id: req.user.id });
       res.json({ msg: "User deleted successfully" });
     } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  pushCart: async (req, res) => {
+    try {
+      console.log(req.body);
+      const { cart } = req.body;
+      await Users.updateOne({ _id: req.user.id }, { $push: { cart: cart } });
+      res.json({ msg: "Added to cart successfully!" });
+    } catch (err) {
+      console.log(err.message);
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  changeCart: async (req, res) => {
+    try {
+      const { cart } = req.body;
+      console.log(cart);
+      await Users.updateOne({ _id: req.user.id }, { $set: { cart: cart } });
+      res.json({ msg: "Cart changed successfully! :)" });
+    } catch {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  cookie: async (req, res) => {
+    try {
+      const id = "60b27173f3d8832bd83fac89";
+      const accesstoken = createAccessToken({ id: id });
+      const refreshtoken = createRefreshToken({ id: id });
+
+      res.cookie("refreshtoken", refreshtoken, {
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+        domain: "http://localhost:3000",
+        path: "/user/refreshToken",
+      });
+
+      res.json({ accesstoken: accesstoken });
+    } catch {
       return res.status(500).json({ msg: err.message });
     }
   },

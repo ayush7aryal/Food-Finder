@@ -80,7 +80,7 @@ class register extends Component {
             alert(err)
         }
 
-        window.location = 'http://localhost:3000/user/login'
+        window.location = 'http://localhost:3000/'
     }
 
 
