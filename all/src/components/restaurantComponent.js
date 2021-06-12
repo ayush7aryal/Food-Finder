@@ -262,7 +262,7 @@ class restaurant extends Component {
             key={result + index}
             cloudName="foodfinder"
             publicId={result}
-            width="1519"
+            width="1000"
             height="570"
             crop="scale"
           />
@@ -321,8 +321,8 @@ class restaurant extends Component {
                 key={this.state.Restaurant.mainPhoto}
                 cloudName="foodfinder"
                 publicId={this.state.Restaurant.bestSeller.image}
-                width="1000"
                 height="600"
+                width="1000"
                 crop="scale"
               />
             </div>
