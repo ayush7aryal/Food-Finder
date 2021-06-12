@@ -8,6 +8,7 @@ import resRegister from "./components/resRegister";
 import CARTnORDER from "./pages/cartNorder";
 import axios from "axios";
 import "./App.css";
+import { Footer } from "./components/Elements";
 
 function App() {
   // const [userId, setUserId] = useState('');
@@ -89,6 +90,7 @@ function App() {
           <Route exact path="/restaurant/:id" component={restaurant} />
           <Route exact path="/cart" component={CARTnORDER} />
         </Switch>
+        <Footer />
       </div>
     </Router>
   );
