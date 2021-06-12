@@ -5,7 +5,7 @@ import login from  './components/loginComponent'
 import dashboard from  './components/dashboardComponent'
 import restaurant from  './components/restaurantComponent'
 import resRegister from './components/resRegister'
-import cart from './components/cartComponent'
+import CARTnORDER from './pages/cartNorder'
 import axios from 'axios';
 import './App.css';
 
@@ -58,7 +58,7 @@ function App() {
           {/* <Route exact path='/restaurant/:name' component = {restaurant} /> */}
           <Route exact path='/restaurant/register' component = {resRegister} />
           <Route exact path='/restaurant/:id' component = {restaurant} />
-          <Route exact path='/cart' component = {cart} />
+          <Route exact path='/cart' component = {CARTnORDER} />
         </Switch>
       </div>
     </Router>
