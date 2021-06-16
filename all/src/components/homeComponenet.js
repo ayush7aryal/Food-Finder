@@ -56,7 +56,6 @@ class home extends Component{
                         return null;
                     })
 
-
                     if(!Restaurant){
                         alert("Could not find the restaurant you are looking for!")
                         window.location = 'http://localhost:3000/';
