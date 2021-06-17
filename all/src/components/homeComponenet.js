@@ -12,7 +12,7 @@ class home extends Component{
         super(props);
 
         this.state = ({
-            Restaurant: {
+            Restaurant: [{
                 id: '',
                 name: '',
                 email: '',
@@ -36,7 +36,7 @@ class home extends Component{
                     latitude: '',
                     longitude: ''
                 }
-            },
+            }],
             images: []
         });
     }
@@ -97,30 +97,42 @@ class home extends Component{
             )
         } 
         const renderPopularity =() => {
-            const cardsData = [
-                {id: 1, title: 'Bajeko Sekuwa', content: 'Thamel', imgUrl: 'https://unsplash.it/200/200'},
-                {id: 2, title: 'Jack\'s Momo', content: 'Upper Mustang', imgUrl: 'https://unsplash.it/201/200'},
-                {id: 3, title: 'Katti Roll', content: 'Lainchour', imgUrl: 'https://unsplash.it/200/201'},
-                {id: 4, title: 'Pizza corner', content: 'Halchowk', imgUrl: 'https://unsplash.it/201/201'},
-                {id: 5, title: 'Burger House', content: 'Balaju', imgUrl: 'https://unsplash.it/202/200'},
-                {id: 6, title: 'Burger House', content: 'Upper Mustang', imgUrl: 'https://unsplash.it/200/199'},
-                {id: 7, title: 'Burger House', content: 'Upper Mustang', imgUrl: 'https://unsplash.it/199/199'},
-                {id: 8, title: 'Burger House', content: 'Upper Mustang', imgUrl: 'https://unsplash.it/199/200'},
-                {id: 9, title: 'Tatopani House', content: 'Upper Mustang', imgUrl: 'https://unsplash.it/200/198'},
-                {id: 10, title: 'Samkosa House', content: 'Upper Mustang', imgUrl: 'https://unsplash.it/198/199'},
-              ]
-            
+            let cardsData = [];
+
+            this.state.Restaurant.forEach(res => cardsData.push({name:res.name,loc:res.location,id:res.id,imgUrl:res.mainPhoto}));
+
+            function fetchLocationName (lat=27.713669,lng=85.283254){
+                 axios({
+                    method:'get',
+                    url:`http://www.mapquestapi.com/geocoding/v1/reverse?key=YoqS9w9cHGAvG28dQBhg19RhJmAZEm7G&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+                })
+                    .then(result=>{
+                        const link = result.data.results[0].locations[0];
+                        const data = link.street ? link.street : link.adminArea5;
+                        console.log(data);
+                        return data;
+                        
+                    }).catch(err => console.error(err)) 
+            };
+
             function handlingClickedCard(props){
-                console.log(`this is ${props.title}`);
+                window.location = `http://localhost:3000/restaurant/${props.id}`
             }
 
             const Card = (props) => (
             <div className='card' onClick={() => handlingClickedCard(props)}>  
-                <img src={ props.imgUrl } 
-                alt={ props.alt || 'Image' } />
+                <Image
+                        key={props.id}
+                        cloudName='foodfinder'
+                        publicId={props.imgUrl}
+                        width='250'
+                        height='250'
+                        crop='scale'
+                    />
                 <div className="card-content">
                 <h2>{ props.title }</h2>
-                <p>{ props.content }</p>
+                <p>{ fetchLocationName(27.715889, 85.283910) }</p>
+                {/* props.location.latitude,props.location.longitude */}
                 </div>
             </div>
             );
@@ -129,9 +141,10 @@ class home extends Component{
                 <div className="cards-container">
                   {
                     props.cards.map((card) => (
-                      <Card title={ card.title }
-                        content={ card.content }
-                        imgUrl={ card.imgUrl } />
+                      <Card title={ card.name }
+                        location={ card.loc}
+                        imgUrl={ card.imgUrl } 
+                        id={card.id}/>
                     ))
                   }
                 </div>
