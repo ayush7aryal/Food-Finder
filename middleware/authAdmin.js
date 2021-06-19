@@ -1,16 +1,16 @@
-const Users = require('../models/userModel')
+const Users = require("../models/userModel");
 
 const authAdmin = async (req, res, next) => {
-    try{
-        //User info by id
-        const user = await Users.findById(req.user.id)
-        if(user.role == 0) return res.status(400).json({msg: "Not an admin! Access denied!"})
+  try {
+    //User info by id
+    const user = await Users.findById(req.user.id);
+    if (user.role == -1)
+      return res.status(400).json({ msg: "Not the owner! Access denied!" });
 
-        next()
+    next();
+  } catch (err) {
+    return res.status(500).json(err.msg);
+  }
+};
 
-    } catch(err){
-        return res.status(500).json(err.msg)
-    }
-}
-
-module.exports = authAdmin
+module.exports = authAdmin;

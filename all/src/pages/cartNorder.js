@@ -1,15 +1,33 @@
 import React, { useState } from "react";
 import Order from "../components/orderComponent";
 import Cart from "../components/cartComponent";
+import "../css_styles/tabs.css"
 
 const CARTnORDER = () => {
   var [comp, setComp] = useState(true);
-  var logged = localStorage.getItem('isLogged')
+  var logged = localStorage.getItem("isLogged");
 
   return (
     <>
-        <button onClick={()=>{setComp(true)}}>Cart</button>
-        {logged === 'true' && <button onClick={()=>{setComp(false)}}>Order</button>}
+      <div className="tabs">
+        <div
+        className={comp?'tab tab-active': 'tab'}
+          onClick={() => {
+            setComp(true);
+          }}>
+          Cart
+        </div>
+        {logged === "true" && (
+          <div
+          className={!comp? 'tab tab-active': 'tab'}
+            onClick={() => {
+              setComp(false);
+            }}>
+            Order
+          </div>
+        )}
+      </div>
+
       {!comp && <Order />}
       {comp && <Cart />}
     </>

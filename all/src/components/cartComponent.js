@@ -190,7 +190,8 @@ const Cart = () => {
 
   return (
     <div>
-      Cart
+      <h2>Cart</h2>
+      <hr />
       {renderCart(total)}
       {cart[0] && <button onClick={() => orderAll()}>Order All</button>}
     </div>

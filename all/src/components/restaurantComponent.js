@@ -95,7 +95,8 @@ class restaurant extends Component {
 
   async componentDidMount() {
     try {
-      const id = this.props.match.params.id;
+      console.log(this.props.id)
+      const id = this.props.id;
       //const RestroName= this.state.Restaurant.name;
       await axios({
         method: "get",
@@ -240,6 +241,8 @@ class restaurant extends Component {
                   {result.description}
                 </label>{" "}
                 <br />
+                <button className="menuBtn" onClick={()=>{this.addMenu(result)}}>Add to Cart</button>
+                <br />
               </div>
             </div>
           );
@@ -322,11 +325,11 @@ class restaurant extends Component {
                 cloudName="foodfinder"
                 publicId={this.state.Restaurant.bestSeller.image}
                 height="600"
-                width="1000"
+                width="800"
                 crop="scale"
               />
             </div>
-            <div classname="bestSellerElements">
+            <div className="bestSellerElements">
               <div id="bestSellerTitle" style={{ paddingLeft: 30 }}>
                 {this.state.Restaurant.bestSeller.title.toUpperCase()}
               </div>

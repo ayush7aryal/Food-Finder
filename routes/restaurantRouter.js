@@ -5,13 +5,12 @@ const authAdmin = require("../middleware/authAdmin");
 
 router.get("/:id", restaurantCtrl.getInfo);
 router.get("/", restaurantCtrl.getAll);
-router.post("/post", restaurantCtrl.postInfo);
+router.post("/post", auth, restaurantCtrl.postInfo);
 router.post("/update", auth, authAdmin, restaurantCtrl.updateInfo);
 router.post("/similar", restaurantCtrl.getSimilar);
 router.post("/getId", restaurantCtrl.getId);
 router.post("/setPopular", restaurantCtrl.setPopularity);
-router.post("/getPopular", restaurantCtrl.getPopular);
-
+router.get("/get/popular", restaurantCtrl.getPopular);
+router.get('/get/order',auth, authAdmin, restaurantCtrl.getOrder);
+router.post('/updateOrder',auth, authAdmin, restaurantCtrl.updateOrder);
 module.exports = router;
-
-//https://res.cloudinary.com/foodfinder/image/upload/v1619458129/41-dGxRSi1L._SX331_BO1_204_203_200__ozppxj.jpg

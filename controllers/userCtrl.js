@@ -90,7 +90,8 @@ const userCtrl = {
   },
   roleChange: async (req, res) => {
     try {
-      await Users.findByIdAndUpdate(req.user.id, { $set: { role: 1 } });
+      const restaurant_id = req.body.id;
+      await Users.findByIdAndUpdate(req.user.id, { $set: { role: restaurant_id } });
       res.json({ msg: "Updated successfully!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -149,6 +150,7 @@ const userCtrl = {
             longitude: 0,
           },
           user: user,
+          status: "Pending",
         };
         Restaurant.updateOne(
           { id: result.ordered.restaurant },

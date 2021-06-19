@@ -1,4 +1,5 @@
 const restaurants = require("../models/restaurantModel");
+const Users = require("../models/userModel");
 // const jwt = require('jsonwebtoken')
 
 const restaurantCtrl = {
@@ -44,6 +45,8 @@ const restaurantCtrl = {
         location,
       });
       await newRestaurant.save();
+
+      await Users.findByIdAndUpdate(req.user.id,{$set:{role:id}});
 
       res.json({ msg: "Detail about the restaurant posted successfully!" });
     } catch (err) {
@@ -172,21 +175,38 @@ const restaurantCtrl = {
             _id: 0,
             id: 1,
             name: 1,
-            mainPhoto: 1,
             description: 1,
+            mainPhoto: 1,
             popularity: 1,
-          },
-          (err, result) => {
-            if (err) return res.status(400).json({ msg: err.msg });
-            return result;
           }
         )
         .sort({ popularity: -1 });
-      return res.send(popular);
+
+      res.json(popular);
     } catch (err) {
       return res.status(500).json({ msg: err.msg });
     }
   },
+  getOrder: async (req, res) => {
+    try {
+      const owner = await Users.findOne({_id: req.user.id}, {_id:0, role:1});
+      const orderList = await restaurants.findOne({id: owner.role}, {_id:0, orderList:1})
+      res.json(orderList);
+    } catch (err) {
+      return res.status(500).json({ msg: err.msg });
+    }
+  },
+  updateOrder : async (req, res)=>{
+    try {
+      const {email, orderList} = req.body;
+      await Users.findOneAndUpdate({email: email}, {$set:{status: status}});
+      const owner = await Users.findOne({_id: req.user.id}, {_id:0, role:1});
+      await restaurants.findOneAndUpdate({id: owner.role}, {$set: {orderList: orderList}});
+      res.json({msg: "Order updated successfully"});
+    } catch (err) {
+      return res.status(500).json({ msg: err.msg });
+    }
+  }
 };
 
 module.exports = restaurantCtrl;
