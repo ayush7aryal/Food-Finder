@@ -96,7 +96,7 @@ const restaurantCtrl = {
     try {
       const allRestaurants = await restaurants.find(
         {},
-        { _id: 0, id: 1, name: 1, location: 1, mainPhoto: 1 },
+        { _id: 0 },
         (err, result) => {
           if (err) {
             return res.status(500).json({ msg: err.msg });

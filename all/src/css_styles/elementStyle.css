@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6fc3476c0c4d20a492794e47bf77f39c36b14145
 .browseBtn{
     margin-left: 48%;
     margin-top: 30px;
@@ -22,9 +25,14 @@
 
 .footerAllElements{
     display: block;
+<<<<<<< HEAD
     margin: 0;
     margin-top: 40px;
     height: 250px;
+=======
+    margin-top: 10px;
+    height: 208px;
+>>>>>>> 6fc3476c0c4d20a492794e47bf77f39c36b14145
     background: #231F20;
     border: hidden;
 }
@@ -32,7 +40,11 @@
     position: absolute;
     font-size: 22px;
     font-family: 'Poppins', sans-serif;
+<<<<<<< HEAD
     margin-top: 50px;
+=======
+    margin-top: 45px;
+>>>>>>> 6fc3476c0c4d20a492794e47bf77f39c36b14145
     margin-left: 70%;
     color: #d4d1d1;
  }
@@ -41,7 +53,11 @@
     position: absolute;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
+<<<<<<< HEAD
     margin-top: 70px;
+=======
+    margin-top: 40px;
+>>>>>>> 6fc3476c0c4d20a492794e47bf77f39c36b14145
     margin-left: 47.5%;
     color: #d4d1d1;
 }
