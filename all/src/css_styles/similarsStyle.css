@@ -98,7 +98,16 @@ Image{
     border: hidden;
     background: #000;
     cursor: pointer;
-  }
+  }*/
+.Carousel{
+  height: 700px;
+  margin:30px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    margin-bottom: 20px;
+}
+
 
 
 
@@ -108,16 +117,16 @@ Image{
     padding: 0;
   } */
 
-  .container {
-    width: 90%;
-    margin: auto;
+  .PopularHeading{
+    text-align: center;
+    margin-top: 50px;
   }
+  
   
   .cards-container {
     display: flex;
-    border-radius: 6px;
     color: #333;
-    /* background: #eee; */
+    background: #eee;
     padding: 1rem;
     overflow-x: auto;
     position: relative;
@@ -128,7 +137,7 @@ Image{
   }
   
   .card {
-    flex: 1 0 250px;
+    flex: 1 0 450px;
     box-shadow: 0 1px 1rem -4px #000;
     background: #fff;
     margin: 1rem;
@@ -139,8 +148,8 @@ Image{
   }
 
   .card img{
-    width: 250px;
-    height: 250px;
+    width: 450px;
+    height: 420px;
     object-fit: center;   
   }
 
@@ -158,7 +167,7 @@ Image{
 
 .About-container{
   width: 100%;
-  height: 555px;
+  height: 650px;
   margin-top: 50px;
   background: #fff;
   display: flex;

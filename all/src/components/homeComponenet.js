@@ -142,13 +142,13 @@ class home extends Component {
       const Card = (props) => (
         <div className="card" onClick={() => handlingClickedCard(props)}>
           <Image
-            key={props.id}
-            cloudName="foodfinder"
-            publicId={props.imgUrl}
-            width="250"
-            height="250"
-            crop="scale"
-          />
+                        key={props.id}
+                        cloudName='foodfinder'
+                        publicId={props.imgUrl}
+                        width='450'
+                        height='420'
+                        crop='scale'
+                    />
           <div className="card-content">
             <h2>{props.title}</h2>
             {props.location}

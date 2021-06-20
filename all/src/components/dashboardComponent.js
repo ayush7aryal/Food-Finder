@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Image} from 'cloudinary-react';
 import searchIcon from './images/search-solid.svg';
 import '../css_styles/dashboardComponent.css';
-import Footer from './Elements.js'
+
 
 class dashboard extends Component {
     constructor(props){
@@ -194,7 +194,6 @@ class dashboard extends Component {
                 </div>
                 <div>{this.renderCatagories()}</div>
                 <div>{this.rendersuggestions()}</div>
-                <Footer/>
             </div>
         );
     }

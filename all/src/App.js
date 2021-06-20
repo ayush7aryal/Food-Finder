@@ -10,6 +10,7 @@ import CARTnORDER from "./pages/cartNorder";
 import axios from "axios";
 import "./App.css";
 import { Footer } from "./components/Elements";
+import logo from './components/images/logoSVG.svg';
 
 const refresh = async () => {
   const config = {
@@ -50,14 +51,13 @@ function App() {
   return (
     <>
       <Router>
-        <div>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <ul className="navbar-nav mr-auto">
+      <div className="App">
+          <nav className="navbar">
+          <div className="logo"><Link to='/'><img src={logo}/></Link></div>
+          <ul className="">
               <li><Link to ={'/'} className="nav-link">Home</Link></li>
               <li>
-                <Link to={"/dashboard"} className="nav-link">
-                  Dashboard
-                </Link>
+              <li><Link to ={'/dashboard'} className="nav-link">Browse</Link></li>
               </li>
               {!(localStorage.getItem("isLogged") === "true") && (
                 <li>

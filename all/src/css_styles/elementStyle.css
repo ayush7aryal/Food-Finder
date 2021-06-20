@@ -105,8 +105,14 @@
     cursor: pointer;
 }
 
+.registerBtn  :first-child{
+    text-decoration: none;
+    color: #d4d1d1;
+}
+
 .registerBtn:hover{
     background: #E75A03;
+    color: #d4d1d1;
     padding: 12px;
     transition: 0.4s;
 }
