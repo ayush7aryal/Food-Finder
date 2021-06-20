@@ -1,4 +1,5 @@
 const restaurants = require("../models/restaurantModel");
+const Users = require("../models/userModel");
 // const jwt = require('jsonwebtoken')
 
 const restaurantCtrl = {
@@ -44,6 +45,9 @@ const restaurantCtrl = {
         location,
       });
       await newRestaurant.save();
+
+      await Users.findByIdAndUpdate(req.user.id, { $set: { role: id } });
+
       res.json({ msg: "Detail about the restaurant posted successfully!" });
     } catch (err) {
       res.json({ msg: err.msg });
@@ -92,7 +96,7 @@ const restaurantCtrl = {
     try {
       const allRestaurants = await restaurants.find(
         {},
-        { _id: 0, id: 1, name: 1, location: 1, mainPhoto: 1 },
+        { _id: 0 },
         (err, result) => {
           if (err) {
             return res.status(500).json({ msg: err.msg });
@@ -143,14 +147,10 @@ const restaurantCtrl = {
       return res.status(500).json({ msg: err.msg });
     }
   },
-  setPopular: async (req, res) => {
+  setPopularity: async (req, res) => {
     try {
-      const { popularity, id } = req.body;
-
-      if (!id && !popularity) {
-        return res.json({ msg: "No data Provided" });
-      }
-      const restaurant = await restaurants.updateOne(
+      const { id, popularity } = req.body;
+      const Restaurant = await restaurants.updateOne(
         { id: id },
         { $set: { popularity: popularity } },
         (err, result) => {
@@ -158,15 +158,17 @@ const restaurantCtrl = {
           return result;
         }
       );
-      if (restaurant) res.json({ msg: "Popularity set success" });
+      console.log(Restaurant);
+      if (Restaurant) {
+        res.json({ msg: "Popularity set success!" });
+      }
     } catch (err) {
       return res.status(500).json({ msg: err.msg });
     }
   },
-
   getPopular: async (req, res) => {
     try {
-      const restaurant = await restaurants
+      const popular = await restaurants
         .find(
           {},
           {
@@ -176,46 +178,48 @@ const restaurantCtrl = {
             description: 1,
             mainPhoto: 1,
             popularity: 1,
-          },
-          (err, result) => {
-            if (err) return res.status(400).json({ msg: err.msg });
-            return result;
           }
         )
         .sort({ popularity: -1 });
-      if (!restaurant) {
-        return res.json({ msg: "Could not find any restaurant" });
-      }
-      res.json({ restaurant });
+
+      res.json(popular);
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.status(500).json({ msg: err.msg });
     }
   },
-  getRecentlyAdded: async (req, res) => {
+  getOrder: async (req, res) => {
     try {
-      const restaurant = await restaurants
-        .find(
-          {},
-          {
-            _id: 0,
-            id: 1,
-            name: 1,
-            description: 1,
-            mainPhoto: 1,
-            popularity: 1,
-          },
-          (err, result) => {
-            if (err) return res.status(400).json({ msg: err.msg });
-            return result;
-          }
-        )
-        .sort({ id: -1 });
-      if (!restaurant) {
-        return res.json({ msg: "Could not find any restaurant" });
-      }
-      res.json({ restaurant });
+      const owner = await Users.findOne(
+        { _id: req.user.id },
+        { _id: 0, role: 1 }
+      );
+      const orderList = await restaurants.findOne(
+        { id: owner.role },
+        { _id: 0, orderList: 1 }
+      );
+      res.json(orderList);
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.status(500).json({ msg: err.msg });
+    }
+  },
+  updateOrder: async (req, res) => {
+    try {
+      const { email, orderList } = req.body;
+      await Users.findOneAndUpdate(
+        { email: email },
+        { $set: { status: status } }
+      );
+      const owner = await Users.findOne(
+        { _id: req.user.id },
+        { _id: 0, role: 1 }
+      );
+      await restaurants.findOneAndUpdate(
+        { id: owner.role },
+        { $set: { orderList: orderList } }
+      );
+      res.json({ msg: "Order updated successfully" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.msg });
     }
   },
 };

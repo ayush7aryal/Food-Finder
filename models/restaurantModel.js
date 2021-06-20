@@ -5,6 +5,14 @@ const restaurantSchema = new mongoose.Schema(
     id: {
       type: Number,
       unique: true,
+      cast: function castId(v) {
+        if (typeof v === "number") {
+          return v;
+        }
+        if (typeof v === "string" && !isNaN(v)) {
+          return +v;
+        }
+      },
     },
     name: {
       type: String,
@@ -51,7 +59,13 @@ const restaurantSchema = new mongoose.Schema(
     },
     popularity: {
       type: Number,
+      default: 0,
     },
+    orderList: [
+      {
+        type: Object,
+      },
+    ],
   },
   {
     timestamps: true,

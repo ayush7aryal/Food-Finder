@@ -7,6 +7,7 @@ import MapGL, { Marker, Popup } from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 import '../css_styles/mapStyle.css'
 import axios from 'axios'
+import marker from './images/marker.png'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZS1uLWQiLCJhIjoiY2twMHZxNWt1MGtqejJwbXdyYWRhcGtlayJ9.JQqhBWRo_UsWmHcipmpn0Q'
  
@@ -109,8 +110,8 @@ const Map = ({sendLocation, getty}) => {
   const mark = React.useMemo(() => restaurant.map(
     result => (
       <Marker key={result.name} longitude={parseFloat(result.location.longitude)} latitude={parseFloat(result.location.latitude)} >
-        {/* <img src="../../public/marker.png" alt='' /> */}
-        <div key={result} onClick={()=>togglePopup(result)}>Restaurant</div>
+          <img src={marker} alt= '' key={result} onClick={()=>togglePopup(result)}/>
+        {/*<div key={result} onClick={()=>togglePopup(result)}>Restaurant</div>*/}
       </Marker>
     )
   ), [restaurant]);
@@ -122,8 +123,8 @@ const Map = ({sendLocation, getty}) => {
       <MapGL
         ref={mapRef}
         {...viewport}
-        width="500px"
-        height="400px"
+        width="800px"
+        height="600px" 
         mapStyle='mapbox://styles/e-n-d/ckp0xwsl831ha18mp8u8v9dd1'
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}

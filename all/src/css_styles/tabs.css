@@ -1,0 +1,32 @@
+.tabs {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  margin-bottom: 7.5vh;
+}
+
+.tab {
+  display: flex;
+  height: 45px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+
+.tab:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  /* font-size: 1.75em; */
+}
+
+.tab-active {
+  border-bottom: 5px solid rgb(241, 158, 50);
+  padding-bottom: 0px;
+  height:90%;
+}

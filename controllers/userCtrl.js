@@ -1,4 +1,5 @@
 const Users = require("../models/userModel");
+const Restaurant = require("../models/restaurantModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -46,11 +47,10 @@ const userCtrl = {
       if (!(await bcrypt.compare(password, user.password))) {
         return res.status(400).json({ msg: "Wrong password!" });
       }
-      const id = user._id + "";
 
       //Login success so creating web tokens
-      const accesstoken = createAccessToken({ id: id });
-      const refreshtoken = createRefreshToken({ id: id });
+      const accesstoken = createAccessToken({ id: user._id });
+      const refreshtoken = createRefreshToken({ id: user._id });
 
       res.json({ accesstoken: accesstoken, refreshtoken: refreshtoken });
     } catch (err) {
@@ -90,7 +90,10 @@ const userCtrl = {
   },
   roleChange: async (req, res) => {
     try {
-      await Users.findByIdAndUpdate(req.user.id, { $set: { role: 1 } });
+      const restaurant_id = req.body.id;
+      await Users.findByIdAndUpdate(req.user.id, {
+        $set: { role: restaurant_id },
+      });
       res.json({ msg: "Updated successfully!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -125,23 +128,75 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  cookie: async (req, res) => {
+  order: async (req, res) => {
     try {
-      const id = "60b27173f3d8832bd83fac89";
-      const accesstoken = createAccessToken({ id: id });
-      const refreshtoken = createRefreshToken({ id: id });
-
-      res.cookie("refreshtoken", refreshtoken, {
-        httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-        domain: "http://localhost:3000",
-        path: "/user/refreshToken",
+      const ordered_item = req.body.ordered_item; // [{ordered, quantity}]
+      const id = req.user.id;
+      const user = await Users.findById(id, {
+        _id: 0,
+        firstName: 1,
+        lastName: 1,
+        email: 1,
+        phone: 1,
       });
+      console.log(ordered_item[0].ordered.restaurant);
 
-      res.json({ accesstoken: accesstoken });
-    } catch {
+      //in result: {cart, quantity} where cart also saves restaurantid as well as menu
+      //format for menu : {title, description, price, image}
+      ordered_item.map(async (result, index) => {
+        var order = {
+          menu: result.ordered.menu,
+          quantity: result.quantity,
+          location: {
+            latitude: 0,
+            longitude: 0,
+          },
+          user: user,
+          status: "Pending",
+        };
+        Restaurant.updateOne(
+          { id: result.ordered.restaurant },
+          { $push: { orderList: order } }
+        ).then((err, result) => {
+          if (err) return res.json({ msg: err.message });
+        });
+
+        const restaurant = await Restaurant.findOne(
+          { id: result.ordered.restaurant },
+          { _id: 0, id: 1, name: 1 }
+        );
+        if (!restaurant) return res.status(500).json({ msg: err.message });
+
+        var order_user = {
+          menu: result.ordered.menu,
+          quantity: result.quantity,
+          restaurant: restaurant,
+          location: {
+            latitude: 0,
+            longitude: 0,
+          },
+          status: "Pending",
+        };
+
+        Users.updateOne({ _id: id }, { $push: { order: order_user } }).then(
+          (err, result) => {
+            if (err) return res.json({ msg: err.message });
+
+            res.json({ msg: "User updated succesfully!" });
+          }
+        );
+      });
+    } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
+  },
+  getOrder: async (req, res) => {
+    const order = await Users.findById(
+      { _id: req.user.id },
+      { _id: 0, order: 1 }
+    );
+    if (!order) return res.status(500).json({ msg: err.message });
+    res.json({ order });
   },
 };
 

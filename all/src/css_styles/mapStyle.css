@@ -3,14 +3,16 @@
     height: 400px;
     width: 500px;
 }
-
+.location{
+    height:1000px;
+    width:fit-content;
+}
 .map{
-    position: absolute;
-    display: flex;
+    position: inherit;
 }
 
 .getloc{
-    position: absolute;
-    left: 70%;
-    top:10px;
+    position: relative;
+    bottom: 580px;
+    left: 650px;
 }
