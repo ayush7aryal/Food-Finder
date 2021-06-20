@@ -53,17 +53,17 @@ function App() {
       <Router>
       <div className="App">
           <nav className="navbar">
-          <div className="logo"><Link to='/'><img alt="" src={logo}/></Link></div>
-          <ul className="">
-          <li>
-                <Link to={"/cart"} className="nav-link">
+            <div className="logo"><Link to='/'><img alt="" src={logo}/></Link></div>
+            <ul className="">
+              <li>
+                <Link to={"/cart"}>
                   Cart
                 </Link>
               </li>
-              <li><Link to ={'/dashboard'} className="nav-link">Browse</Link></li>
+              <li><Link to ={'/dashboard'} >Browse</Link></li>
               {!(localStorage.getItem("isLogged") === "true") && (
                 <li>
-                  <Link to={"/user/login"} className="nav-link">
+                  <Link to={"/user/login"}>
                     Login
                   </Link>
                 </li>
@@ -72,7 +72,7 @@ function App() {
                 <li onClick={logout}>Logut</li>
               )}
               
-            </ul>
+          </ul>
           </nav>
           <Switch>
           <Route exact path='/' component = {home} />

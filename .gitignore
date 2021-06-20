@@ -1,3 +1,5 @@
 .env
 /node_modules/
 /all/node_modules/
+/all/package-lock.json
+/package-lock.json

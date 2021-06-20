@@ -1,4 +1,4 @@
-import { BrowserRouter as Link} from 'react-router-dom';
+import { BrowserRouter as Route,Link} from 'react-router-dom';
 import '../css_styles/elementStyle.css'
 import facebook from './images/facebook.png'
 import instagram from './images/instagram.png'
@@ -46,7 +46,7 @@ const BrowseBtn = () => {
 
 
 
-export {Footer}
+export {Footer};
 export default BrowseBtn;
-// export default {Footer};
+// export default Footer;
 

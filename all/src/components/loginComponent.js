@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie'
-import { BrowserRouter as Link} from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { BrowserRouter as Route,Link} from 'react-router-dom';
+import '../css_styles/loginComponent.css';
 
 class login extends Component {  
     constructor(props){
@@ -12,24 +13,68 @@ class login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
+            isDisabled:true,
             email: '',
-            password: ''            
+            password: '' ,
+            emailError:false,   
+            passwordError:false, 
+
+            wording: 'Show',
+            type: 'password',      
         }
+    }
+
+    validateEmail(email){
+        const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+        const result = pattern.test(email);
+        if(result===true){
+          this.setState({
+            emailError:false,
+            email:email
+          })
+        } else{
+          this.setState({
+            emailError:true
+          })
+        }
+      }
+
+    validatePassword(input){
+        const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        if(!re.test(input)){
+            this.setState({
+                passwordError:true
+              })
+        }else{
+            this.setState({
+                passwordError:false,
+                password:input,
+                isDisabled:false
+              })
+        };
     }
 
     onChangeEmail(e){
         e.preventDefault();
-        this.setState({
-            email: e.target.value
-        })
+        this.validateEmail(e.target.value);
     }
 
     onChangePassword(e){
         e.preventDefault();
-        this.setState({
-            password: e.target.value
-        })
+        this.validatePassword(e.target.value);
     }
+
+    changeState() {
+        var oldState = this.state.type;
+        var isTextOrHide = (oldState === 'password');
+        var newState = (isTextOrHide) ? 'text' : 'password';
+        var newWord = (isTextOrHide) ? 'Hide' : 'Show';
+        this.setState({
+          type: newState,
+          wording: newWord
+        })
+      }
+
 
     async onSubmit(e){
         e.preventDefault();
@@ -90,19 +135,49 @@ class login extends Component {
 
     render(){
         return(
-            <div>
-                <h2>Login Page</h2>
-                <hr />
-                <form onSubmit= {this.onSubmit}>
-                    <p>Email: <input type= 'text' value= {this.state.email} onChange = {this.onChangeEmail} /></p>
-                    <p>Password: <input type= 'text' value= {this.state.password} onChange = {this.onChangePassword} /></p>
-                    <button type= 'submit'>Submit</button>
-                </form>
-                <h3>Don't have a Food-Finder account ?</h3>
-                <button className="signUp">
-                    <Link to ={'/user/register'} className="nav-link">Sign Up now</Link>
-                </button>
+            <div className="formBody">
+            <div className="formContainer">
                 
+                <form onSubmit= {this.onSubmit} className="form">
+                    <h2>Login </h2>
+
+                    <div class="form-control">
+                        <label>Email</label> 
+                        <input 
+                            type= 'text' 
+                            onChange = {(e) => {this.onChangeEmail(e)}} />
+                        {this.state.emailError ? <span style={{color: "red"}}>Please Enter valid email address. For exampe:test@test.com</span> : ''}
+                    </div>
+
+                    <div class="form-control">
+                        <label>Password
+                            <input 
+                            type={this.state.type}
+                            onChange = {(e)=>{this.onChangePassword(e)}} />
+                            <span className="password-trigger" onClick={()=>this.changeState()}>{this.state.wording}</span>
+                        </label>  
+                        
+
+                        
+                        {this.state.passwordError ? <span style={{color: "red"}}>
+                            Password is invalid.A password must be between 8 to 15 characters which contain at least one lowercase, uppercase, digit, and special character. 
+                        </span> : ''}
+                    </div>
+
+                    <button type= 'submit' disabled={this.state.isDisabled} >Submit</button>
+
+                    <div className="signUp">
+                        <h2>Don't have a Food-Finder account ?</h2>
+
+                        <h2 >
+                            <Link to ={'/user/register'} >Sign Up now</Link>
+                        </h2>
+                    </div>
+                </form>
+            
+                
+                
+            </div>
             </div>
         );
     }
