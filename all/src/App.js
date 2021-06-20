@@ -53,12 +53,14 @@ function App() {
       <Router>
       <div className="App">
           <nav className="navbar">
-          <div className="logo"><Link to='/'><img src={logo}/></Link></div>
+          <div className="logo"><Link to='/'><img alt="" src={logo}/></Link></div>
           <ul className="">
-              <li><Link to ={'/'} className="nav-link">Home</Link></li>
-              <li>
-              <li><Link to ={'/dashboard'} className="nav-link">Browse</Link></li>
+          <li>
+                <Link to={"/cart"} className="nav-link">
+                  Cart
+                </Link>
               </li>
+              <li><Link to ={'/dashboard'} className="nav-link">Browse</Link></li>
               {!(localStorage.getItem("isLogged") === "true") && (
                 <li>
                   <Link to={"/user/login"} className="nav-link">
@@ -66,31 +68,12 @@ function App() {
                   </Link>
                 </li>
               )}
-              {!(localStorage.getItem("isLogged") === "true") && (
-                <li>
-                  <Link to={"/user/register"} className="nav-link">
-                    Register User
-                  </Link>
-                </li>
-              )}
               {localStorage.getItem("isLogged") === "true" && (
                 <li onClick={logout}>Logut</li>
               )}
-              {localStorage.getItem("isLogged") === "true" && (
-                <li>
-                  <Link to={"/restaurant/register"} className="nav-link">
-                    Register Restaurant
-                  </Link>
-                </li>
-              )}
-              <li>
-                <Link to={"/cart"} className="nav-link">
-                  Cart
-                </Link>
-              </li>
+              
             </ul>
           </nav>
-          <hr />
           <Switch>
           <Route exact path='/' component = {home} />
             <Route exact path="/dashboard" component={dashboard} />
@@ -101,8 +84,9 @@ function App() {
             <Route exact path="/restaurant/:id" component={restaurant} />
             <Route exact path="/cart" component={CARTnORDER} />
           </Switch>
+          <Footer />
         </div>
-        <Footer />
+        
       </Router>
     </>
   );
