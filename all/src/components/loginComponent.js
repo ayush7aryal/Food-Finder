@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 class register extends Component {  
     constructor(props){
@@ -68,6 +69,11 @@ class register extends Component {
                     <p>Password: <input type= 'text' value= {this.state.password} onChange = {this.onChangePassword} /></p>
                     <button type= 'submit'>Submit</button>
                 </form>
+                <h3>Don't have a Food-Finder account ?</h3>
+                <button className="signUp">
+                    <Link to ={'/user/register'} className="nav-link">Sign Up now</Link>
+                </button>
+                
             </div>
         );
     }

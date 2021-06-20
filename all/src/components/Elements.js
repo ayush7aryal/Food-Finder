@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import '../css_styles/elementStyle.css'
 import facebook from './images/facebook.png'
 import instagram from './images/instagram.png'
@@ -21,7 +22,10 @@ const Footer = () => {
                 <li className='blogger'><a href='https://foodfinderlogs.blogspot.com/' target='_/blank'><img src={blogger}/></a></li> 
             </ul>
             <p className='connectWithUs' style={{marginLeft: 60}}>Are you a Restaurant Owner?</p>
-            <button className='registerBtn' onClick={()=>console.log('Register Restaurant Page')}>List Your Restaurant</button>
+            <button className='registerBtn'>
+                <Link to ={'/restaurant/register'}>List Your Restaurant</Link>
+            </button>
+            
             <div className='copyright'>
                 <span>&#169; FoodFinder 2021</span>
             </div>
@@ -42,7 +46,7 @@ const BrowseBtn = () => {
 
 
 
-// export {Footer}
-// export default BrowseBtn;
-export default Footer;
+export {Footer}
+export default BrowseBtn;
+// export default {Footer};
 

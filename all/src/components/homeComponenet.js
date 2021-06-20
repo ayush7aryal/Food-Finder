@@ -4,7 +4,7 @@ import axios from 'axios';
 import Carousel from 'react-material-ui-carousel';
 import '../css_styles/similarsStyle.css';
 import AboutFood from './images/foodAbout.png';
-import Footer from './Elements.js'
+
 
 
 class home extends Component{
@@ -37,7 +37,7 @@ class home extends Component{
                     longitude: ''
                 }
             }],
-            images: []
+            images: [],
         });
     }
 
@@ -80,7 +80,7 @@ class home extends Component{
                         key={result + index}
                         cloudName='foodfinder'
                         publicId={result}
-                        width='1400'
+                        width='1600'
                         height='700'
                         crop='scale'
                     />)
@@ -102,36 +102,36 @@ class home extends Component{
             this.state.Restaurant.forEach(res => cardsData.push({name:res.name,loc:res.location,id:res.id,imgUrl:res.mainPhoto}));
 
             function fetchLocationName (lat=27.713669,lng=85.283254){
-                 axios({
-                    method:'get',
-                    url:`http://www.mapquestapi.com/geocoding/v1/reverse?key=YoqS9w9cHGAvG28dQBhg19RhJmAZEm7G&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
-                })
-                    .then(result=>{
-                        const link = result.data.results[0].locations[0];
-                        const data = link.street ? link.street : link.adminArea5;
-                        console.log(data);
-                        return data;
-                        
-                    }).catch(err => console.error(err)) 
+                axios({
+                   method:'get',
+                   url:`http://www.mapquestapi.com/geocoding/v1/reverse?key=YoqS9w9cHGAvG28dQBhg19RhJmAZEm7G&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+               })
+                   .then(result=>{
+                       const link = result.data.results[0].locations[0];
+                       const data = link.street ? link.street : link.adminArea5;
+                       console.log(data);
+                       return data;
+                       
+                   }).catch(err => console.error(err)) 
             };
 
             function handlingClickedCard(props){
                 window.location = `http://localhost:3000/restaurant/${props.id}`
             }
 
-            const Card = (props) => (
+            const  Card = (props) => (
             <div className='card' onClick={() => handlingClickedCard(props)}>  
                 <Image
                         key={props.id}
                         cloudName='foodfinder'
                         publicId={props.imgUrl}
-                        width='250'
-                        height='250'
+                        width='450'
+                        height='420'
                         crop='scale'
                     />
                 <div className="card-content">
                 <h2>{ props.title }</h2>
-                <p>{ fetchLocationName(27.715889, 85.283910) }</p>
+                <p>{fetchLocationName(27.715889, 85.283910)}</p>
                 {/* props.location.latitude,props.location.longitude */}
                 </div>
             </div>
@@ -153,7 +153,7 @@ class home extends Component{
 
             return(
                 <div>
-                    <h1 style={{textAlign : 'center' }}>Popular spots</h1>
+                    <h1 className="PopularHeading">Popular spots</h1>
                     <div>
                         <CardContainer cards={cardsData}/>
                     </div>
@@ -186,7 +186,7 @@ class home extends Component{
                 <div>
                     {renderAboutUs()}
                 </div>
-                <Footer/>
+              
                 
             </div>
         )
