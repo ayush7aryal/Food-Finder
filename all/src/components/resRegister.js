@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Menu from "./menuComponent";
 import Map from "./mapComponent";
+import "../css_styles/mapStyle.css"
 
 export default class resRegister extends Component {
   constructor(props) {

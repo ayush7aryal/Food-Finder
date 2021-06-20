@@ -3,7 +3,10 @@
     height: 400px;
     width: 500px;
 }
-
+.location{
+    height:1000px;
+    width:fit-content;
+}
 .map{
     position: inherit;
 }

@@ -203,25 +203,25 @@ class dashboard extends Component {
 export default dashboard;
 
 
-{/* search bar  */}
- {/* <div className="search-bar">
-    <div>
-        <input value={this.state.text} onChange={this.onChangeText} placeholder='Search here'/>
-        <button type="button"className="restaurantSearch" onClick={this.searchByRestaurant()}>Restaurant </button>
-        <button type="button" className="foodSearch" onClick={this.searchByFood()}>Food </button>
-    </div>
-    {this.rendersuggestions()}
-</div> 
+// {/* search bar  */}
+//  {/* <div className="search-bar">
+//     <div>
+//         <input value={this.state.text} onChange={this.onChangeText} placeholder='Search here'/>
+//         <button type="button"className="restaurantSearch" onClick={this.searchByRestaurant()}>Restaurant </button>
+//         <button type="button" className="foodSearch" onClick={this.searchByFood()}>Food </button>
+//     </div>
+//     {this.rendersuggestions()}
+// </div> 
 
- searchByRestaurant(){
+//  searchByRestaurant(){
 
-    }
+//     }
 
-    searchByFood(){
+//     searchByFood(){
 
-    }
-<li 
-    key={item + index} 
-    className='list' 
-    onClick = {()=> this.suggestionSelected(item)}>{item.name}
-</li>  */}
+//     }
+// <li 
+//     key={item + index} 
+//     className='list' 
+//     onClick = {()=> this.suggestionSelected(item)}>{item.name}
+// </li>  */}

@@ -5,7 +5,7 @@ const authAdmin = require("../middleware/authAdmin");
 
 router.get("/:id", restaurantCtrl.getInfo);
 router.get("/", restaurantCtrl.getAll);
-router.post("/post", auth, restaurantCtrl.postInfo);
+router.post("/post", restaurantCtrl.postInfo);
 router.post("/update", auth, authAdmin, restaurantCtrl.updateInfo);
 router.post("/similar", restaurantCtrl.getSimilar);
 router.post("/getId", restaurantCtrl.getId);
