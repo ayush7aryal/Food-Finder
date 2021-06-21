@@ -1,7 +1,7 @@
 .App {
   margin: 0;
   padding: 0;
-  height: 80px;
+  height: 100px;
   background-color: cornflowerblue;
 }
 
@@ -10,13 +10,13 @@ nav{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 100px;
   padding:20px 40px;
 }
 
 .logo{
   /* border: 1px solid red; */
-  height: 80px;
+  height: 70px;
   width: 300px;
   padding: 0 20px ;
   /* z-index: 100; */
@@ -32,24 +32,18 @@ nav ul{
   align-items: center;
   list-style: none;
 }
-nav ul li{
+nav ul .link{
   background: #E75A0f;
-  margin: 1px;
+  color: #fff;
+  text-decoration: none;
   padding: 10px 50px ;
+  font-size: 25px;
   margin: 10px;
   border-bottom: 1px solid #333;
 }
 
-nav ul li:hover{
+nav ul .link:hover{
   transform: scale(1.05);  
   border: 0.2px solid #333; 
   border-bottom: 1px solid #333;
-}
-
-nav ul li > :first-child{
-  text-decoration: none;
-  color: #fff;
-  font-size: 30px;
-  padding: 10px;
-  
 }

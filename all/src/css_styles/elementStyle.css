@@ -22,16 +22,16 @@
 .footerAllElements{
     display: block;
     margin: 0;
-    margin-top: 40px;
-    height: 250px;
+    margin-top: 0px;
+    height: 175px;
     background: #231F20;
     border: hidden;
 }
 .connectWithUs{
     position: absolute;
-    font-size: 22px;
+    font-size: 20px;
     font-family: 'Poppins', sans-serif;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 70%;
     color: #d4d1d1;
  }
@@ -40,8 +40,18 @@
     position: absolute;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
-    margin-top: 70px;
+    margin-top: 5px;
     margin-left: 47.5%;
+    color: #d4d1d1;
+}
+
+.termsConditions{
+    position: absolute;
+    margin-top: 30px;
+    margin-left: 45%;
+    list-style-type: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
     color: #d4d1d1;
 }
 
@@ -93,7 +103,7 @@
 
 .registerBtn{
     margin-left: 60px;
-    margin-top: 100px;
+    margin-top: 80px;
     border: hidden;
     border-radius: 5px;
     background: #4E0D54;
@@ -117,12 +127,4 @@
     transition: 0.4s;
 }
 
-.termsConditions{
-    position: absolute;
-    margin-top: 50px;
-    margin-left: 45%;
-    list-style-type: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    color: #d4d1d1;
-}
+

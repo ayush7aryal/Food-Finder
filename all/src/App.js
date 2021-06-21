@@ -55,21 +55,13 @@ function App() {
           <nav className="navbar">
             <div className="logo"><Link to='/'><img alt="" src={logo}/></Link></div>
             <ul className="">
-              <li>
-                <Link to={"/cart"}>
-                  Cart
-                </Link>
-              </li>
-              <li><Link to ={'/dashboard'} >Browse</Link></li>
+                <Link to={"/cart"} className="link">Cart</Link>
+                <Link to ={'/dashboard'} className="link">Browse</Link>
               {!(localStorage.getItem("isLogged") === "true") && (
-                <li>
-                  <Link to={"/user/login"}>
-                    Login
-                  </Link>
-                </li>
+                  <Link to={"/user/login"} className="link">Login</Link>
               )}
               {localStorage.getItem("isLogged") === "true" && (
-                <li onClick={logout}>Logut</li>
+                <Link onClick={logout} className="link">Logut</Link>
               )}
               
           </ul>

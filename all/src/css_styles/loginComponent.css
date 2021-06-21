@@ -7,6 +7,11 @@
 
 .formBody{
     background-color: #f9fafb;
+    background-image: url(https://source.unsplash.com/user/erondu/1600x900);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; 
+
     font-family: 'Open Sans', sans-serif;
     display: flex;
     justify-content: center;
