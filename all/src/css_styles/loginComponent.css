@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-:root {
-    --success-color:#2ecc71;
-    --error-color:#e74c3c;
-}
 
 *{
     box-sizing: border-box;
@@ -87,4 +83,16 @@ h2{
   color: #666;
   z-index: 9999;
   user-select: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

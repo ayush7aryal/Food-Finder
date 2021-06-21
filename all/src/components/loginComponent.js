@@ -17,7 +17,6 @@ class login extends Component {
             email: '',
             password: '' ,
             emailError:false,   
-            passwordError:false, 
 
             wording: 'Show',
             type: 'password',      
@@ -39,21 +38,6 @@ class login extends Component {
         }
       }
 
-    validatePassword(input){
-        const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-        if(!re.test(input)){
-            this.setState({
-                passwordError:true
-              })
-        }else{
-            this.setState({
-                passwordError:false,
-                password:input,
-                isDisabled:false
-              })
-        };
-    }
-
     onChangeEmail(e){
         e.preventDefault();
         this.validateEmail(e.target.value);
@@ -61,7 +45,10 @@ class login extends Component {
 
     onChangePassword(e){
         e.preventDefault();
-        this.validatePassword(e.target.value);
+        this.setState({
+            password:e.target.value,
+            isDisabled:false
+          })
     }
 
     changeState() {
@@ -156,12 +143,6 @@ class login extends Component {
                             onChange = {(e)=>{this.onChangePassword(e)}} />
                             <span className="password-trigger" onClick={()=>this.changeState()}>{this.state.wording}</span>
                         </label>  
-                        
-
-                        
-                        {this.state.passwordError ? <span style={{color: "red"}}>
-                            Password is invalid.A password must be between 8 to 15 characters which contain at least one lowercase, uppercase, digit, and special character. 
-                        </span> : ''}
                     </div>
 
                     <button type= 'submit' disabled={this.state.isDisabled} >Submit</button>
