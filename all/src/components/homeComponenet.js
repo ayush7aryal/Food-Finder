@@ -79,7 +79,7 @@ class home extends Component {
         })
           .then((result) => {
             const link = result.data.results[0].locations[0];
-            console.log(link)
+            console.log(link);
             const data = link.street ? link.street : link.adminArea5;
             if (data && data.length > 3) {
               return data;
@@ -91,13 +91,13 @@ class home extends Component {
         console.log(val);
         const temp = {
           name: res.name,
-          loc: val.toString(),
+          loc: val,
           id: res.id,
           imgUrl: res.mainPhoto,
         };
         this.setState({
-            cardsData: [...this.state.cardsData, temp]
-        })
+          cardsData: [...this.state.cardsData, temp],
+        });
         // console.log(cardsData[cardsData.length-1])
       });
       console.log(cards[0]);
@@ -142,13 +142,13 @@ class home extends Component {
       const Card = (props) => (
         <div className="card" onClick={() => handlingClickedCard(props)}>
           <Image
-                        key={props.id}
-                        cloudName='foodfinder'
-                        publicId={props.imgUrl}
-                        width='450'
-                        height='420'
-                        crop='scale'
-                    />
+            key={props.id}
+            cloudName="foodfinder"
+            publicId={props.imgUrl}
+            width="450"
+            height="420"
+            crop="scale"
+          />
           <div className="card-content">
             <h2>{props.title}</h2>
             {props.location}
