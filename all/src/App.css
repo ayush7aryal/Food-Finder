@@ -25,6 +25,21 @@ nav{
   transform: scale(1.05); 
 }
 
+
+
+.cart svg{
+  height:80px;
+  width:50px;
+  margin: 10px;
+  /* padding:10px; */
+  fill: #fff;
+  /* border: 1px solid #fff; */
+  border-radius: 50%;
+}
+
+.cart:hover{
+  transform: scale(1.09);
+}
 nav ul{
   /* width:40%; */
   display: flex;

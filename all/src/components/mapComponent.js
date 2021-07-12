@@ -118,13 +118,13 @@ const Map = ({sendLocation, getty}) => {
 
   return (
     <div className="mapcontainer">
-      <div className="map">
         
       <MapGL
         ref={mapRef}
         {...viewport}
-        width="800px"
-        height="600px" 
+        width="98%"
+        height="38rem" 
+        // border="10px"
         mapStyle='mapbox://styles/e-n-d/ckp0xwsl831ha18mp8u8v9dd1'
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -153,7 +153,6 @@ const Map = ({sendLocation, getty}) => {
         </Popup>}
       </MapGL>
       {!getty &&(<button className="getloc" onClick={_locateUser}>Get Current Location</button>)}
-      </div>
     </div>
   );
 };
