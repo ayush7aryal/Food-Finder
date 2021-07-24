@@ -61,9 +61,11 @@ const restaurantSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    orderList:[{
-      type: Object
-    }]
+    orderList: [
+      {
+        type: Object,
+      },
+    ],
   },
   {
     timestamps: true,

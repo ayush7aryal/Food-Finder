@@ -5,7 +5,6 @@ import Carousel from "react-material-ui-carousel";
 import "../css_styles/homeComponent.css";
 import AboutFood from "./images/foodAbout.png";
 
-
 class home extends Component {
   constructor(props) {
     super(props);
@@ -79,7 +78,7 @@ class home extends Component {
         })
           .then((result) => {
             const link = result.data.results[0].locations[0];
-            // console.log(link)
+            console.log(link);
             const data = link.street ? link.street : link.adminArea5;
             if (data && data.length > 3) {
               return data;
@@ -96,8 +95,8 @@ class home extends Component {
           imgUrl: res.mainPhoto,
         };
         this.setState({
-            cardsData: [...this.state.cardsData, temp]
-        })
+          cardsData: [...this.state.cardsData, temp],
+        });
         // console.log(cardsData[cardsData.length-1])
       });
 
@@ -146,11 +145,11 @@ class home extends Component {
         <div className="card" onClick={() => handlingClickedCard(props)}>
           <Image
             key={props.id}
-            cloudName='foodfinder'
+            cloudName="foodfinder"
             publicId={props.imgUrl}
-            width='450'
-            height='420'
-            crop='scale'
+            width="450"
+            height="420"
+            crop="scale"
           />
           <div className="card-content">
             <h2>{props.title}</h2>
@@ -207,16 +206,11 @@ class home extends Component {
     return (
       <div>
         <div>{renderImages()}</div>
-        {this.state.cardsData[0] && (
-          <div>{renderPopularity()}</div>
-        )}
+        {this.state.cardsData[0] && <div>{renderPopularity()}</div>}
         <div>{renderAboutUs()}</div>
-
       </div>
     );
   }
 }
 
 export default home;
-
-

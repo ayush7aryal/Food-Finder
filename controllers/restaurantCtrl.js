@@ -213,7 +213,7 @@ const restaurantCtrl = {
           }
           return result;
         });
-        console.log("final order: ",final_order)
+        console.log("final order: ", final_order);
         await Users.findOneAndUpdate(
           { email: email[i] },
           { $set: { order: final_order } }

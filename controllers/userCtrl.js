@@ -98,13 +98,15 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  updateInfo:async (req,res)=>{
-    try{
-      const {dLoc} = req.body;
-      await Users.updateOne({_id: req.user.id}, {$set:{dLoc: dLoc}});
-      res.json({msg:"Location set success!"});
-    }catch(err){
-      return res.status(500).json({ msg: "Couldn't set the Location. Try again!" });
+  updateInfo: async (req, res) => {
+    try {
+      const { dLoc } = req.body;
+      await Users.updateOne({ _id: req.user.id }, { $set: { dLoc: dLoc } });
+      res.json({ msg: "Location set success!" });
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ msg: "Couldn't set the Location. Try again!" });
     }
   },
   roleChange: async (req, res) => {
@@ -228,8 +230,8 @@ const userCtrl = {
     const { email } = await Users.findById(req.user.id, { _id: 0, email: 1 });
     var temp = null;
     const orderList = res_order.orderList.filter((result) => {
-      console.log("order id: ",order[index].id);
-        console.log("user id: ",result.user.id)
+      console.log("order id: ", order[index].id);
+      console.log("user id: ", result.user.id);
       if (
         result.user.email === email &&
         order[index].id === result.user.id &&
@@ -239,7 +241,6 @@ const userCtrl = {
         return false;
       }
       return true;
-      
     });
     if (temp === null) {
       return res.json({
