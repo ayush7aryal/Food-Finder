@@ -25,6 +25,7 @@ class dashboard extends Component {
       searchTerm: "menu",
       text: "",
       suggestions: [],
+      filters: "",
     };
 
     this.filtering = this.filtering.bind(this);
@@ -48,7 +49,7 @@ class dashboard extends Component {
     });
   }
   filtering(category) {
-    const filtered = this.state.restaurants.filter((result) => {
+    var filtered = this.state.restaurants.filter((result) => {
       if (result.category.includes(category)) return true;
       else {
         return false;
@@ -56,6 +57,7 @@ class dashboard extends Component {
     });
     console.log(filtered);
     console.log(category);
+    return filtered;
   }
 
   onClickText(e) {
@@ -68,6 +70,7 @@ class dashboard extends Component {
         suggestions = this.state.restaurants
           .sort()
           .filter((v) => regex.test(v.name));
+        // .filter((v) => regex.test(this.state.filters));
       } else if (this.state.searchTerm === "menu") {
         this.state.restaurants.forEach((res) => {
           res.menus.forEach((menu) =>
@@ -77,7 +80,7 @@ class dashboard extends Component {
         suggestions = suggestions
           .sort()
           .filter((v) => regex.test(v.menu.title));
-        // console.log(suggestions) ;
+        // .filter((v) => regex.test(this.state.filters));
       }
     }
     console.log(suggestions);
@@ -100,6 +103,7 @@ class dashboard extends Component {
             onClick={(e) => {
               console.log(e);
               this.filtering(e.target.value);
+              this.state.filters = this.filtering(e.target.value);
             }}
           >
             <option value="" selected disabled hidden>
@@ -137,6 +141,7 @@ class dashboard extends Component {
             onClick={(e) => {
               console.log(e);
               this.filtering(e.target.value);
+              this.state.filters = this.filtering(e.target.value);
             }}
           >
             <option value="" selected disabled hidden>
