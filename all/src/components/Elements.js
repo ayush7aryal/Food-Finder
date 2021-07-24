@@ -1,4 +1,4 @@
-import { BrowserRouter as Route, Link } from "react-router-dom";
+import { BrowserRouter as Route,Link} from 'react-router-dom';
 import '../css_styles/elementStyle.css'
 import facebook from './images/facebook.png'
 import instagram from './images/instagram.png'
@@ -7,6 +7,17 @@ import { NavLink } from 'react-router-dom'
 
 
 const Footer = () => {
+
+    const checkLogin = () => {
+        if(localStorage.getItem("isLogged") === "true") 
+            {
+                window.location = "http://localhost:3000/restaurant/register";
+            }else{
+                window.location = "http://localhost:3000/restaurant/register";
+                // window.location = "http://localhost:3000/user/login";
+            }      
+    }
+
     return (
         <footer className='footerAllElements'>
             <ul className='termsConditions'>
@@ -22,9 +33,7 @@ const Footer = () => {
                 <li className='blogger'><a href='https://foodfinderlogs.blogspot.com/' target='_/blank'><img alt="" src={blogger}/></a></li> 
             </ul>
             <p className='connectWithUs' style={{marginLeft: 60}}>Are you a Restaurant Owner?</p>
-            <button className='registerBtn'>
-                <Link to ={'/restaurant/register'}>List Your Restaurant</Link>
-            </button>
+            <button className='registerBtn' onClick={checkLogin}>List Your Restaurant</button>
             
             <div className='copyright'>
                 <span>&#169; FoodFinder 2021</span>
@@ -46,7 +55,7 @@ const BrowseBtn = () => {
 
 
 
-export {Footer}
+export {Footer};
 export default BrowseBtn;
-// export default {Footer};
+// export default Footer;
 

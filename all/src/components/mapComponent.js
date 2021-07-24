@@ -123,8 +123,9 @@ const Map = ({sendLocation, getty}) => {
       <MapGL className="map-gl"
         ref={mapRef}
         {...viewport}
-        width="800px"
-        height="600px" 
+        width="98%"
+        height="38rem" 
+        // border="10px"
         mapStyle='mapbox://styles/e-n-d/ckp0xwsl831ha18mp8u8v9dd1'
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}

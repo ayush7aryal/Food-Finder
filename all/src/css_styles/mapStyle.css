@@ -1,17 +1,55 @@
-.mapcontainer{
+.location h3{
+    margin: 2rem 0 0 1rem ;
+}
+/* .mapcontainer{
     margin: 0;
     height: 60vh;
-    /* max-height: 500px; */
-    /* width: 90vw; */
+    max-height: 500px; */
+    /* width: 90vw;
 }
 
 /* .map-gl{
     height: 75%;
     width: 75%;
 } */
-
+/* 
 .getloc{
     position: relative;
     bottom: 580px;
     left: 75%;
+} */
+.mapcontainer{
+    margin:2px;
+    padding: 1px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.getloc{
+    /* position: relative; */
+    position: absolute;
+    bottom: 95%;
+    left: 80%;
+}
+
+
+
+.latitude,.longitude{
+    padding: 20px;
+    font-size: 1.3rem;
+}
+
+.latitude input,.longitude input{
+    margin: 5px;
+    border: 2px solid #999;
+    padding: 5px;
+}
+
+.latitude input:focus,.longitude input:focus{
+    outline: none;
+    border: 2px solid #2596be;
 }

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Image } from "cloudinary-react";
 import axios from "axios";
 import Carousel from "react-material-ui-carousel";
-import "../css_styles/similarsStyle.css";
+import "../css_styles/homeComponent.css";
 import AboutFood from "./images/foodAbout.png";
-import Footer from "./Elements.js";
+
 
 class home extends Component {
   constructor(props) {
@@ -79,7 +79,7 @@ class home extends Component {
         })
           .then((result) => {
             const link = result.data.results[0].locations[0];
-            console.log(link)
+            // console.log(link)
             const data = link.street ? link.street : link.adminArea5;
             if (data && data.length > 3) {
               return data;
@@ -88,7 +88,7 @@ class home extends Component {
             }
           })
           .catch((err) => console.error(err));
-        console.log(val);
+        // console.log(val);
         const temp = {
           name: res.name,
           loc: val,
@@ -100,7 +100,8 @@ class home extends Component {
         })
         // console.log(cardsData[cardsData.length-1])
       });
-      console.log(cards[0]);
+
+      // console.log(cards[0]);
       this.setState({
         cardsData: cards,
       });
@@ -133,8 +134,10 @@ class home extends Component {
         </div>
       );
     };
+
     const renderPopularity = () => {
-      console.log("state: ", this.state.cardsData[0].name);
+      // console.log("state: ", this.state.cardsData[0].name);
+
       function handlingClickedCard(props) {
         window.location = `http://localhost:3000/restaurant/${props.id}`;
       }
@@ -142,17 +145,16 @@ class home extends Component {
       const Card = (props) => (
         <div className="card" onClick={() => handlingClickedCard(props)}>
           <Image
-                        key={props.id}
-                        cloudName='foodfinder'
-                        publicId={props.imgUrl}
-                        width='450'
-                        height='420'
-                        crop='scale'
-                    />
+            key={props.id}
+            cloudName='foodfinder'
+            publicId={props.imgUrl}
+            width='450'
+            height='420'
+            crop='scale'
+          />
           <div className="card-content">
             <h2>{props.title}</h2>
-            {props.location}
-            {/* props.location.latitude,props.location.longitude */}
+            <h4>{props.location}</h4>
           </div>
         </div>
       );
@@ -173,7 +175,7 @@ class home extends Component {
 
       return (
         <div>
-          <h1 style={{ textAlign: "center" }}>Popular spots</h1>
+          <h1 className="PopularHeading">Popular spots</h1>
           <div>
             <CardContainer cards={this.state.cardsData} />
           </div>
@@ -206,10 +208,10 @@ class home extends Component {
       <div>
         <div>{renderImages()}</div>
         {this.state.cardsData[0] && (
-          <div className="container">{renderPopularity()}</div>
+          <div>{renderPopularity()}</div>
         )}
         <div>{renderAboutUs()}</div>
-        <Footer />
+
       </div>
     );
   }
@@ -217,18 +219,4 @@ class home extends Component {
 
 export default home;
 
-// const restaurantImg = [
-//     {
-//     img: "https://docs.google.com/uc?export=download&id=15FqcVuQibdrxcbseeT1voLeCNOqxg5TW",
-//     },
-//     {
-//     img: "https://docs.google.com/uc?export=download&id=1K6kZuWK1Zr6CQpBvSlvuZ6hziHH__49G",
-//     },
-//     {
-//     img: "https://docs.google.com/uc?export=download&id=1lijCcfAeihE90f7vcPgT7Hl8G1aocUOC",
-//     },
-//     {
-//     img: "https://docs.google.com/uc?export=download&id=17y6_tx4GFspBgQ3-OEcUWK2-FJwOiOab"
-//     },
 
-// ];

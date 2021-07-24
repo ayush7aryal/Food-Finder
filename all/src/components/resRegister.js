@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import Menu from "./menuComponent";
 import Map from "./mapComponent";
+
+import "../css_styles/resRegister.css"
 import "../css_styles/mapStyle.css"
 
 export default class resRegister extends Component {
@@ -12,12 +14,14 @@ export default class resRegister extends Component {
       id: 0,
       name: "",
       email: "",
+      catagoryOption:["Nepali","Chinese","Indian","Italian","Tibetan","Continental"],
       category: [],
       description: "",
       contact: "",
       input: "", //for image handling
       selected: "", //for image handling
       preview: "", //for image handling
+      previewMultiple:[],
       menu: [
         {
           title: "",
@@ -41,9 +45,8 @@ export default class resRegister extends Component {
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     //for category
-    this.onAddCategory = this.onAddCategory.bind(this);
-    this.onChangeCategory = this.onChangeCategory.bind(this);
-    this.onRemoveCategory = this.onRemoveCategory.bind(this);
+    this.handlingClickedCard = this.handlingClickedCard.bind(this);
+    
 
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeContact = this.onChangeContact.bind(this);
@@ -51,6 +54,8 @@ export default class resRegister extends Component {
     this.handleFileInputChange = this.handleFileInputChange.bind(this);
     this.previewImage = this.previewImage.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
+    this.handleMultipleImage = this.handleMultipleImage.bind(this);
+    this.previewMultipleImage = this.previewMultipleImage.bind(this);
 
     this.onChangelatitude = this.onChangelatitude.bind(this);
     this.onChangelongitude = this.onChangelongitude.bind(this);
@@ -59,6 +64,8 @@ export default class resRegister extends Component {
     this.sendLocation = this.sendLocation.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
+
+    
   }
 
   mainPhoto = "";
@@ -78,29 +85,17 @@ export default class resRegister extends Component {
     });
   }
   //category
-  onAddCategory(e) {
-    e.preventDefault();
-    this.setState({
-      category: [...this.state.category, ""],
-    });
+  handlingClickedCard(prop,e) {
+    // e.preventDefault();
+    if(this.state.category.includes(prop.title)){
+      console.log(prop.title)
+      this.state.category.splice(this.state.category.indexOf(prop.title), 1);
+    }else{
+      this.state.category.push(prop.title);
+    }
+    console.log(this.state.category);
   }
-
-  onChangeCategory(e, index) {
-    e.preventDefault();
-    // eslint-disable-next-line
-    this.state.category[index] = e.target.value;
-
-    this.setState({
-      category: this.state.category,
-    });
-  }
-
-  onRemoveCategory(index) {
-    this.state.category.splice(index, 1);
-
-    //update the state
-    this.setState({ category: this.state.category });
-  }
+  
 
   //description
   onChangeDescription(e) {
@@ -128,7 +123,30 @@ export default class resRegister extends Component {
       input: e.target.value,
     });
   }
+  //for image handling of multiple image addition
+  handleMultipleImage(e) {
+    e.preventDefault();
+    const file = e.target.files[0];
+    this.previewMultipleImage(file);
+  }
 
+  previewMultipleImage(file) {
+   
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        this.setState({
+          previewMultiple: [...this.state.previewMultiple,reader.result]
+        });
+      };
+      reader.onerror = (err) => {
+        alert(err);
+      };
+    console.log(this.state.previewMultiple);
+    
+  }
+
+  
   //for viewing all kind of images
   previewImage(file) {
     const reader = new FileReader();
@@ -265,105 +283,145 @@ export default class resRegister extends Component {
   }
 
   render() {
+    
+    const Checkbox= (props) => (
+      <div className="selectionCheckbox">
+        <input type="checkbox" onClick={(event) => this.handlingClickedCard(props,event)}/>
+        <label for={props.title}>{props.title}</label>
+      </div>
+    );
+  
+
     return (
       <>
-        <form className="form" onSubmit={this.onSubmit}>
-          <div>
-            <div className="form-input">
-              <h2>Restaurant Register</h2>
-              <hr />
-              <label>
-                Restaurant Name:{" "}
+        <form onSubmit={this.onSubmit}>
+          <div className="registration">
+            <div className="registrationOne">
+              <div className="registrationName">
+                  {/* <h3>We invite you</h3> */}
+                <h3>Join Our Network...</h3>
+                <hr />
+                <div className="formControl">
+                  <label>Restaurant Name :</label>
+                  <input
+                    type="text"
+                    value={this.state.name}
+                    onChange={this.onChangeName}
+                  />
+                </div>
+                <div className="formControl">
+                  <label>Restaurant Email :</label>
+                  <input
+                    type="text"
+                    value={this.state.email}
+                    onChange={this.onChangeEmail}
+                  />
+                </div>
+                <div className="formControl">
+                  <label>Restaurant Contact:</label>
+                  <input
+                    type="text"
+                    value={this.state.contact}
+                    onChange={this.onChangeContact}
+                  />
+                </div>
+                <div className="formControl">
+                <label>Restaurant Description:</label>
+                  <textarea
+                    type="text"
+                    value={this.state.description}
+                    onChange={this.onChangeDescription}
+                  />
+                </div>
+                
+                <div className="checkBoxForm">
+                  <label>Select catagories</label>
+                  <div className="catagorySelect">
+                    {this.state.catagoryOption.map(( cata,index) => 
+                      (
+                        <Checkbox 
+                          key={index}
+                          title={cata} nameClass={cata}/>
+                    ))}
+                  </div> 
+                </div>
+              </div>
+              <div className="signaturePhoto">
+                <h3>Signature Photo:</h3>
                 <input
-                  type="text"
-                  value={this.state.name}
-                  onChange={this.onChangeName}
+                  type="file"
+                  value={this.state.input}
+                  onChange={this.handleFileInputChange}
                 />
-              </label>
-              <label>
-                Restaurant Email:{" "}
-                <input
-                  type="text"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                />
-              </label>
-              <label>
-                Category:
-                {this.state.category.map((result, index) => {
-                  return (
-                    <div key={index}>
+                {this.state.preview && (
+                  <img
+                    src={this.state.preview}
+                    alt="chosen"
+                    // style={{ height: "300px" }}
+                  />
+                )}
+              </div> 
+            </div>
+            <div className="registrationTwo">
+            <div className="location">
+                  <h3>Pin your Location</h3>
+                  <Map sendLocation={this.sendLocation} />
+                  <div>
+                    <label className="latitude">
+                      Latitude:{" "}
                       <input
-                        type="text"
-                        value={result}
-                        onChange={(e) => this.onChangeCategory(e, index)}
+                        type="number"
+                        value={this.state.location.latitude}
+                        onChange={this.onChangelatitude}
                       />
-                      <button
-                        type="button"
-                        onClick={() => this.onRemoveCategory(index)}>
-                        Remove
-                      </button>
-                    </div>
-                  );
-                })}
-                <button type="button" onClick={this.onAddCategory}>
-                  Add Category
-                </button>
-              </label>
-              <label>
-                Restaurant Description:{" "}
-                <input
-                  type="text"
-                  value={this.state.description}
-                  onChange={this.onChangeDescription}
-                />
-              </label>
-              <label>
-                Restaurant Contact:{" "}
-                <input
-                  type="text"
-                  value={this.state.contact}
-                  onChange={this.onChangeContact}
-                />
-              </label>
+                    </label>
+                    <label className="longitude">
+                      Longitude:{" "}
+                      <input
+                        type="number"
+                        value={this.state.location.longitude}
+                        onChange={this.onChangelongitude}
+                      />
+                    </label>
+                  </div>
+                  
+              </div>
+            <div className="MultipleImageSection">
+              <div>
+                <h3>Add Images to justify your Restaurant</h3>
+                <hr/>
+              </div>
+              <div className="otherImages">
+              {this.state.previewMultiple.length===4 ? 
+                alert("You can add 4 images only.") :<input
+                  type="file"
+                  className="item1"
+                  // value={this.state.input}
+                  onChange={this.handleMultipleImage}
+                /> 
+                
+              }
+              
+                {this.state.previewMultiple && (this.state.previewMultiple.map((img,i)=>{
+                  return(
+                    <img
+                    key={i}
+                    src={img}
+                    alt="chosen"
+                    height="200px"
+                    width="300px"
+                  />
+                  )
+                }))
+                }
+              </div>
+              
+                   
             </div>
-            <div className="image">
-              <h3>Signature Photo:</h3>
-              <input
-                type="file"
-                value={this.state.input}
-                onChange={this.handleFileInputChange}
-              />
-              {this.state.preview && (
-                <img
-                  src={this.state.preview}
-                  alt="chosen"
-                  style={{ height: "300px" }}
-                />
-              )}
             </div>
           </div>
-          <div className="location">
-            <h3>Location</h3>
-            <Map sendLocation={this.sendLocation} />
-            <label>
-              Latitude:{" "}
-              <input
-                type="number"
-                value={this.state.location.latitude}
-                onChange={this.onChangelatitude}
-              />
-            </label>
-            <label>
-              Longitude:{" "}
-              <input
-                type="number"
-                value={this.state.location.longitude}
-                onChange={this.onChangelongitude}
-              />
-            </label>
-          </div>
-          <div className="menu">
+          
+          <div className="menuSection">
             <label>Menus:</label>
             <hr />
             <Menu

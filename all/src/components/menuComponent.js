@@ -9,6 +9,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {useState} from 'react';
 import axios from 'axios';
 
+import '../css_styles/menuComponent.css';
+
 export default function FormDialog({sendDataToParent, dataFromParent}) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -101,27 +103,58 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Add Menu
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose}  maxWidth="md" aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add Menu</DialogTitle>
         <DialogContent>
-          <form>
+          <div className="dialog">
+          <form >
               <div className="form-input">
-                <label>Title: <input type="text" value={title} onChange={titleChange} /></label>
-                <label>Price: <input type="text" value={price} onChange={priceChange} /></label>
-                <label>Description: <input type="text" value={description} onChange={descriptionChange} /></label>
-              </div>
-              <div className="image">
-                <label>Image:</label>
-                <input type="file" value={input} onChange={inputChange} />
-                {preview && (
-                    <img src={preview}
-                        alt='chosen'
-                        style ={{height:'300px'}}
-                    />
-                )}
+                <div className="formControlMenu">
+                  <label>Title</label>
+                  <input
+                    type="text"
+                    value={title}
+                    placeholder="Title of max-length 20"
+                    maxLength="20"
+                    onChange={titleChange}
+                  />
+                </div>
+                <div className="formControlMenu">
+                  <label>Price</label>
+                  <input
+                    type="number" 
+                    value={price} 
+                    
+                    onChange={priceChange} 
+                  />
+                </div>
+                <div className="formControlMenu">
+                  <label>Description</label>
+                  <textarea
+                    type="text" 
+                    placeholder="Describe the dish..."
+                    value={description} 
+                    onChange={descriptionChange} 
+                  />
+                </div>
               </div>
               
           </form>
+          <div className="menuPhotoSection">
+                <label>Image:</label>
+                
+              <div className="image">
+                
+                {preview && (
+                    <img src={preview}
+                        alt='chosen'
+                        style ={{height:'200px'}}
+                    />
+                )}
+              </div>
+              <input type="file" value={input} onChange={inputChange} />
+          </div>
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -135,3 +168,4 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
     </div>
   );
 }
+

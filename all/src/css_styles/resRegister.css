@@ -1,0 +1,195 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.registration{
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f2f5;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.registrationOne{
+    display: flex;
+    flex-direction: row;   
+    height: fit-content; 
+}
+ 
+.registrationTwo{
+    display: flex;
+    flex-direction: row;   
+    /* height: fit-content;  */
+}
+/* first left section */
+.registrationName{
+    display: flex;
+    flex-direction: column;
+    /* height: 90%; */
+    height: fit-content;
+    width: 40%;
+    background: #fff;
+    margin: 15px 20px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.registrationName h3{
+   
+    margin: 50px 0 0px 0;
+    padding: 0;
+}
+
+.registrationName hr{
+    display: block; 
+    height:1px; 
+    width: 60%;
+    margin-bottom: 50px;
+    float:left; 
+    border-bottom:1px solid red; 
+}
+.formControl{
+    /* margin-bottom: px;s */
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.formControl label {
+    color: #777;
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.formControl input{
+    border: 2px solid #999;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.formControl textarea{
+    border: 2px solid #999;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    height: 8rem;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.formControl input:focus,textarea:focus{
+    outline: none;
+    border: 2px solid #2596be;
+}
+
+/* first right section  */
+.signaturePhoto{
+    display: flex;
+    flex-direction: column;
+
+    /* height: 90%; */
+    min-height: 600px;
+    width: 60%;
+    margin-top: 15px ;
+    background: #fff;
+    /* border: 1px solid red; */
+    border-radius: 20px;
+    
+}
+
+.signaturePhoto img{
+    height: 80%;
+    width: 100%;
+}
+
+/* second left section  */
+.location{
+    height: 90%;
+    width: 50%;
+    /* margin-top: 15px; */
+    background: #fff;
+    margin: 0px 20px;
+    /* border: 1px solid red; */
+    border-radius: 20px;
+}
+
+
+.checkBoxForm label{
+    color: #777;
+    /* display: block; */
+    /* margin-bottom: 10px; */
+    /* position: relative; */
+}
+.catagorySelect{
+    margin-top: 6px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.selectionCheckbox{
+    width: 200px;
+    height: 30px;
+    /* background-color: #44e; */
+    margin: 0.2rem;
+    
+}
+
+.selectionCheckbox input{
+    margin: 0.2rem;
+    /* height: 80%; */
+}
+
+.selectionCheckbox label{
+    margin: 0.2rem;
+    font-size: 18px;
+}
+
+
+/* Multiple Image  */
+.MultipleImageSection{
+    /* height: 90%; */
+    min-height: 500px;
+    width: 50%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.MultipleImageSection h3{
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.MultipleImageSection hr{
+    margin-bottom: 20px;
+}
+.otherImages{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: max-content ;
+    grid-gap:10px;
+}
+
+.item1{
+    grid-column-start:1;
+    grid-column-end: 3;
+}
+
+/* Menu-section */
+
+.menuSection{
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f2f5;
+    padding: 10px;
+    height: 300px;
+}
