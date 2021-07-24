@@ -3,8 +3,8 @@ import axios from "axios";
 import Menu from "./menuComponent";
 import Map from "./mapComponent";
 
-import "../css_styles/resRegister.css"
-import "../css_styles/mapStyle.css"
+import "../css_styles/resRegister.css";
+import "../css_styles/mapStyle.css";
 
 export default class resRegister extends Component {
   constructor(props) {
@@ -14,14 +14,21 @@ export default class resRegister extends Component {
       id: 0,
       name: "",
       email: "",
-      catagoryOption:["Nepali","Chinese","Indian","Italian","Tibetan","Continental"],
+      catagoryOption: [
+        "Nepali",
+        "Chinese",
+        "Indian",
+        "Italian",
+        "Tibetan",
+        "Continental",
+      ],
       category: [],
       description: "",
       contact: "",
       input: "", //for image handling
       selected: "", //for image handling
       preview: "", //for image handling
-      previewMultiple:[],
+      previewMultiple: [],
       menu: [
         {
           title: "",
@@ -46,7 +53,6 @@ export default class resRegister extends Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     //for category
     this.handlingClickedCard = this.handlingClickedCard.bind(this);
-    
 
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeContact = this.onChangeContact.bind(this);
@@ -64,8 +70,6 @@ export default class resRegister extends Component {
     this.sendLocation = this.sendLocation.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
-
-    
   }
 
   mainPhoto = "";
@@ -85,17 +89,16 @@ export default class resRegister extends Component {
     });
   }
   //category
-  handlingClickedCard(prop,e) {
+  handlingClickedCard(prop, e) {
     // e.preventDefault();
-    if(this.state.category.includes(prop.title)){
-      console.log(prop.title)
+    if (this.state.category.includes(prop.title)) {
+      console.log(prop.title);
       this.state.category.splice(this.state.category.indexOf(prop.title), 1);
-    }else{
+    } else {
       this.state.category.push(prop.title);
     }
     console.log(this.state.category);
   }
-  
 
   //description
   onChangeDescription(e) {
@@ -131,22 +134,19 @@ export default class resRegister extends Component {
   }
 
   previewMultipleImage(file) {
-   
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        this.setState({
-          previewMultiple: [...this.state.previewMultiple,reader.result]
-        });
-      };
-      reader.onerror = (err) => {
-        alert(err);
-      };
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      this.setState({
+        previewMultiple: [...this.state.previewMultiple, reader.result],
+      });
+    };
+    reader.onerror = (err) => {
+      alert(err);
+    };
     console.log(this.state.previewMultiple);
-    
   }
 
-  
   //for viewing all kind of images
   previewImage(file) {
     const reader = new FileReader();
@@ -212,8 +212,12 @@ export default class resRegister extends Component {
         console.log("no selectedFile");
         return;
       }
-      const img_upload = await this.uploadImage(this.state.preview);
-      console.log(img_upload);
+      this.state.previewMultiple.map((result) => {
+        this.uploadImage(result);
+        return 0;
+      });
+      await this.uploadImage(this.state.preview); //signature image upload. this is done at last to change mainPhoto to signature photo
+      //because the last uploaded photo becomes the mainPhoto as written in uploadImage function
       await axios({
         method: "post",
         url: "http://localhost:5000/restaurant/post",
@@ -239,9 +243,10 @@ export default class resRegister extends Component {
       };
       await axios.post(
         "http://localhost:5000/user/roleChange",
-        {id: this.state.id},
+        { id: this.state.id },
         config
       );
+      window.location(`http://localhost:5000/restaurant/${this.state.id}`);
     } catch (err) {
       alert(err);
     }
@@ -283,14 +288,15 @@ export default class resRegister extends Component {
   }
 
   render() {
-    
-    const Checkbox= (props) => (
+    const Checkbox = (props) => (
       <div className="selectionCheckbox">
-        <input type="checkbox" onClick={(event) => this.handlingClickedCard(props,event)}/>
+        <input
+          type="checkbox"
+          onClick={(event) => this.handlingClickedCard(props, event)}
+        />
         <label for={props.title}>{props.title}</label>
       </div>
     );
-  
 
     return (
       <>
@@ -298,7 +304,7 @@ export default class resRegister extends Component {
           <div className="registration">
             <div className="registrationOne">
               <div className="registrationName">
-                  {/* <h3>We invite you</h3> */}
+                {/* <h3>We invite you</h3> */}
                 <h3>Join Our Network...</h3>
                 <hr />
                 <div className="formControl">
@@ -326,24 +332,21 @@ export default class resRegister extends Component {
                   />
                 </div>
                 <div className="formControl">
-                <label>Restaurant Description:</label>
+                  <label>Restaurant Description:</label>
                   <textarea
                     type="text"
                     value={this.state.description}
                     onChange={this.onChangeDescription}
                   />
                 </div>
-                
+
                 <div className="checkBoxForm">
                   <label>Select catagories</label>
                   <div className="catagorySelect">
-                    {this.state.catagoryOption.map(( cata,index) => 
-                      (
-                        <Checkbox 
-                          key={index}
-                          title={cata} nameClass={cata}/>
+                    {this.state.catagoryOption.map((cata, index) => (
+                      <Checkbox key={index} title={cata} nameClass={cata} />
                     ))}
-                  </div> 
+                  </div>
                 </div>
               </div>
               <div className="signaturePhoto">
@@ -360,67 +363,65 @@ export default class resRegister extends Component {
                     // style={{ height: "300px" }}
                   />
                 )}
-              </div> 
+              </div>
             </div>
             <div className="registrationTwo">
-            <div className="location">
-                  <h3>Pin your Location</h3>
-                  <Map sendLocation={this.sendLocation} />
-                  <div>
-                    <label className="latitude">
-                      Latitude:{" "}
-                      <input
-                        type="number"
-                        value={this.state.location.latitude}
-                        onChange={this.onChangelatitude}
-                      />
-                    </label>
-                    <label className="longitude">
-                      Longitude:{" "}
-                      <input
-                        type="number"
-                        value={this.state.location.longitude}
-                        onChange={this.onChangelongitude}
-                      />
-                    </label>
-                  </div>
-                  
+              <div className="location">
+                <h3>Pin your Location</h3>
+                <Map sendLocation={this.sendLocation} />
+                <div>
+                  <label className="latitude">
+                    Latitude:{" "}
+                    <input
+                      type="number"
+                      value={this.state.location.latitude}
+                      onChange={this.onChangelatitude}
+                    />
+                  </label>
+                  <label className="longitude">
+                    Longitude:{" "}
+                    <input
+                      type="number"
+                      value={this.state.location.longitude}
+                      onChange={this.onChangelongitude}
+                    />
+                  </label>
+                </div>
               </div>
-            <div className="MultipleImageSection">
-              <div>
-                <h3>Add Images to justify your Restaurant</h3>
-                <hr/>
+              <div className="MultipleImageSection">
+                <div>
+                  <h3>Add Images to justify your Restaurant</h3>
+                  <hr />
+                </div>
+                <div className="otherImages">
+                  {this.state.previewMultiple.length === 4 ? (
+                    alert("You can add 4 images only.")
+                  ) : (
+                    <input
+                      type="file"
+                      className="item1"
+                      // value={this.state.input}
+                      onChange={this.handleMultipleImage}
+                    />
+                  )}
+
+                  {this.state.previewMultiple &&
+                    this.state.previewMultiple.map((img, i) => {
+                      return (
+                        <img
+                          key={i}
+                          src={img}
+                          alt="chosen"
+                          height="200px"
+                          width="300px"
+                        />
+                      );
+                    })}
+                </div>
               </div>
-              <div className="otherImages">
-              {this.state.previewMultiple.length===4 ? 
-                alert("You can add 4 images only.") :<input
-                  type="file"
-                  className="item1"
-                  // value={this.state.input}
-                  onChange={this.handleMultipleImage}
-                /> 
-                
-              }
-              
-                {this.state.previewMultiple && (this.state.previewMultiple.map((img,i)=>{
-                  return(
-                    <img
-                    key={i}
-                    src={img}
-                    alt="chosen"
-                    height="200px"
-                    width="300px"
-                  />
-                  )
-                }))
-                }
-              </div>
-              
-                   
-            </div>
             </div>
           </div>
-          
+
           <div className="menuSection">
             <label>Menus:</label>
             <hr />
