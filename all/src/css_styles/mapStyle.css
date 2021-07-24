@@ -1,18 +1,17 @@
 .mapcontainer{
     margin: 0;
-    height: 400px;
-    width: 500px;
+    height: 60vh;
+    /* max-height: 500px; */
+    /* width: 90vw; */
 }
-.location{
-    height:1000px;
-    width:fit-content;
-}
-.map{
-    position: inherit;
-}
+
+/* .map-gl{
+    height: 75%;
+    width: 75%;
+} */
 
 .getloc{
     position: relative;
     bottom: 580px;
-    left: 650px;
+    left: 75%;
 }

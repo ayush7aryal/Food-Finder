@@ -1,55 +1,54 @@
-.App {
-  margin: 0;
-  padding: 0;
-  height: 80px;
-  background-color: cornflowerblue;
+/* rgba(255,179,71,0.7)*/
+.pages {
+  background-color: #f1f9fb;
+  width: 96.5%;
+  margin-left: 20px;
+  border-radius: 16px;
+  padding-top: 30px;
+  padding-bottom: 20px;
 }
-
-nav{
-  background: #E75A03;
+/*previous color E75A03 */
+nav {
+  background: rgb(255, 123, 0);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  height: 80px;
-  padding:20px 40px;
+  height: 75px;
+  /* width: 100vw; */
 }
 
-.logo{
+.logo {
   /* border: 1px solid red; */
-  height: 80px;
-  width: 300px;
-  padding: 0 20px ;
+  /* height: 40px; */
+  width: 250px;
+  margin-left: 25px;
+  /* margin-right: 47.5%; */
   /* z-index: 100; */
 }
-.logo:hover{
-  transform: scale(1.05); 
-}
 
-nav ul{
-  /* width:40%; */
+nav ul {
+  margin-left: 55%;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-end;
   list-style: none;
 }
-nav ul li{
-  background: #E75A0f;
-  margin: 1px;
-  padding: 10px 50px ;
-  margin: 10px;
-  border-bottom: 1px solid #333;
+nav ul li {
+  background: #e75a0f;
+  padding: 5px 20px;
+  margin: 5px;
+  color: #fff;
+  font-size: 1.25rem;
 }
 
-nav ul li:hover{
+/* nav ul li:hover{
   transform: scale(1.05);  
   border: 0.2px solid #333; 
   border-bottom: 1px solid #333;
-}
+} */
 
-nav ul li > :first-child{
+nav ul li > :first-child {
   text-decoration: none;
   color: #fff;
-  font-size: 30px;
-  padding: 10px;
-  
+  font-size: 1.25rem;
 }

@@ -91,7 +91,7 @@ class home extends Component {
         console.log(val);
         const temp = {
           name: res.name,
-          loc: val.toString(),
+          loc: val,
           id: res.id,
           imgUrl: res.mainPhoto,
         };

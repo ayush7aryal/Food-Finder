@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema(
         type: Object,
       },
     ],
+    //default location for ordering
+    dLoc: {
+      type:Object,
+    },
   },
   {
     timestamps: true,

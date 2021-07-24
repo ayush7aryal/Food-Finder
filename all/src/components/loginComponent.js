@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'
-import { BrowserRouter as Link} from 'react-router-dom';
+import { BrowserRouter as Route, Link } from "react-router-dom";
 
 class login extends Component {  
     constructor(props){

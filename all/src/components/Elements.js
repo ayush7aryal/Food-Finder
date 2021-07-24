@@ -1,4 +1,4 @@
-import { BrowserRouter as Link} from 'react-router-dom';
+import { BrowserRouter as Route, Link } from "react-router-dom";
 import '../css_styles/elementStyle.css'
 import facebook from './images/facebook.png'
 import instagram from './images/instagram.png'
@@ -13,7 +13,7 @@ const Footer = () => {
                 {/*link inside <li>*/}
                 <li>Legal</li>
                 <li>Terms & Conditions</li>
-                <li>Privacy and Policy</li>    
+                <li>Privacy and Policy</li>
             </ul>
             <div className='connectWithUs'>Connect with us</div>
             <ul className='list'>

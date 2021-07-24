@@ -2,19 +2,24 @@
 
 .arrowBtn{
     margin-left: 10px;
-    font-size: 50px;
-    font-weight: bolder;
+    font-size: 30px;
+    font-weight: bold;
     border: hidden;
     background: inherit;
+    border-radius: 100%;
+    text-align: center;
+    height: auto;
+    width: 45px;
+    padding-bottom: 6px;
+    padding-right: 3px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
 }
 .arrowBtn:hover{
-    border-radius: 100%;
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-top: 0px;
-    padding-bottom: 6px;
-    background: rgb(34, 33, 33);
-    color: #fff;
+    
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    
     transition: 0.2s;
 }
 

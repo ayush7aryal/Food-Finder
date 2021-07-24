@@ -118,9 +118,9 @@ const Map = ({sendLocation, getty}) => {
 
   return (
     <div className="mapcontainer">
-      <div className="map">
+      
         
-      <MapGL
+      <MapGL className="map-gl"
         ref={mapRef}
         {...viewport}
         width="800px"
@@ -154,7 +154,7 @@ const Map = ({sendLocation, getty}) => {
       </MapGL>
       {!getty &&(<button className="getloc" onClick={_locateUser}>Get Current Location</button>)}
       </div>
-    </div>
+    
   );
 };
  

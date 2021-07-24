@@ -13,4 +13,5 @@ router.post("/setPopular", restaurantCtrl.setPopularity);
 router.get("/get/popular", restaurantCtrl.getPopular);
 router.get('/get/order',auth, authAdmin, restaurantCtrl.getOrder);
 router.post('/updateOrder',auth, authAdmin, restaurantCtrl.updateOrder);
+
 module.exports = router;

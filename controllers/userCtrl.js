@@ -22,11 +22,18 @@ const userCtrl = {
         email,
         phone,
         password: encrypted_pass,
+        role: -1,
       });
       await newUser.save();
 
-      const accesstoken = createAccessToken({ id: newUser._id });
-      const refreshtoken = createRefreshToken({ id: newUser._id });
+      const accesstoken = createAccessToken({
+        id: newUser._id,
+        role: newUser.role,
+      });
+      const refreshtoken = createRefreshToken({
+        id: newUser._id,
+        role: newUser.role,
+      });
 
       res.json({
         accesstoken: accesstoken,
@@ -49,8 +56,11 @@ const userCtrl = {
       }
 
       //Login success so creating web tokens
-      const accesstoken = createAccessToken({ id: user._id });
-      const refreshtoken = createRefreshToken({ id: user._id });
+      const accesstoken = createAccessToken({ id: user._id, role: user.role });
+      const refreshtoken = createRefreshToken({
+        id: user._id,
+        role: user.role,
+      });
 
       res.json({ accesstoken: accesstoken, refreshtoken: refreshtoken });
     } catch (err) {
@@ -72,7 +82,7 @@ const userCtrl = {
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN, (err, user) => {
         if (err) return res.status(400).json({ msg: err.message });
-        const accesstoken = createAccessToken({ id: user.id });
+        const accesstoken = createAccessToken({ id: user.id, role: user.role });
         res.json({ user, accesstoken });
       });
     } catch (err) {
@@ -88,10 +98,21 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  updateInfo:async (req,res)=>{
+    try{
+      const {dLoc} = req.body;
+      await Users.updateOne({_id: req.user.id}, {$set:{dLoc: dLoc}});
+      res.json({msg:"Location set success!"});
+    }catch(err){
+      return res.status(500).json({ msg: "Couldn't set the Location. Try again!" });
+    }
+  },
   roleChange: async (req, res) => {
     try {
       const restaurant_id = req.body.id;
-      await Users.findByIdAndUpdate(req.user.id, { $set: { role: restaurant_id } });
+      await Users.findByIdAndUpdate(req.user.id, {
+        $set: { role: restaurant_id },
+      });
       res.json({ msg: "Updated successfully!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -136,6 +157,7 @@ const userCtrl = {
         lastName: 1,
         email: 1,
         phone: 1,
+        order: 1,
       });
       console.log(ordered_item[0].ordered.restaurant);
 
@@ -149,7 +171,13 @@ const userCtrl = {
             latitude: 0,
             longitude: 0,
           },
-          user: user,
+          user: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            phone: user.phone,
+            id: user.order.length,
+          },
           status: "Pending",
         };
         Restaurant.updateOne(
@@ -159,10 +187,14 @@ const userCtrl = {
           if (err) return res.json({ msg: err.message });
         });
 
-        const restaurant = await Restaurant.findOne({id: result.ordered.restaurant},{_id:0, id:1, name:1})
-        if(!restaurant) return res.status(500).json({msg: err.message});
+        const restaurant = await Restaurant.findOne(
+          { id: result.ordered.restaurant },
+          { _id: 0, id: 1, name: 1 }
+        );
+        if (!restaurant) return res.status(500).json({ msg: err.message });
 
         var order_user = {
+          id: user.order.length,
           menu: result.ordered.menu,
           quantity: result.quantity,
           restaurant: restaurant,
@@ -173,23 +205,55 @@ const userCtrl = {
           status: "Pending",
         };
 
-        Users.updateOne({ _id: id }, { $push: { order: order_user } }).then(
-          (err, result) => {
-            if (err) return res.json({ msg: err.message });
-
-            res.json({ msg: "User updated succesfully!" });
-          }
-        );
+        await Users.updateOne({ _id: id }, { $push: { order: order_user } });
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
-  getOrder : async (req,res) =>{
-    const order = await Users.findById({_id: req.user.id}, {_id:0, order:1})
-    if(!order) return res.status(500).json({msg:err.message});
-    res.json({order});
-  }
+  getOrder: async (req, res) => {
+    const order = await Users.findById(
+      { _id: req.user.id },
+      { _id: 0, order: 1 }
+    );
+    if (!order) return res.status(500).json({ msg: err.message });
+    res.json({ order });
+  },
+  cancelOrder: async (req, res) => {
+    const { order, index } = req.body;
+    const res_order = await Restaurant.findOne(
+      { id: order[index].restaurant.id },
+      { _id: 0, orderList: 1 }
+    );
+    const { email } = await Users.findById(req.user.id, { _id: 0, email: 1 });
+    var temp = null;
+    const orderList = res_order.orderList.filter((result) => {
+      console.log("order id: ",order[index].id);
+        console.log("user id: ",result.user.id)
+      if (
+        result.user.email === email &&
+        order[index].id === result.user.id &&
+        result.status === "Pending"
+      ) {
+        temp = order.splice(index, 1);
+        return false;
+      }
+      return true;
+      
+    });
+    if (temp === null) {
+      return res.json({
+        msg: "The order is already accepted. Couldn't cancel the order!",
+      });
+    }
+    // console.log(temp[0]);
+    await Users.updateOne({ _id: req.user.id }, { $set: { order: order } });
+    await Restaurant.updateOne(
+      { id: temp[0].restaurant.id },
+      { $set: { orderList: orderList } }
+    );
+    res.json({ msg: "Order canceled successfully!" });
+  },
 };
 
 const createAccessToken = (user) => {
