@@ -394,8 +394,7 @@ export default class resRegister extends Component {
                   <hr />
                 </div>
                 <div className="otherImages">
-                  {this.state.previewMultiple.length === 4 ? (
-                    alert("You can add 4 images only.")
+                  {this.state.previewMultiple.length === 4 ? (()=>alert("You can add 4 images only.")
                   ) : (
                     <input
                       type="file"

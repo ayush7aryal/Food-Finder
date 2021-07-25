@@ -134,6 +134,42 @@ class home extends Component {
       );
     };
 
+   
+    const renderFeatured = () => {
+      //console.log("featured");
+      const imageForCarousel = (result, index) =>
+      {
+       { /*return(<Image
+                    key={result + index}
+                    cloudName="foodfinder"
+                    publicId={result}
+                    width="500"
+                    height="500"
+                    crop="scale"/>);*/}
+      }
+      const restro = this.state.Restaurant.map((result, index) => {
+        return(
+          <div className = "restroInfoInCarousel">
+            <div>{imageForCarousel(result,index)}</div>
+            <div className = "carouselName">{result.name}</div>
+            <div className = "carouselDes">{result.description}</div>
+          </div>
+       );
+      })
+
+
+      return(
+         <div className="featureCarousel">
+          <Carousel navButtonsAlwaysVisible="true" animation="slide">
+            {restro}
+          </Carousel>
+          </div>
+      );
+
+
+    }
+
+
     const renderPopularity = () => {
       // console.log("state: ", this.state.cardsData[0].name);
 
@@ -205,7 +241,9 @@ class home extends Component {
     };
     return (
       <div>
-        <div>{renderImages()}</div>
+        {//<div>{renderImages()}</div>
+        } 
+        <div>{renderFeatured()}</div>
         {this.state.cardsData[0] && <div>{renderPopularity()}</div>}
         <div>{renderAboutUs()}</div>
       </div>

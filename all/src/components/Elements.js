@@ -10,8 +10,7 @@ const Footer = () => {
     if (localStorage.getItem("isLogged") === "true") {
       window.location = "http://localhost:3000/restaurant/register";
     } else {
-      window.location = "http://localhost:3000/restaurant/register";
-      // window.location = "http://localhost:3000/user/login";
+       window.location = "http://localhost:3000/user/login";
     }
   };
 
@@ -41,7 +40,7 @@ const Footer = () => {
           </a>
         </li>
       </ul>
-      <p className="connectWithUs" style={{ marginLeft: 60 }}>
+      <p className="connectWithUs" style={{ marginLeft: 50 }}>
         Are you a Restaurant Owner?
       </p>
       <button className="registerBtn" onClick={checkLogin}>
@@ -57,7 +56,7 @@ const Footer = () => {
 
 const BrowseBtn = () => {
   return (
-    <button onClick={console.log("Some Function Here")} className="browseBtn">
+    <button onClick={()=>window.location = "http://localhost:3000/dashboard"} className="browseBtn">
       Browse all
     </button>
   );

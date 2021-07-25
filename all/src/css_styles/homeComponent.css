@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Qwigley&family=Rouge+Script&display=swap');
 
-.Carousel{
+.featureCarousel{
   height: 700px;
+  width: 1500px;
   margin:30px 20px;
   display: flex;
   justify-content: center;
@@ -9,6 +12,19 @@
     /* margin-bottom: 20px; */
 }
 
+.carouselName{
+  font-family: 'Qwigley', cursive;
+  font-size: 90px;
+  margin-left: 10%;
+}
+
+
+.carouselDes{
+  font-family: 'Poppins', sans-serif;
+  font-size: 25px;
+  font-style: italic;
+  margin-left: 10%;
+}
 
 
 /* from below here it is css of home componenet of Popular added by jackie lhowa */
