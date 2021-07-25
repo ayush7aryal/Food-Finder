@@ -246,7 +246,7 @@ export default class resRegister extends Component {
         { id: this.state.id },
         config
       );
-      window.location(`http://localhost:5000/restaurant/${this.state.id}`);
+      window.location = `http://localhost:3000/restaurant/${this.state.id}`;
     } catch (err) {
       alert(err);
     }

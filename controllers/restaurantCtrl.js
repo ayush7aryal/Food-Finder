@@ -141,6 +141,15 @@ const restaurantCtrl = {
       if (!restaurant) {
         res.json(0);
       } else {
+        restaurant.map((result) => {
+          for (i = 0; i < restaurant.length; i++) {
+            if (i != restaurant[i].id) {
+              return res.json(i);
+            } else {
+              i++;
+            }
+          }
+        });
         res.json(restaurant.length);
       }
     } catch (err) {
