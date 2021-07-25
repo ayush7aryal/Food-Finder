@@ -62,7 +62,7 @@ const userCtrl = {
         role: user.role,
       });
 
-      res.json({ accesstoken: accesstoken, refreshtoken: refreshtoken });
+      res.json({ accesstoken: accesstoken, refreshtoken: refreshtoken, role: user.role });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

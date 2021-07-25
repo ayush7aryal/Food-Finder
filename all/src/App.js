@@ -7,11 +7,13 @@ import dashboard from "./components/dashboardComponent";
 import restaurant from "./pages/resDashboard";
 import resRegister from "./components/resRegister";
 import CARTnORDER from "./pages/cartNorder";
+import AdminPage from "./pages/adminPage";
 import axios from "axios";
 import "./App.css";
 import { Footer } from "./components/Elements";
 import logo from './components/images/logoSVG.svg';
 import cart from './components/images/shopping-cart.svg';
+
 
 const refresh = async () => {
   const config = {
@@ -78,6 +80,7 @@ function App() {
             <Route exact path="/restaurant/register" component={resRegister} />
             <Route exact path="/restaurant/:id" component={restaurant} />
             <Route exact path="/cart" component={CARTnORDER} />
+            <Route exact path="/admin" component={AdminPage} />
           </Switch>
           <Footer />
         </div>
