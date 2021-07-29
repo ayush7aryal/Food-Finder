@@ -96,6 +96,7 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
         }
         sendDataToParent(menu);
         handleClose();
+        console.log(menu);
     }
 
   return (
