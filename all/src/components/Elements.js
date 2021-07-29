@@ -24,7 +24,7 @@ const Footer = () => {
                 {/*link inside <li>*/}
                 <li>Legal</li>
                 <li>Terms & Conditions</li>
-                <li>Privacy and Policy</li>    
+                <li>Privacy and Policy</li>
             </ul>
             <div className='connectWithUs'>Connect with us</div>
             <ul className='list'>

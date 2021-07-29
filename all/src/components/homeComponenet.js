@@ -5,12 +5,18 @@ import Carousel from "react-material-ui-carousel";
 import "../css_styles/homeComponent.css";
 import AboutFood from "./images/foodAbout.png";
 
-
 class home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      featuredRes: {
+        id: '',
+        name: "",
+        description: "",
+        contact: "",
+        photo: [],
+      },
       Restaurant: [
         {
           id: "",
@@ -96,8 +102,8 @@ class home extends Component {
           imgUrl: res.mainPhoto,
         };
         this.setState({
-            cardsData: [...this.state.cardsData, temp]
-        })
+          cardsData: [...this.state.cardsData, temp],
+        });
         // console.log(cardsData[cardsData.length-1])
       });
 
@@ -105,12 +111,34 @@ class home extends Component {
       this.setState({
         cardsData: cards,
       });
+
+      await axios
+        .get("http://localhost:5000/admin/getFeatured")
+        .then((result) => {
+          if (!result.data.msg) {
+            const fRes = result.data;
+            this.state.featuredRes.id = fRes.id;
+            this.state.featuredRes.name = fRes.name;
+            this.state.featuredRes.description = fRes.description;
+            this.state.featuredRes.contact = fRes.contact;
+          }
+          console.log(this.state.featuredRes)
+        });
+      if (this.state.featuredRes.id !== '') {
+        await axios.get(
+          `http://localhost:5000/api/images/${this.state.featuredRes.id}`
+        ).then((result)=>{
+          this.state.featuredRes.photo = result.data;
+          console.log("Photo: ", this.state.featuredRes.photo)
+        })
+      }
     } catch (err) {
       alert(err);
     }
   }
 
   render() {
+
     const renderImages = () => {
       const images = this.state.images.map((result, index) => {
         return (
@@ -146,11 +174,11 @@ class home extends Component {
         <div className="card" onClick={() => handlingClickedCard(props)}>
           <Image
             key={props.id}
-            cloudName='foodfinder'
+            cloudName="foodfinder"
             publicId={props.imgUrl}
-            width='450'
-            height='420'
-            crop='scale'
+            width="450"
+            height="420"
+            crop="scale"
           />
           <div className="card-content">
             <h2>{props.title}</h2>
@@ -207,16 +235,11 @@ class home extends Component {
     return (
       <div>
         <div>{renderImages()}</div>
-        {this.state.cardsData[0] && (
-          <div>{renderPopularity()}</div>
-        )}
+        {this.state.cardsData[0] && <div>{renderPopularity()}</div>}
         <div>{renderAboutUs()}</div>
-
       </div>
     );
   }
 }
 
 export default home;
-
-

@@ -1,6 +1,23 @@
 .location h3{
     margin: 2rem 0 0 1rem ;
 }
+/* .mapcontainer{
+    margin: 0;
+    height: 60vh;
+    max-height: 500px; */
+    /* width: 90vw;
+}
+
+/* .map-gl{
+    height: 75%;
+    width: 75%;
+} */
+/* 
+.getloc{
+    position: relative;
+    bottom: 580px;
+    left: 75%;
+} */
 .mapcontainer{
     margin:2px;
     padding: 1px;
@@ -8,8 +25,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border-radius: 10px;
+    overflow: hidden;
+    height: 400px;
 }
 
 
@@ -17,7 +34,7 @@
     /* position: relative; */
     position: absolute;
     bottom: 95%;
-    left: 85%;
+    left: 80%;
 }
 
 

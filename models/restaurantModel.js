@@ -63,7 +63,11 @@ const restaurantSchema = new mongoose.Schema(
     },
     orderList:[{
       type: Object
-    }]
+    }],
+    featured:{
+      type: Number,
+      default: 0,
+    }
   },
   {
     timestamps: true,

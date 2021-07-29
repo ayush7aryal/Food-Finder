@@ -1,11 +1,11 @@
 const Users = require("../models/userModel");
 
-const authAdmin = async (req, res, next) => {
+const admin = async (req, res, next) => {
   try {
     //User info by id
     const user = await Users.findById(req.user.id);
-    if (user.role == -1)
-      return res.status(400).json({ msg: "Not the owner! Access denied!" });
+    if (user.role != -2)
+      return res.status(400).json({ msg: "Not the admin! Access denied!" });
     req.user.role = user.role;
     next();
   } catch (err) {
@@ -13,4 +13,4 @@ const authAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = authAdmin;
+module.exports = admin;

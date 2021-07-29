@@ -67,36 +67,39 @@
 }
 .fb{
     margin-left:10px;
+    padding: 5px 5px 0px 5px;
 }
 
 .fb:hover{
     border-radius: 5px;
     background-color:blue;
-    padding: 5px 5px 0px 5px;
+    
     transition: 0.4s;
 }
 
 
 .insta{
     margin-left:10px;
+    padding: 5px 5px 0px 5px;
 }
 
 .insta:hover{
     border-radius: 10px;
     background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
-    padding: 5px 5px 0px 5px;
+    
     transition: 0.4s;
 }
 
 .blogger{
     margin-left:10px;
     margin-top: 1px;
+    padding: 5px 5px 0px 5px;
 }
 
 .blogger:hover{
     border-radius: 5px;
     background: #F06A35;
-    padding: 5px 5px 0px 5px;
+    
     transition: 0.4s;
 }
 

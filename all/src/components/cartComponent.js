@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Image } from "cloudinary-react";
 import "../css_styles/similarsStyle.css";
+import Map from "./mapComponent";
+import "../css_styles/popDialog.css";
 
 var cart_items = () => {
   if (
@@ -16,9 +18,12 @@ var cart_items = () => {
 };
 
 const Cart = () => {
-  var [cart, setCart] = useState(cart_items);
-  var [total, setTotal] = useState([]);
-  var [order, setOrder] = useState([]);
+  const [cart, setCart] = useState(cart_items);
+  const [total, setTotal] = useState([]);
+  const [order, setOrder] = useState([]);
+  var [dLoc, setLocation] = useState({});
+  const [tempLoc, setTempLoc] = useState({});
+  const [popActive, setPop] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("isLogged") === "true") {
@@ -31,6 +36,8 @@ const Cart = () => {
         .get("http://localhost:5000/user/info", config)
         .then((res) => {
           var cart_temp = res.data.cart;
+          var loc = res.data.dLoc;
+          setLocation(loc);
           setCart(cart_temp);
           console.log(cart_temp);
           var i = 0;
@@ -86,6 +93,39 @@ const Cart = () => {
       );
     }
     return { cart_removed };
+  };
+
+  const sendLocation = (location) => {
+    setTempLoc({
+      latitude: location.latitude,
+      longitude: location.longitude,
+    });
+  };
+
+  const setLoc = () => {
+    let config = {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    };
+    const tLoc = tempLoc;
+    setLocation(tLoc);
+    setPop(false);
+    axios.post(
+      "http://localhost:5000/user/update",
+      {
+        dLoc,
+      },
+      config
+    );
+  };
+
+  const askLocation = async () => {
+    setPop(true);
+  };
+
+  const popClose = async () => {
+    setPop(false);
   };
 
   const give_order = async (index) => {
@@ -157,7 +197,11 @@ const Cart = () => {
     const menus = cart.map((result, index) => {
       return (
         <div key={"0" + index} className="container">
+          {/*Change this &times to gps button */}
           <div>
+            <div onClick={askLocation} className="locBtn">
+              &times;
+            </div>
             <Image
               key={index}
               cloudName="foodfinder"
@@ -179,7 +223,16 @@ const Cart = () => {
             </div>
             Price: {result.menu.price * total[index]}
             <button onClick={() => remove(index)}>Remove from Cart</button>
-            <button onClick={() => give_order(index)}>Order</button>
+            <button
+              onClick={() => {
+                if (!dLoc) {
+                  askLocation();
+                } else {
+                  give_order(index);
+                }
+              }}>
+              Order
+            </button>
           </div>
         </div>
       );
@@ -194,6 +247,21 @@ const Cart = () => {
       <hr />
       {renderCart(total)}
       {cart[0] && <button onClick={() => orderAll()}>Order All</button>}
+      <div
+        className={popActive ? "pop-dialog-parent active" : "pop-dialog-parent"}
+        id="pop-dialog">
+        <div className="pop-header">
+          <div className="pop-title">DELIVERY LOCATION</div>
+          <button onClick={popClose} className="pop-close">
+            &times;
+          </button>
+        </div>
+        <div className="pop-body">
+          <Map  sendLocation={sendLocation} />
+        </div>
+        <div onClick={setLoc} className="pop-setBtn">Set Location</div>
+      </div>
+      <div onClick={popClose} className={popActive ? "overlay active" : "overlay"}></div>
     </div>
   );
 };

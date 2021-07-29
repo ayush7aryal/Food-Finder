@@ -79,6 +79,7 @@ class login extends Component {
                 localStorage.setItem('isLogged', true)
                 Cookies.set("refreshtoken", res.data.refreshtoken, { expires: 7, path: '/' })
                 console.log("Logged In successfully")
+                if(res.data.role === -2) window.location = "http://localhost:3000/admin"
                 return res
             })
 

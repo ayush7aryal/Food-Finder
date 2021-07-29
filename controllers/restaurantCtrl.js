@@ -46,7 +46,7 @@ const restaurantCtrl = {
       });
       await newRestaurant.save();
 
-      await Users.findByIdAndUpdate(req.user.id,{$set:{role:id}});
+      await Users.findByIdAndUpdate(req.user.id, { $set: { role: id } });
 
       res.json({ msg: "Detail about the restaurant posted successfully!" });
     } catch (err) {
@@ -195,24 +195,46 @@ const restaurantCtrl = {
   },
   getOrder: async (req, res) => {
     try {
-      const owner = await Users.findOne({_id: req.user.id}, {_id:0, role:1});
-      const orderList = await restaurants.findOne({id: owner.role}, {_id:0, orderList:1})
+      const orderList = await restaurants.findOne(
+        { id: req.user.role },
+        { _id: 0, orderList: 1 }
+      );
       res.json(orderList);
     } catch (err) {
       return res.status(500).json({ msg: err.msg });
     }
   },
-  updateOrder : async (req, res)=>{
+  updateOrder: async (req, res) => {
     try {
-      const {email, orderList} = req.body;
-      await Users.findOneAndUpdate({email: email}, {$set:{status: status}});
-      const owner = await Users.findOne({_id: req.user.id}, {_id:0, role:1});
-      await restaurants.findOneAndUpdate({id: owner.role}, {$set: {orderList: orderList}});
-      res.json({msg: "Order updated successfully"});
+      const { email, orderList } = req.body;
+
+      for (var i = 0; i < email.length; i++) {
+        const { order } = await Users.findOne(
+          { email: email[i] },
+          { _id: 0, order: 1 }
+        );
+        const final_order = order.map((result) => {
+          if (result.id == orderList[i].user.id) {
+            result.status = orderList[i].status;
+          }
+          return result;
+        });
+        console.log("final order: ", final_order);
+        await Users.findOneAndUpdate(
+          { email: email[i] },
+          { $set: { order: final_order } }
+        );
+      }
+
+      await restaurants.findOneAndUpdate(
+        { id: req.user.role },
+        { $set: { orderList: orderList } }
+      );
+      res.json({ msg: "Order updated successfully" });
     } catch (err) {
       return res.status(500).json({ msg: err.msg });
     }
-  }
+  },
 };
 
 module.exports = restaurantCtrl;

@@ -13,19 +13,20 @@
 .registrationOne{
     display: flex;
     flex-direction: row;   
-    height: 90vh; 
+    height: fit-content; 
 }
  
 .registrationTwo{
     display: flex;
     flex-direction: row;   
-    height: 90vh; 
+    /* height: fit-content;  */
 }
 /* first left section */
 .registrationName{
     display: flex;
     flex-direction: column;
-    height: 90%;
+    /* height: 90%; */
+    height: fit-content;
     width: 40%;
     background: #fff;
     margin: 15px 20px;
@@ -92,7 +93,8 @@
     display: flex;
     flex-direction: column;
 
-    height: 90%;
+    /* height: 90%; */
+    min-height: 600px;
     width: 60%;
     margin-top: 15px ;
     background: #fff;
@@ -109,7 +111,7 @@
 /* second left section  */
 .location{
     height: 90%;
-    width: 60%;
+    width: 50%;
     /* margin-top: 15px; */
     background: #fff;
     margin: 0px 20px;
@@ -154,8 +156,9 @@
 
 /* Multiple Image  */
 .MultipleImageSection{
-    height: 90%;
-    width: 40%;
+    /* height: 90%; */
+    min-height: 500px;
+    width: 50%;
     background: #fff;
     padding: 20px;
     border-radius: 20px;

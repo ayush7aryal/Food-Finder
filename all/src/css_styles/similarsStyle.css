@@ -1,96 +1,76 @@
-.body{
-    background-color: #F6F6DA;        
+.container {
+  height: auto;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  padding-bottom: 25px;
+  font: 2em;
+  color: #000;
+  border-radius: 3px;
+  margin: 15px;
+  margin-bottom: 40px;
+  /* margin-left: 10px; */
+  background: white;
+  box-shadow: 5px 10px 18px #888888;
+}
+.menuComponents {
+  margin-left: 50px;
+  margin-right: 50px;
+  background: inherit;
+  border: hidden;
+  border-top: 5px solid;
+  border-top-color: #e75a03;
+  border-bottom: 5px solid;
+  border-bottom-color: #e75a03;
 }
 
-
-.container{
-    height: auto;
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    padding-bottom: 25px;
-    font: 1em;
-    color: #000;
-    border: 1px dotted;
-    border-radius: 3px;
-    margin: 20px;
-    margin-left: 50px;
-    background: #c4c4c4;
-}
-.menuComponents{
-    margin-left: 50px;
-    margin-right: 50px;
-    background: inherit;
-    border: hidden;
-    border-top: 5px solid;
-    border-top-color: #E75A03 ;
-    border-bottom: 5px solid;
-    border-bottom-color: #E75A03 ;
-
+#menuContainer {
+  background: white;
+  color: rgb(34, 33, 33);
+  width: 200px;
+  box-shadow: 5px 10px 18px #888888;
 }
 
-#menuContainer{
-    background: inherit;
-    color:rgb(34, 33, 33);
-    
+.Images {
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
-.container:hover{
-    transform: scale(1.1);
-    margin: 20px;
-    margin-left: 60px;
-    transition: 0.3s;
-    cursor: pointer;
+.Images > Carousel {
+  align-self: center;
+  justify-self: center;
 }
 
-
-.Images{
-    justify-content: center;
-    display: flex;
-    align-items: center;    
+.Menu {
+  display: flex;
+  flex-direction: row;
+  font-family: "Poppins", sans-serif;
+  flex: space-between;
+}
+.menuTxt {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  margin-left: 50px;
 }
 
-.Images>Carousel{
-    align-self: center;
-    justify-self: center;
+.showMoreBtn {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  margin-left: 50px;
+  border: hidden;
+  background: inherit;
 }
 
-.Menu{
-    display: flex;
-    flex-direction: row;
-    font-family: 'Poppins', sans-serif;
-    flex: space-between;
-}
-.menuTxt{
-    font-family: 'Poppins', sans-serif;
-    font-size: 22px;
-    margin-left: 50px;
-    
-}
-
-.showMoreBtn{
-    font-family: 'Poppins', sans-serif;
-    font-size: 22px;
-    margin-left: 50px;
-    border: hidden;
-    background:inherit;
-}
-
-.showMoreBtn:hover{
-    border: hidden;
-    border-radius: 5px;
-    background-color: #E75A03;
-    color: #fff;
-    padding: 5px;
-    transition: 0.7s;
-    cursor: pointer;
-    
-}
-
-Image{
-    height: 150px;
-    margin: 5px;
+.showMoreBtn:hover {
+  border: hidden;
+  border-radius: 5px;
+  background-color: #e75a03;
+  color: #fff;
+  padding: 5px;
+  transition: 0.7s;
+  cursor: pointer;
 }
 /*
 .scroll-menu-arrow {
@@ -99,15 +79,121 @@ Image{
     background: #000;
     cursor: pointer;
   }*/
-.Carousel{
+.Carousel {
   height: 700px;
-  margin:30px 20px;
+  margin: 30px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
+/* from below here it is css of home componenet of Popular added by jackie lhowa */
+/* *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+  } */
 
+.PopularHeading {
+  text-align: center;
+  margin-top: 50px;
+}
 
+.cards-container {
+  display: flex;
+  color: #333;
+  background: #eee;
+  padding: 1rem;
+  overflow-x: auto;
+  position: relative;
+}
 
+.cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 1 0 450px;
+  box-shadow: 0 1px 1rem -4px #000;
+  background: #fff;
+  margin: 1rem;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.card img {
+  width: 450px;
+  height: 420px;
+  object-fit: center;
+}
+
+.card:hover {
+  box-shadow: 0 4px 1rem -4px #000;
+  transform: translateY(-3px);
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+/* from below here it is css of home componenet of About us added by jackie lhowa */
+
+.About-container {
+  width: 100%;
+  height: 650px;
+  margin-top: 50px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: 60%;
+  /* border: 1px solid red; */
+  /* background: #333; */
+}
+.aboutContent h1 {
+  width: 70%;
+  text-align: center;
+}
+
+.aboutContent p {
+  width: 70%;
+  font-size: 18px;
+  text-align: center;
+}
+
+.aboutImg {
+  float: right;
+  width: 40%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.aboutImg img {
+  width: 100%;
+  height: 80%;
+  object-fit: center;
+  /* border: 1px solid #452562; */
+}
+
+/* .container{
+    height: auto;
+    width: 180px;
+    box-shadow: 2.5px 2.5px 2px 2.5px rgb(233, 218, 205);
+    display: flex;
+    flex-direction: column;
+    font: 1em;
+    color: black;
+    
+    border-radius: 10px;
+    margin: 10px;
+} */
