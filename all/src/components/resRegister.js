@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Menu from "./menuComponent";
 import Map from "./mapComponent";
-
+import { Image } from "cloudinary-react";
 import "../css_styles/resRegister.css";
 import "../css_styles/mapStyle.css";
 
@@ -70,6 +70,7 @@ export default class resRegister extends Component {
     this.sendLocation = this.sendLocation.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.renderMenu = this.renderMenu.bind(this);
   }
 
   mainPhoto = "";
@@ -277,16 +278,60 @@ export default class resRegister extends Component {
 
   componentDidMount() {
     axios({
-      method: "post",
+      method: "get",
       url: "http://localhost:5000/restaurant/getId",
     }).then((res) => {
       var id = res.data;
+      console.log("from id call",res.data)
       this.setState({
         id: id,
       });
       console.log(this.state.id)
     });
   }
+
+  renderMenu(){
+    const { menu } = this.state;
+    const CardContainer = (props) => (
+      <div className="card-container">
+        {menu.map((item, index) => 
+              <Card 
+                  itemProp = {item}
+                  title={item.title} 
+                  imgUrl={item.image}
+                  key = {item.index}
+                  />  
+          )}
+      </div>
+    );
+
+    const Card = (props) => (
+        <div className='cardItem' onClick = {()=> this.menuSelected(props.itemProp)}>  
+            <Image
+                    key={props.key}
+                    cloudName='foodfinder'
+                    publicId={props.imgUrl}
+                    width='250'
+                    height='250'
+                    crop='scale'
+                />
+            <div className="card-content">
+            <h2>{ props.title }</h2>
+            </div>
+        </div>
+    );
+
+    return<CardContainer/>
+  }
+  
+  menuSelected(value){
+    this.setState({
+      text : value.title,
+      suggestions: [],
+    });
+    console.log(value)
+    window.location = `http://localhost:3000/restaurant/${value.id}`
+}
 
   render() {
     const Checkbox = (props) => (
@@ -430,6 +475,7 @@ export default class resRegister extends Component {
               sendDataToParent={this.getMenu}
               dataFromParent={this.state.id}
             />
+            <div>{this.renderMenu}</div> 
           </div>
           <input type="submit" />
         </form>
@@ -437,49 +483,3 @@ export default class resRegister extends Component {
     );
   }
 }
-
-
-//   renderMenu(){
-//     const { menu } = this.state;
-//     const CardContainer = (props) => (
-//       <div className="card-container">
-//         {menu.map((item, index) => 
-//               <Card 
-//                   itemProp = {item}
-//                   title={item.title} 
-//                   imgUrl={item.image}
-//                   key = {item.index}
-//                   />  
-//           )}
-//       </div>
-//     );
-
-//     const Card = (props) => (
-//         <div className='cardItem' onClick = {()=> this.menuSelected(props.itemProp)}>  
-//             <Image
-//                     key={props.key}
-//                     cloudName='foodfinder'
-//                     publicId={props.imgUrl}
-//                     width='250'
-//                     height='250'
-//                     crop='scale'
-//                 />
-//             <div className="card-content">
-//             <h2>{ props.title }</h2>
-//             </div>
-//         </div>
-//     );
-
-//     return<CardContainer/>
-//   }
-  
-//   menuSelected(value){
-//     this.setState({
-//       text : value.title,
-//       suggestions: [],
-//     });
-//     console.log(value)
-//     window.location = `http://localhost:3000/restaurant/${value.id}`
-// }
-
-/* <div>{this.renderMenu}</div> */
