@@ -48,7 +48,10 @@
   flex-direction: row;
   font-family: "Poppins", sans-serif;
   flex: space-between;
+  max-width: 98vw;
+  height: auto;
 }
+
 .menuTxt {
   font-family: "Poppins", sans-serif;
   font-size: 22px;

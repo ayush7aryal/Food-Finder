@@ -5,7 +5,7 @@ const Restaurant = require("../models/restaurantModel");
 
 router.post("/setFeatured", auth, admin, async (req, res) => {
   try {
-    const { id } = req.body.id;
+    const { id } = req.body;
     await Restaurant.updateOne({ featured: 1 }, { $set: { featured: 0 } });
     await Restaurant.updateOne({ id: id }, { $set: { featured: 1 } });
     return res.json({ msg: "Featured restaurant set successfully!" });

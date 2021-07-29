@@ -19,6 +19,13 @@ const restaurantCtrl = {
   },
   postInfo: async (req, res) => {
     try {
+      const not_unique = await restaurants.find({ email: req.body.email });
+      if (not_unique) {
+        return res.json({
+          msg: "This email has already registered restaurant!",
+        });
+      }
+
       if (!req.body) return res.status(400).json({ msg: "Nothing to post!" });
       const {
         id,
@@ -63,8 +70,9 @@ const restaurantCtrl = {
       description,
       contact,
       mainPhoto,
-      bestseller,
+      bestSeller,
       location,
+      menus,
     } = req.body;
     if (!id)
       return res
@@ -81,8 +89,9 @@ const restaurantCtrl = {
           description: description,
           contact: contact,
           mainPhoto: mainPhoto,
-          bestSeller: bestseller,
+          bestSeller: bestSeller,
           location: location,
+          menus: menus,
         },
       },
       (err, result) => {
@@ -141,15 +150,15 @@ const restaurantCtrl = {
       if (!restaurant) {
         res.json(0);
       } else {
-        restaurant.map((result)=>{
-          for(i = 0; i< restaurant.length; i++){
-            if(i != restaurant[i].id){
-              return res.json(i)
-            } else{
+        restaurant.map((result) => {
+          for (i = 0; i < restaurant.length; i++) {
+            if (i != restaurant[i].id) {
+              return res.json(i);
+            } else {
               i++;
             }
           }
-        })
+        });
         res.json(restaurant.length);
       }
     } catch (err) {

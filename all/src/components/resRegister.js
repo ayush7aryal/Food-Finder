@@ -21,6 +21,7 @@ export default class resRegister extends Component {
         "Italian",
         "Tibetan",
         "Continental",
+        "Others"
       ],
       category: [],
       description: "",

@@ -45,7 +45,7 @@ const restaurantSchema = new mongoose.Schema(
     },
     menus: [
       {
-        //item image, name, price, description
+        //item image, name, price, description, category
         type: Object,
       },
     ],

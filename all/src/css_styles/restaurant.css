@@ -9,3 +9,23 @@
     margin:0;
     left: 40%;
 }
+
+.edit{
+    background : none;
+    background-color: rgba(0,0,0,0.1);
+    height: 25px;
+    width: auto;
+    position: absolute;
+    
+}
+
+.edit:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#editHead{
+    top: 40%;
+    left: 95%;
+}
