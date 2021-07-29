@@ -15,7 +15,7 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
+  const [Catagory,setCatagory] = useState([]);
   var image;
   const [input, setInput] = useState('');
   const [preview, setPreview] = useState('');
@@ -28,17 +28,13 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
         setOpen(false);
         setTitle('')
         setPrice('')
-        setDescription('')
+        setCatagory('')
         setInput('')
         setPreview('')
     };
 
     const titleChange = (e)=>{
       setTitle(e.target.value);
-    }
-
-    const descriptionChange = (e)=>{
-        setDescription(e.target.value);
     }
 
     const priceChange = (e)=>{
@@ -91,13 +87,30 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
         const menu = {
             title: title,
             price: price,
-            description: description,
+            catagory:Catagory,
             image: image
         }
         sendDataToParent(menu);
         handleClose();
         console.log(menu);
     }
+
+    let menuCatagoryArray =["BreakFast","Lunch","Snack","Dinner"];
+    // let menuCatagory =[];
+
+    const handleOnChange = (title) => {
+
+      if(Catagory.includes(title) ){
+        let index = Catagory.indexOf(title);
+        console.log(index);
+        Catagory.splice(index, 1);
+      }else{
+        Catagory.push(title);
+      }
+      
+      setCatagory(Catagory);  
+      console.log(Catagory);
+    };
 
   return (
     <div>
@@ -129,14 +142,14 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
                     onChange={priceChange} 
                   />
                 </div>
-                <div className="formControlMenu">
-                  <label>Description</label>
-                  <textarea
-                    type="text" 
-                    placeholder="Describe the dish..."
-                    value={description} 
-                    onChange={descriptionChange} 
-                  />
+                <div className="formControlMenuSelect">
+                  <label>Select catagories</label>
+                  <div className="menuCatagorySelect">
+                    {menuCatagoryArray.map((cata, index) => (
+                      <label><input type="checkbox" key={index} onChange={() => handleOnChange(cata)}
+                    />{cata}</label>
+                    ))}
+                  </div>
                 </div>
               </div>
               

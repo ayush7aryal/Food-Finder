@@ -138,22 +138,19 @@ const restaurantCtrl = {
   getId: async (req, res) => {
     try {
       const restaurant = await restaurants.find();
-      if (!restaurant) {
-        res.json(0);
-      } else {
-        restaurant.map((result)=>{
-          for(i = 0; i< restaurant.length; i++){
-            if(i != restaurant[i].id){
-              return res.json(i)
-            } else{
-              i++;
-            }
+      if (restaurant) {
+        for(index = 0; index <restaurant.length; index ++){
+          if (index != restaurant[index].id) {
+            // console.log(i)
+            return res.json(index);
           }
-        })
-        res.json(restaurant.length);
+        };
+        // console.log(i)
+        console.log(restaurant.length);
+        return res.json(restaurant.length);
       }
     } catch (err) {
-      return res.status(500).json({ msg: err.msg });
+      return res.json({ msg: err.msg });
     }
   },
   setPopularity: async (req, res) => {

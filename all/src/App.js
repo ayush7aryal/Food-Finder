@@ -21,8 +21,10 @@ const refresh = async () => {
   await axios
     .get("http://localhost:5000/user/refreshToken", config)
     .then((res) => {
+      
       if (res.data.accesstoken !== null) {
         localStorage.setItem("token", res.data.accesstoken);
+        
       } else {
         console.log(res);
       }

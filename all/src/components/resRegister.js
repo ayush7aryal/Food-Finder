@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Menu from "./menuComponent";
 import Map from "./mapComponent";
-
+import {Image} from 'cloudinary-react';
 import "../css_styles/resRegister.css";
 import "../css_styles/mapStyle.css";
 
@@ -33,14 +33,14 @@ export default class resRegister extends Component {
         {
           title: "",
           price: "",
-          description: "",
+          catagory:[],
           image: "",
         },
       ],
       bestSeller: {
         title: "",
         price: "",
-        description: "",
+        catagory:[],
         image: "",
       },
       location: {
@@ -62,6 +62,7 @@ export default class resRegister extends Component {
     this.uploadImage = this.uploadImage.bind(this);
     this.handleMultipleImage = this.handleMultipleImage.bind(this);
     this.previewMultipleImage = this.previewMultipleImage.bind(this);
+    this.removeIMAGE = this.removeIMAGE.bind(this);
 
     this.onChangelatitude = this.onChangelatitude.bind(this);
     this.onChangelongitude = this.onChangelongitude.bind(this);
@@ -133,7 +134,7 @@ export default class resRegister extends Component {
     this.previewMultipleImage(file);
   }
 
-  previewMultipleImage(file) {
+  async previewMultipleImage(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -287,6 +288,67 @@ export default class resRegister extends Component {
       console.log(this.state.id)
     });
   }
+  
+  removeIMAGE(img){
+    let newPMultiple = this.state.previewMultiple.filter((image)=>(
+      image!==img
+    ));
+    this.setState({
+      previewMultiple: newPMultiple,
+    })
+  }
+
+  renderMenu(){
+    const { menu } = this.state;
+    const CardContainer = (props) => (
+      <div className="menu-card-container">
+        {menu.map((item, index) => 
+              <Card 
+                  itemProp = {item}
+                  title={item.title} 
+                  imgUrl={item.image}
+                  key={index}
+                  />  
+          )}
+      </div>
+    );
+
+    const Card = (props) => (
+        <div className='menu-cardItem' onClick = {()=> this.menuSelected(props.itemProp)}>  
+            <Image
+                  key={props.index}
+                  cloudName='foodfinder'
+                  publicId={props.imgUrl}
+                  width='250'
+                  height='250'
+                  crop='scale'
+                />
+            <div className="card-content">
+            <h2>{ props.title }</h2>
+            </div>
+        </div>
+    );
+
+    if(!menu[0].title.length<1){
+      console.log(menu);
+      return<CardContainer/>
+    }else{
+      console.log(menu);
+      return null;
+    }
+
+    
+  }
+  
+  menuSelected(value){
+    this.setState({
+      text : value.title,
+      suggestions: [],
+    });
+    console.log(value)
+    window.location = `http://localhost:3000/restaurant/${value.id}`
+  }
+
 
   render() {
     const Checkbox = (props) => (
@@ -295,7 +357,7 @@ export default class resRegister extends Component {
           type="checkbox"
           onClick={(event) => this.handlingClickedCard(props, event)}
         />
-        <label for={props.title}>{props.title}</label>
+        <label>{props.title}</label>
       </div>
     );
 
@@ -409,6 +471,7 @@ export default class resRegister extends Component {
                   {this.state.previewMultiple &&
                     this.state.previewMultiple.map((img, i) => {
                       return (
+                        <div className="MultiIMAGE">
                         <img
                           key={i}
                           src={img}
@@ -416,6 +479,8 @@ export default class resRegister extends Component {
                           height="200px"
                           width="300px"
                         />
+                        <button onClick={()=>{this.removeIMAGE(img)}}>remove</button>
+                        </div>
                       );
                     })}
                 </div>
@@ -430,6 +495,7 @@ export default class resRegister extends Component {
               sendDataToParent={this.getMenu}
               dataFromParent={this.state.id}
             />
+            <div>{this.renderMenu()}</div> 
           </div>
           <input type="submit" />
         </form>
@@ -439,47 +505,5 @@ export default class resRegister extends Component {
 }
 
 
-//   renderMenu(){
-//     const { menu } = this.state;
-//     const CardContainer = (props) => (
-//       <div className="card-container">
-//         {menu.map((item, index) => 
-//               <Card 
-//                   itemProp = {item}
-//                   title={item.title} 
-//                   imgUrl={item.image}
-//                   key = {item.index}
-//                   />  
-//           )}
-//       </div>
-//     );
-
-//     const Card = (props) => (
-//         <div className='cardItem' onClick = {()=> this.menuSelected(props.itemProp)}>  
-//             <Image
-//                     key={props.key}
-//                     cloudName='foodfinder'
-//                     publicId={props.imgUrl}
-//                     width='250'
-//                     height='250'
-//                     crop='scale'
-//                 />
-//             <div className="card-content">
-//             <h2>{ props.title }</h2>
-//             </div>
-//         </div>
-//     );
-
-//     return<CardContainer/>
-//   }
   
-//   menuSelected(value){
-//     this.setState({
-//       text : value.title,
-//       suggestions: [],
-//     });
-//     console.log(value)
-//     window.location = `http://localhost:3000/restaurant/${value.id}`
-// }
-
-/* <div>{this.renderMenu}</div> */
+ 

@@ -184,9 +184,53 @@
 /* Menu-section */
 
 .menuSection{
+    
     display: flex;
     flex-direction: column;
     background-color: #f0f2f5;
     padding: 10px;
-    height: 300px;
+    height: 600px;
 }
+
+ .menu-card-container {
+    /* width: 100%; */
+    display: flex;
+    color: #333;
+    background: #eee;
+    /* background: #efef34; */
+    padding: 1rem;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .cards-container::-webkit-scrollbar{
+      display: none;
+  }
+  
+  .menu-cardItem {
+    max-width: 400px;
+    flex: 1 0 400px;
+    box-shadow: 0 1px 1rem -4px #000;
+    background: #fff;
+    margin: 1rem;
+    overflow: hidden;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 250ms ease-in-out;    
+  }
+
+  .menu-cardItem img{
+    width: 100%;
+    height: 420px;
+    object-fit: center;   
+  }
+
+  .menu-cardItem:hover{
+    box-shadow: 0 4px 1rem -4px #000;
+    transform: translateY(-3px);    
+  }
+  
+  .card-content {
+    padding: 1rem;
+  } 
+
