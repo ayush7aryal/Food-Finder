@@ -44,7 +44,7 @@ const Footer = () => {
 
 const BrowseBtn = () => {
     return (
-        <button onClick = {console.log('Some Function Here')} className = 'browseBtn'>
+        <button onClick = {() =>window.location = "http://localhost:3000/dashboard"} className = 'browseBtn'>
             Browse all
         </button>
         

@@ -29,11 +29,12 @@
 }
 
 .contacts{
-    font-size: 25px;
+    font-size: 16px;
     font-family: 'Poppins', sans-serif;
     border: hidden;
     list-style: none;
-    color: #fff;
+    color: #000;
+    margin-left: 80%;
 
 
 }

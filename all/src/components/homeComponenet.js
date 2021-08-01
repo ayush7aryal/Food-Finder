@@ -4,6 +4,8 @@ import axios from "axios";
 import Carousel from "react-material-ui-carousel";
 import "../css_styles/homeComponent.css";
 import AboutFood from "./images/foodAbout.png";
+import "../css_styles/adminPage.css"
+
 
 class home extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class home extends Component {
         description: "",
         contact: "",
         photo: [],
+        mainPhoto: ""
       },
       Restaurant: [
         {
@@ -115,13 +118,14 @@ class home extends Component {
       await axios
         .get("http://localhost:5000/admin/getFeatured")
         .then((result) => {
-          if (!result.data.msg) {
+          //if (!result.data.msg) {
             const fRes = result.data;
             this.state.featuredRes.id = fRes.id;
             this.state.featuredRes.name = fRes.name;
             this.state.featuredRes.description = fRes.description;
             this.state.featuredRes.contact = fRes.contact;
-          }
+            this.state.featuredRes.mainPhoto = fRes.mainPhoto;
+            //}
           console.log(this.state.featuredRes)
         });
       if (this.state.featuredRes.id !== '') {
@@ -139,29 +143,28 @@ class home extends Component {
 
   render() {
 
-    const renderImages = () => {
-      const images = this.state.images.map((result, index) => {
-        return (
+    const renderFeatured = () =>{
+
+      return(
+        <div className = "featureBody">
+          <div className = "featureImg">
           <Image
-            key={result + index}
+            key={this.state.featuredRes.id}
             cloudName="foodfinder"
-            publicId={result}
-            width="1400"
-            height="700"
+            publicId={this.state.featuredRes.mainPhoto}
+            width="500"
+            height="450"
             crop="scale"
           />
-        );
-      });
-
-      // return (<Carousel slides={images} autoplay={true} interval={1000}/>)
-      return (
-        <div className="Carousel">
-          <Carousel navButtonsAlwaysVisible="true" animation="slide">
-            {images}
-          </Carousel>
+          </div>
+          <div className = "featureRestaurantName">{this.state.featuredRes.name}</div>
+          <div className = "featureRestauarantDescription">{this.state.featuredRes.description}</div>
+          <button onClick = {() => window.location = `http://localhost:3000/restaurant/${this.state.featuredRes.id}`} className="viewMoreBtn">
+            View More
+          </button>
         </div>
       );
-    };
+    }
 
     const renderPopularity = () => {
       // console.log("state: ", this.state.cardsData[0].name);
@@ -234,7 +237,7 @@ class home extends Component {
     };
     return (
       <div>
-        <div>{renderImages()}</div>
+        <div>{renderFeatured()}</div>
         {this.state.cardsData[0] && <div>{renderPopularity()}</div>}
         <div>{renderAboutUs()}</div>
       </div>

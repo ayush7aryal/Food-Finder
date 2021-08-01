@@ -17,6 +17,7 @@ class login extends Component {
             email: '',
             password: '' ,
             emailError:false,   
+            admin: false,
 
             wording: 'Show',
             type: 'password',      
@@ -79,8 +80,11 @@ class login extends Component {
                 localStorage.setItem('isLogged', true)
                 Cookies.set("refreshtoken", res.data.refreshtoken, { expires: 7, path: '/' })
                 console.log("Logged In successfully")
-                if(res.data.role === -2) window.location = "http://localhost:3000/admin"
-                return res
+                if(res.data.role === -2) 
+                {
+                  this.state.admin = true;
+                }
+                
             })
 
             var cart_session = JSON.parse(sessionStorage.getItem('cart'))
@@ -112,13 +116,20 @@ class login extends Component {
                         })
                 }
             }
-            
-        } catch (err) {
+            if(this.state.admin === true)
+            {
+                window.location = 'http://localhost:3000/admin'   
+            } 
+            else
+            {
+                window.location = 'http://localhost:3000'
+            }
+    } catch (err) {
             alert(err)
         }
         
         
-        window.location = 'http://localhost:3000/'
+       
     }
 
     render(){
