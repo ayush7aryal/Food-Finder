@@ -80,7 +80,7 @@ const AdminPage = () => {
             key={result + index}
             cloudName="foodfinder"
             publicId={result.mainPhoto}
-            width="200"
+            width="250"
             height="150"
             crop="scale"/>
         </div>

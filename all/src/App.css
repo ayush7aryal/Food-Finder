@@ -14,9 +14,12 @@
   background-color: cornflowerblue;
 } */
 /*previous color E75A03 */
+
 nav {
-  background: rgb(255, 123, 0);
+  background: #fff;
   display: flex;
+  width: auto;
+  overflow:hidden;
   justify-content: flex-start;
   align-items: center;
   height: 75px;
@@ -42,7 +45,7 @@ nav {
   width:45px;
   margin: 10px;
   /* padding:10px; */
-  fill: #fff;
+  fill: rgb(255, 123, 0);
   /* border: 1px solid #fff; */
   border-radius: 50%;
 }
@@ -61,15 +64,18 @@ nav ul{
 
 nav ul li > :first-child {
   text-decoration: none;
-  color: #fff;
+  color: rgb(255, 123, 0);
   font-size: 1.25rem;
 }
 nav ul .link{
   /* background: #E75A0f; */
-  color: #fff;
+  color: rgb(255, 123, 0);
   text-decoration: none;
+  text-align: center;
   padding: 5px 20px ;
   font-size: 20px;
   margin: 10px;
   border-bottom: 1px solid #333;
+  box-shadow: 0px 0px 0.5px #333;
+  
 }

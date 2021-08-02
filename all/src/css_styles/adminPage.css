@@ -28,7 +28,7 @@
 .image{
     margin-top: 20px;
     margin-left: 40px;
-    width: 200px;
+    width: 300px;
     height: 150px;
    
 }
@@ -112,10 +112,10 @@
 
 
 .featureImg{
-    margin-top:7.5%;
+    margin-top:2.5%;
     margin-bottom:5%;
-    margin-left: 60%;
-    margin-right: 10%;
+    margin-left: 70%;
+    margin-right: 5%;
     border:hidden;
     background: url(../components/images/featureBack.png);
     background-size: cover;
@@ -125,13 +125,13 @@
 }
 
 .featureRestaurantName{
-    margin-left: 10%;
+    margin-left: 15%;
     margin-bottom:10px;
     font-family: 'Poppins', sans-serif;
     font-size: 50px;
     font-weight: 800;
     position:relative;
-    bottom:400px;
+    bottom:600px;
 
 }
 
@@ -140,10 +140,10 @@
     font-size: 30px;
     font-weight: 600;
     position: relative;
-    margin-left: 10%;
+    margin-left: 15%;
     margin-right:60%;
     margin-top:5px;
-    bottom: 400px;
+    bottom: 600px;
 }
 
 .viewMoreBtn{
@@ -152,9 +152,9 @@
     font-weight: bolder;
     background:#c4c4c4;
     position: relative;
-    bottom: 400px;
+    bottom: 600px;
     margin-top:25px;
-    margin-left: 10%;
+    margin-left: 15%;
     border: hidden;
     border-radius: 40px;
     padding: 5px 10px;

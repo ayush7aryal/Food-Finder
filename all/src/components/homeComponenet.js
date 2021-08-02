@@ -152,8 +152,8 @@ class home extends Component {
             key={this.state.featuredRes.id}
             cloudName="foodfinder"
             publicId={this.state.featuredRes.mainPhoto}
-            width="500"
-            height="450"
+            width="650"
+            height="600"
             crop="scale"
           />
           </div>
