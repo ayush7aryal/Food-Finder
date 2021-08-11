@@ -7,8 +7,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:3000',
+    credentials: true
 }));
 app.use(cookieParser());
 app.use(express.json({limit: '10mb'}))
@@ -37,6 +36,8 @@ app.get('/', (req,res)=>{
     res.json({msg: "Dashboard!"})
 })
 
-app.listen(5000, ()=>{
+var port = process.env.PORT || 5000
+
+app.listen(port, ()=>{
     console.log("Running on server 5000!")
 })

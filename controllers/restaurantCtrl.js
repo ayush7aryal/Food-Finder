@@ -61,20 +61,22 @@ const restaurantCtrl = {
     }
   },
   updateInfo: async (req, res) => {
+    try {
     const {
-      id,
       name,
       email,
-      photos,
       category,
       description,
+      photos,
       contact,
       mainPhoto,
       bestSeller,
       location,
       menus,
     } = req.body;
-    if (!id)
+    const id = req.body.id
+    console.log(id)
+    if (!(typeof id == typeof 0))
       return res
         .status(400)
         .json({ msg: "Please provide the id to process the update!" });
@@ -89,17 +91,22 @@ const restaurantCtrl = {
           description: description,
           contact: contact,
           mainPhoto: mainPhoto,
-          bestSeller: bestSeller,
-          location: location,
           menus: menus,
+          bestSeller: bestSeller,
+          location: location,          
         },
       },
       (err, result) => {
-        if (err) return res.status(400).json(err.msg);
-        return result;
+        if (err) {
+          return res.status(400).json(err.msg);
+        }
+        res.json({ msg: "Info about the restaurant updated successfully!" });
       }
     );
-    res.json({ msg: "Info about the restaurant updated successfully!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.msg });
+    }
+    
   },
   getAll: async (req, res) => {
     try {
@@ -107,10 +114,9 @@ const restaurantCtrl = {
         {},
         { _id: 0 },
         (err, result) => {
-          if (err) {
-            return res.status(500).json({ msg: err.msg });
-          }
-          return result;
+          if (!err) {
+            return result;
+          }          
         }
       );
       res.json(allRestaurants);
@@ -146,23 +152,20 @@ const restaurantCtrl = {
   },
   getId: async (req, res) => {
     try {
-      const restaurant = await restaurants.find();
-      if (!restaurant) {
-        res.json(0);
-      } else {
-        restaurant.map((result) => {
-          for (i = 0; i < restaurant.length; i++) {
-            if (i != restaurant[i].id) {
-              return res.json(i);
-            } else {
-              i++;
-            }
+      const restaurant = await restaurants.find().sort({id: 1});
+      if (restaurant) {
+        for(index = 0; index <restaurant.length; index ++){
+          if (index != restaurant[index].id) {
+            // console.log(i)
+            return res.json(index);
           }
-        });
-        res.json(restaurant.length);
+        };
+        // console.log(i)
+        console.log(restaurant.length);
+        return res.json(restaurant.length);
       }
     } catch (err) {
-      return res.status(500).json({ msg: err.msg });
+      return res.json({ msg: err.msg });
     }
   },
   setPopularity: async (req, res) => {

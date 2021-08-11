@@ -1,31 +1,61 @@
-.catcon{
-    display: flex;
-    flex-direction: row;
-    height: fit-content;
-    justify-items: space-between;
+.catcon {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  justify-items: space-between;
 }
 
-.map{
-    margin:0;
-    left: 40%;
+.map {
+  margin: 0;
+  left: 40%;
 }
 
-.edit{
-    background : none;
-    background-color: rgba(0,0,0,0.1);
-    height: 25px;
-    width: auto;
-    position: absolute;
-    
+.edit {
+  background: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 1rem;
+  width: auto;
 }
 
-.edit:hover{
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-    cursor: pointer;
+.edit:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-#editHead{
-    top: 40%;
-    left: 95%;
+#editHead {
+  justify-self: flex-end;
+
+}
+
+.editDiv{
+  width:100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2vw;
+}
+
+#editMap {
+  position: static;
+  background-color: white;
+  /* display: flex-end; */
+  /* top: 30%; */
+  /* left: 90%; */
+  margin-right: 8px;
+}
+
+.headName {
+  display: flex;
+  flex-direction: row;
+  justify-items: "space-around";
+  align-items: center;
+  width: 100%;
+}
+
+#deleteMenu{
+  position: relative;
+  left: 90%;
+  top: 6%;
+  width: 1rem;
+  background-color: rgba(255, 255, 255, 0.192);
 }

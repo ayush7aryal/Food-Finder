@@ -51,9 +51,7 @@ const ResOrder = () => {
       <>
         <div
           className={
-            popActive
-              ? "pop-dialog-parent active"
-              : "pop-dialog-parent"
+            popActive ? "pop-dialog-parent active" : "pop-dialog-parent"
           }
           id="pop-dialog">
           <div className="pop-header">
@@ -129,30 +127,32 @@ const ResOrder = () => {
     const orders = filtered.map((result, index) => {
       return (
         <>
-          <div
+          <div style={{cursor: 'pointer'}}
             onClick={() => {
               setPop(true);
             }}
             key={index + "key"}
             className="order">
-            <Image
-              key={index}
-              cloudName="foodfinder"
-              publicId={result.menu.image}
-              height="150"
-              width="200"
-              crop="scale"
-            />
             <div className="orderInfos">
-              <label className="status">{result.status}</label>
-              <label>Title: {result.menu.title}</label>
-              <br />
-              <label>Quantity: {result.quantity}</label>
-              <br />
-              <label>Total: {result.menu.price}</label>
-              <br />
-              {/* add the ordered date-time too */}
+              <Image
+                key={index}
+                cloudName="foodfinder"
+                publicId={result.menu.image}
+                height="150"
+                width="200"
+                crop="scale"
+              />
+              <div className="orderInfo">
+                <label>Title: {result.menu.title}</label>
+                <br />
+                <label>Quantity: {result.quantity}</label>
+                <br />
+                <label>Total: {result.menu.price}</label>
+                <br />
+                {/* add the ordered date-time too */}
+              </div>
             </div>
+
             {tabToggle === "Pending" && (
               <div className="btns">
                 <button
@@ -162,7 +162,6 @@ const ResOrder = () => {
                   }}>
                   Accept Order
                 </button>
-                <br />
                 <button
                   value="Rejected"
                   onClick={(e) => {
@@ -183,8 +182,8 @@ const ResOrder = () => {
   return (
     <div className="order_page">
       <div className="order_tab_parent">
-        <ul className="order_ul">
-          <li
+        <div className="order_ul">
+          <div
             onClick={() => {
               setTab("Pending");
             }}
@@ -192,8 +191,8 @@ const ResOrder = () => {
               tabToggle === "Pending" ? "order_tab_active" : "order_tab"
             }>
             Pending
-          </li>
-          <li
+          </div>
+          <div
             onClick={() => {
               setTab("Accepted");
             }}
@@ -201,8 +200,8 @@ const ResOrder = () => {
               tabToggle === "Accepted" ? "order_tab_active" : "order_tab"
             }>
             Accepted
-          </li>
-          <li
+          </div>
+          <div
             onClick={() => {
               setTab("Rejected");
             }}
@@ -210,8 +209,8 @@ const ResOrder = () => {
               tabToggle === "Rejected" ? "order_tab_active" : "order_tab"
             }>
             Rejected
-          </li>
-          <li
+          </div>
+          <div
             onClick={() => {
               setTab("Delivered");
             }}
@@ -219,8 +218,8 @@ const ResOrder = () => {
               tabToggle === "Delivered" ? "order_tab_active" : "order_tab"
             }>
             Delivered
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
       {renderOrders()}
       {tabToggle === "Pending" && (

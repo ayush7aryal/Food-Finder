@@ -1,7 +1,7 @@
 /* rgba(255,179,71,0.7)*/
 .pages {
   background-color: #f1f9fb;
-  width: 96.5%;
+  width: 97%;
   margin-left: 20px;
   border-radius: 16px;
   padding-top: 30px;
@@ -20,13 +20,16 @@ nav {
   justify-content: flex-start;
   align-items: center;
   height: 75px;
+  width:100%;
+  position:fixed;
+  z-index: 10;
   /* width: 100vw; */
 }
 
 .logo {
   /* border: 1px solid red; */
   /* height: 40px; */
-  width: 250px;
+  min-width: 250px;
   margin-left: 25px;
   /* margin-right: 47.5%; */
   /* z-index: 100; */

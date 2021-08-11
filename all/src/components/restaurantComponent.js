@@ -10,6 +10,8 @@ import BrowseBtn from "./Elements.js";
 import "../css_styles/restaurant.css";
 import edit from "./images/edit_icon.png";
 import delete_icon from "./images/delete.png";
+// import add from "./images/add.png";
+import Menu from "./menuComponent";
 
 var location;
 class restaurant extends Component {
@@ -39,8 +41,8 @@ class restaurant extends Component {
           image: "",
         },
         location: {
-          latitude: "",
-          longitude: "",
+          latitude: 0,
+          longitude: 0,
         },
       },
       images: [],
@@ -66,12 +68,14 @@ class restaurant extends Component {
       editDescription: "",
       Nepali: false,
       Chinese: false,
+      menuAdd: false,
     };
     this.addMenu = this.addMenu.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangeContact = this.onChangeContact.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.getMenu = this.getMenu.bind(this);
     // this.onChangeName = this.onChangeName.bind(this);
   }
 
@@ -206,6 +210,14 @@ class restaurant extends Component {
     }
   }
 
+  getMenu(menu) {
+    const res = { ...this.state.Restaurant };
+    res.menus.push(menu);
+    this.setState({
+      Restaurant: res,
+    });
+  }
+
   //showMore(){
   //    this.setState((load)=>{
   //const added = this.state.Restaurant.menus.map((count) => { return count = count + 1 }, 0)
@@ -275,6 +287,16 @@ class restaurant extends Component {
               key={result.title + index}
               className="container"
               id="menuContainer">
+                <img
+                onClick={() => {
+                  this.setState({ pop: "deleteMenu" });
+                  this.setState({ index: index });
+                }}
+                src={delete_icon}
+                alt=""
+                className="edit"
+                id="deleteMenu"
+              />
               <Image
                 key={index}
                 cloudName="foodfinder"
@@ -308,18 +330,20 @@ class restaurant extends Component {
                 </button>
                 <br />
               </div>
-              <button
-                onClick={() => {
-                  this.setState({ pop: "deleteMenu" });
-                  this.setState({index : index})
-                }}>
-                <img
-                  src={delete_icon}
-                  alt=""
-                  className="edit"
-                  id="deleteMenu"
-                />
-              </button>
+
+              
+              {this.state.Restaurant.bestSeller !==
+                this.state.Restaurant.menus[index] && (
+                <button
+                  onClick={async () => {
+                    const res = { ...this.state.Restaurant };
+                    res.bestSeller = this.state.Restaurant.menus[index];
+                    await this.setState({ Restaurant: res });
+                    editRestaurant();
+                  }}>
+                  Set as BestSeller
+                </button>
+              )}
             </div>
           );
         });
@@ -328,16 +352,47 @@ class restaurant extends Component {
     };
 
     const menuButton = () => {
-      return <div className="menuTxt">Menu</div>;
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+          className="menuTxt">
+          <label>Menu</label>
+          <Menu style={{ marginRight: 10 }} sendDataToParent={this.getMenu} />
+        </div>
+      );
     };
     const mapButton = () => {
-      return <button className="mapBtn">Directions</button>;
+      return (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}>
+          <button className="mapBtn">Directions</button>
+          <img
+            onClick={() => {
+              // this.state.pop = "head";
+              this.setState({ pop: "map" });
+            }}
+            src={edit}
+            alt=""
+            className="edit"
+            id="editMap"
+          />
+        </div>
+      );
     };
 
     const renderImages = () => {
       const images = this.state.images.map((result, index) => {
         return (
           <Image
+            style={{ width: "100%", height: "100%" }}
             key={result + index}
             cloudName="foodfinder"
             publicId={result}
@@ -370,6 +425,7 @@ class restaurant extends Component {
 
     //edit function for all edits
     const editRestaurant = async () => {
+      console.log("edit: ", this.state.Restaurant);
       let config = {
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -383,8 +439,9 @@ class restaurant extends Component {
           config
         )
         .then((result, err) => {
-          if (!err)
+          if (!err) {
             return alert("Restaurant description updated successfully!");
+          }
           alert("Couldn't update the information!");
         });
     };
@@ -408,7 +465,7 @@ class restaurant extends Component {
               <div className="pop-title">RESTAURANT LOCATION</div>
               <button
                 onClick={() => {
-                  this.setstate({ pop: "" });
+                  this.setState({ pop: "" });
                 }}
                 className="pop-close">
                 &times;
@@ -424,6 +481,8 @@ class restaurant extends Component {
             <div
               onClick={() => {
                 const temp = this.state.Restaurant;
+                temp.location.latitude = temp_loc.latitude - 0;
+                temp.location.longitude = temp_loc.longitude - 0;
                 temp.location = temp_loc;
                 this.setState({
                   Restaurant: temp,
@@ -612,7 +671,12 @@ class restaurant extends Component {
             <div className="pop-body">
               Are you sure you want to remove the MENU?
             </div>
-            <div style={{display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+              }}>
               <div
                 onClick={() => {
                   this.setState({ pop: "" });
@@ -623,12 +687,12 @@ class restaurant extends Component {
               <div
                 onClick={() => {
                   const temp = this.state.Restaurant;
-                  const t =temp.menus.splice(this.state.index, 1);
+                  const t = temp.menus.splice(this.state.index, 1);
                   this.setState({
                     Restaurant: temp,
                   });
                   editRestaurant();
-                  if(t.image) deletePhoto(t.image);
+                  if (t.image) deletePhoto(t.image);
                   this.setState({ pop: "" });
                 }}
                 className="pop-setBtn">
@@ -718,24 +782,33 @@ class restaurant extends Component {
     return (
       <>
         <div className="info">
-          <div className="head">
-            <h1 className="text" style={{ fontSize: 30, marginLeft: 60 }}>
-              {this.state.Restaurant.name.toUpperCase()}
-            </h1>
+          
+            <div className='headName'>
+              <h1 className="text" style={{ fontSize: 30, marginLeft: 60 }}>
+                {this.state.Restaurant.name.toUpperCase()}
+              </h1>
+              <div className='editDiv'>
+              <img
+                onClick={() => {
+                  // this.state.pop = "head";
+                  this.setState({ pop: "head" });
+                }}
+                src={edit}
+                alt=""
+                className="edit"
+                id="editHead"
+              />
+              </div>
+              
+            </div>
+
             <div className="Images">{renderImages()}</div>
             <div style={{ marginLeft: 25 }}>{renderCategory()}</div>
             <div className="text" id="description">
               <div style={{ fontSize: 18 }}>Description</div>
               {this.state.Restaurant.description}
             </div>
-            <button
-              onClick={() => {
-                // this.state.pop = "head";
-                this.setState({ pop: "head" });
-              }}>
-              <img src={edit} alt="" className="edit" id="editHead" />
-            </button>
-          </div>
+          
 
           {menuButton()}
           <div className="menuComponents">
@@ -761,22 +834,33 @@ class restaurant extends Component {
             <div className="text" id="bestSellerText">
               BESTSELLERS
             </div>
-            <div className="bestSellerImage">
-              <Image
-                key={this.state.Restaurant.mainPhoto}
-                cloudName="foodfinder"
-                publicId={this.state.Restaurant.bestSeller.image}
-                height="600"
-                width="800"
-                crop="scale"
-              />
-            </div>
-            <div className="bestSellerElements">
-              <div id="bestSellerTitle" style={{ paddingLeft: 30 }}>
-                {this.state.Restaurant.bestSeller.title.toUpperCase()}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}>
+              <div className="bestSellerImage" style={{ width: "65%" }}>
+                <Image
+                  style={{ width: "100%", height: "auto" }}
+                  key={this.state.Restaurant.mainPhoto}
+                  cloudName="foodfinder"
+                  publicId={this.state.Restaurant.bestSeller.image}
+                  height="600"
+                  width="800"
+                  crop="scale"
+                />
               </div>
-              <div id="bestSellerDescription" style={{ paddingLeft: 30 }}>
-                {this.state.Restaurant.bestSeller.description}
+              <div
+                className="bestSellerElements"
+                style={{ marginLeft: "5px", marginRight: "5px" }}>
+                <div id="bestSellerTitle">
+                  {this.state.Restaurant.bestSeller.title.toUpperCase()}
+                </div>
+                <div id="bestSellerDescription">
+                  {this.state.Restaurant.bestSeller.description}
+                </div>
               </div>
             </div>
           </div>
@@ -798,13 +882,6 @@ class restaurant extends Component {
                 </ul>
               </div>
             </div>
-            <button
-              onClick={() => {
-                // this.state.pop = "head";
-                this.setState({ pop: "map" });
-              }}>
-              <img src={edit} alt="" className="edit" id="editMap" />
-            </button>
           </div>
 
           <div className="recommendation">

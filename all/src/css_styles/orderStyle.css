@@ -3,20 +3,57 @@
   flex-direction: row;
 }
 
+.orders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.orders > * {
+  flex: 1 1 10%;
+}
+
 .order {
   display: flex;
-  width: 60%;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 35px;
+  width: 400px;
+  max-width: 400px;
+  flex-direction: column;
+  margin-bottom: 15px;
   background-color: white;
   padding: 10px;
-  box-shadow: 5px 10px 18px #888888;
+  box-shadow: 0.5rem 1rem 1.25rem #888888;
   border-radius: 12px;
-  margin-left: 12vw;
-  height: 200px;
+  margin-left: 7.5vw;
+  height: auto;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 2rem;
+}
+
+/* .order:nth-child(even) {
+  margin-left: 7.5vw;
+  margin-right: 0;
+} */
+
+.orderInfos > img {
+  width: 200px;
+  height: auto;
+}
+
+.orderInfos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 350px;
+}
+
+.orderInfo {
+  border: hidden;
+  border-left: 0.25rem solid;
+  padding-left: 5px;
+  border-left-color: #e75a03;
+  margin-left: 7.5px;
 }
 
 .user_order {
@@ -29,32 +66,44 @@ ul {
 
 .order_tab_parent {
   margin-left: 3vw;
+  width: 50%;
+  min-width: 200px;
 }
 
 .order_ul {
   margin: 0;
+  margin-left: 10px;
   padding: 7px;
   margin-bottom: 2vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 40%;
+  /* width: 40%;
+  min-width: 400px; */
   height: 40px;
   border-radius: 24px;
   background-color: white;
+  overflow-x: auto;
+  /* overflow: hidden; */
+}
+
+.order_ul::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .order_tab {
   height: 35px;
-  width: 115px;
+  min-width: 100px;
   align-self: center;
   justify-content: center;
   border-radius: 24px;
   text-align: center;
   font-weight: 700;
-  padding-top: 10px;
+  padding-top: 5px;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .order_tab:hover {
@@ -63,12 +112,12 @@ ul {
 
 .order_tab_active {
   height: 35px;
-  width: 115px;
+  min-width: 100px;
   align-self: center;
   justify-content: center;
   border-radius: 24px;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 5px;
   background-color: rgb(255, 123, 0);
   color: white;
   font-weight: 600;
@@ -79,7 +128,7 @@ ul {
 .order_desc {
   margin: 0;
   padding: 0;
-  height: 100%;
+  /* height: 100%; */
   width: 45%;
   display: flex;
   flex-direction: row;
@@ -107,4 +156,70 @@ ul {
 .for_button {
   justify-self: flex-end;
   align-self: flex-end;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.btns > button {
+  margin-left: 5px;
+}
+
+@media (max-width: 905px) {
+  .orderInfos {
+    /* display: flex; */
+    flex-direction: column;
+
+    max-width: 150px;
+  }
+  .orderInfo {
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+  }
+  .order {
+    max-width: 225px;
+  }
+
+  .order:nth-child(even) {
+    margin-left: 12.5vw;
+  }
+}
+
+/* @media (max-width: 740px) {
+  .order {
+    margin-right: 10vw;
+    margin-left: 5vw;
+  }
+} */
+
+@media (max-width: 670px) {
+  .order {
+    max-width: 400px;
+    flex-direction: column;
+    margin-left: 7vw;
+  }
+
+  .orderInfos {
+    flex-direction: row;
+  }
+  .order:nth-child(even) {
+    margin-left: 7.5vw;
+  }
+}
+
+@media (max-width: 460px) {
+  .order {
+    max-width: 225px;
+    flex-direction: column;
+    margin-left: 10vw;
+  }
+
+  .orderInfos {
+    flex-direction: column;
+  }
 }

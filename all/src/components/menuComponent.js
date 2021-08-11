@@ -1,5 +1,4 @@
 // need to add snackbars..
-
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -100,7 +99,7 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button style={{marginRight: '50px'}} variant="outlined" color="primary" onClick={handleClickOpen}>
         Add Menu
       </Button>
       <Dialog open={open} onClose={handleClose}  maxWidth="md" aria-labelledby="form-dialog-title">
