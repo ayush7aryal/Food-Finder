@@ -75,8 +75,6 @@ class restaurant extends Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangeContact = this.onChangeContact.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.getMenu = this.getMenu.bind(this);
-    // this.onChangeName = this.onChangeName.bind(this);
   }
 
   onChangeName(e) {
@@ -232,7 +230,7 @@ class restaurant extends Component {
     const renderSimilar = () => {
       const ren = this.state.similar.map((result, index) => {
         return (
-          <div key={result.name + index} className="container">
+          <div onClick={()=>{window.location = `http://localhost:3000/restaurant/${result.id}`}} key={result.name + index} className="container">
             <Image
               key={index}
               cloudName="foodfinder"
@@ -240,12 +238,9 @@ class restaurant extends Component {
               height="150"
               crop="scale"
             />
-            <div className="labels">
-              <label
-                className="text"
-                style={{ fontSize: 18, fontWeight: "bolder" }}>
+            <div className="similarText" style={{ fontSize: 18, fontWeight: "bolder" }}>
+              
                 {result.name.toUpperCase()}
-              </label>
               <br />
             </div>
           </div>
@@ -260,7 +255,7 @@ class restaurant extends Component {
       const ArrowRight = Arrow({ text: ">", className: "arrowBtn" });
 
       return (
-        <div className="arrows">
+        <div className="similarRes">
           <ScrollMenu
             data={ren}
             arrowLeft={ArrowLeft}
@@ -785,7 +780,7 @@ class restaurant extends Component {
         <div className="info">
           
             <div className='headName'>
-              <h1 className="text" style={{ fontSize: 30, marginLeft: 60 }}>
+              <h1 className="text" style={{ fontSize: 30, width: 300, marginLeft: 60 }}>
                 {this.state.Restaurant.name.toUpperCase()}
               </h1>
               <div className='editDiv'>
@@ -873,14 +868,7 @@ class restaurant extends Component {
             </div>
             <div id="catcon">
               <div id="bestSellerTitle">
-                <ul>
-                  <li key="contact" className="contacts">
-                    Contact: <u>{this.state.Restaurant.contact}</u>
-                  </li>
-                  <li key="email" className="contacts">
-                    {this.state.Restaurant.email}
-                  </li>
-                </ul>
+               
               </div>
             </div>
           </div>

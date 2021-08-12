@@ -1,195 +1,308 @@
-*{
-    margin: 0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.registration{
-    display: flex;
-    flex-direction: column;
-    background-color: #f0f2f5;
-    padding: 10px;
-    font-size: 18px;
+.registration {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5;
+  padding: 10px;
+  font-size: 18px;
 }
 
-.registrationOne{
-    display: flex;
-    flex-direction: row;   
-    height: fit-content; 
+.registrationOne {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
 }
- 
-.registrationTwo{
-    display: flex;
-    flex-direction: row;   
-    /* height: fit-content;  */
+
+.registrationTwo {
+  display: flex;
+  flex-direction: row;
+  /* height: fit-content;  */
 }
 /* first left section */
-.registrationName{
-    display: flex;
-    flex-direction: column;
-    /* height: 90%; */
-    height: fit-content;
-    width: 40%;
-    background: #fff;
-    margin: 15px 20px;
-    padding: 20px;
-    border-radius: 20px;
+.registrationName {
+  display: flex;
+  flex-direction: column;
+  /* height: 90%; */
+  height: 780px;
+  width: 40%;
+  background: #fff;
+  margin: 15px 20px;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-.registrationName h3{
-   
-    margin: 50px 0 0px 0;
-    padding: 0;
+.registrationName h3 {
+  margin: 50px 0 0px 0;
+  padding: 0;
 }
 
-.registrationName hr{
-    display: block; 
-    height:1px; 
-    width: 60%;
-    margin-bottom: 50px;
-    float:left; 
-    border-bottom:1px solid red; 
+.registrationName hr {
+  display: block;
+  height: 1px;
+  width: 60%;
+  margin-bottom: 50px;
+  float: left;
+  border-bottom: 1px solid red;
 }
-.formControl{
-    /* margin-bottom: px;s */
-    padding-bottom: 10px;
-    position: relative;
+.formControl {
+  /* margin-bottom: px;s */
+  padding-bottom: 10px;
+  position: relative;
 }
 
 .formControl label {
-    color: #777;
-    display: block;
-    margin-bottom: 10px;
-    position: relative;
+  color: #777;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
 }
 
-.formControl input{
-    border: 2px solid #999;
-    border-radius: 4px;
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 20px;
+.formControl input {
+  border: 2px solid #999;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
-.formControl textarea{
-    border: 2px solid #999;
-    border-radius: 4px;
-    display: block;
-    width: 100%;
-    height: 8rem;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 20px;
+.formControl textarea {
+  border: 2px solid #999;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  height: 8rem;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
-.formControl input:focus,textarea:focus{
-    outline: none;
-    border: 2px solid #2596be;
+.formControl input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #2596be;
 }
 
 /* first right section  */
-.signaturePhoto{
-    display: flex;
-    flex-direction: column;
+.signaturePhoto {
+  display: flex;
+  flex-direction: column;
 
-    /* height: 90%; */
-    min-height: 600px;
-    width: 60%;
-    margin-top: 15px ;
-    background: #fff;
-    /* border: 1px solid red; */
-    border-radius: 20px;
-    
+  height: 780px;
+  /* height: fit-content; */
+  width: 60%;
+  margin-top: 15px;
+
+  background: #fff;
+  /* border: 1px solid red; */
+  border-radius: 20px;
+}
+.signaturePhoto h3 {
+  margin-left: 3rem;
+  position: relative;
 }
 
-.signaturePhoto img{
-    height: 80%;
-    width: 100%;
+.signaturePhoto h3::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  margin: 0 auto;
+  left: 0;
+  /* right: 0; */
+  bottom: -8px;
+  width: 80%;
+  background: #e75a03;
+  /* margin-bottom: 5; */
+}
+.signaturePhoto .signature-upload {
+  margin-top: 3rem;
+  margin-left: 3rem;
+  padding: 5px;
+  height: 3.5rem;
+  width: 15rem;
+  padding: 5px;
+  border: solid 1px green;
+  border-radius: 5px;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.signaturePhoto img {
+  height: 70%;
+  width: 85%;
+  margin: auto;
+  border-radius: 20px;
 }
 
 /* second left section  */
-.location{
-    height: 90%;
-    width: 50%;
-    /* margin-top: 15px; */
-    background: #fff;
-    margin: 0px 20px;
-    /* border: 1px solid red; */
-    border-radius: 20px;
+.location {
+  height: 90%;
+  width: 50%;
+  /* margin-top: 15px; */
+  background: #fff;
+  margin: 0px 20px;
+  /* border: 1px solid red; */
+  border-radius: 20px;
 }
 
-
-.checkBoxForm label{
-    color: #777;
-    /* display: block; */
-    /* margin-bottom: 10px; */
-    /* position: relative; */
+.checkBoxForm label {
+  color: #777;
+  /* display: block; */
+  /* margin-bottom: 10px; */
+  /* position: relative; */
 }
-.catagorySelect{
-    margin-top: 6px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* justify-content: center; */
-    /* align-items: center; */
-}
-
-.selectionCheckbox{
-    width: 200px;
-    height: 30px;
-    /* background-color: #44e; */
-    margin: 0.2rem;
-    
+.catagorySelect {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  /* align-items: center; */
 }
 
-.selectionCheckbox input{
-    margin: 0.2rem;
-    /* height: 80%; */
+.selectionCheckbox {
+  width: 200px;
+  height: 30px;
+  /* background-color: #44e; */
+  margin: 0.2rem;
 }
 
-.selectionCheckbox label{
-    margin: 0.2rem;
-    font-size: 18px;
+.selectionCheckbox input {
+  margin: 0.2rem;
+  /* height: 80%; */
 }
 
+.selectionCheckbox label {
+  margin: 0.2rem;
+  font-size: 18px;
+}
 
 /* Multiple Image  */
-.MultipleImageSection{
-    /* height: 90%; */
-    min-height: 500px;
-    width: 50%;
-    background: #fff;
-    padding: 20px;
-    border-radius: 20px;
+.MultipleImageSection {
+  /* height: 90%; */
+  min-height: 500px;
+  width: 50%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-.MultipleImageSection h3{
-    margin-top: 0;
-    margin-bottom: 20px;
+.MultipleImageSection h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
-.MultipleImageSection hr{
-    margin-bottom: 20px;
+.MultipleImageSection hr {
+  margin-bottom: 20px;
 }
-.otherImages{
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: max-content ;
-    grid-gap:10px;
+.otherImages {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: max-content;
+  grid-gap: 10px;
 }
 
-.item1{
-    grid-column-start:1;
-    grid-column-end: 3;
+.upload-MultiIMAGE {
+  position: relative;
+  height: 3.5rem;
+  width: 15rem;
+  padding: 5px;
+  border: solid 1px green;
+  border-radius: 5px;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.upload-MultiIMAGE svg {
+  margin: 5px;
+  fill: green;
+  /* border: rgb(5, 5, 4) 1px solid; */
+}
+
+.upload-MultiIMAGE span {
+  position: absolute;
+  margin-top: 0.8rem;
+}
+
+.MultiIMAGE {
+  position: relative;
+  width: 300px;
+}
+
+.MultiIMAGE img {
+  border-radius: 8px;
+}
+
+.MultiIMAGE button {
+  margin: 0.25rem;
+  height: 40px;
+  width: 40px;
+  color: red;
+  background: transparent;
+  border: none;
+  /* padding: 8px; */
+  /* border-radius: 50%; */
+  /* background-color: red; */
+  position: absolute;
+  top: 0;
+  /* left: 0; */
+  right: 0;
+  z-index: 100;
 }
 
 /* Menu-section */
 
-.menuSection{
-    display: flex;
-    flex-direction: column;
-    background-color: #f0f2f5;
-    padding: 10px;
-    height: 300px;
+.menuSection {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5;
+  padding: 10px;
+  height: 600px;
+}
+
+.menu-card-container {
+  /* width: 100%; */
+  display: flex;
+  color: #333;
+  background: #eee;
+  /* background: #efef34; */
+  padding: 1rem;
+  overflow-x: auto;
+  position: relative;
+}
+
+.cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-cardItem {
+  max-width: 400px;
+  flex: 1 0 400px;
+  box-shadow: 0 1px 1rem -4px #000;
+  background: #fff;
+  margin: 1rem;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.menu-cardItem img {
+  width: 100%;
+  height: 420px;
+  object-fit: center;
+}
+
+.menu-cardItem:hover {
+  box-shadow: 0 4px 1rem -4px #000;
+  transform: translateY(-3px);
+}
+
+.card-content {
+  padding: 1rem;
 }

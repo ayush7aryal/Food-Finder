@@ -1,13 +1,31 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Qwigley&family=Rouge+Script&display=swap');
 
-.Carousel {
-  /* height: 700px; */
-  margin: 30px 20px;
+.featureCarousel{
+  height: 700px;
+  width: 1500px;
+  margin:30px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   /* margin-bottom: 20px; */
 }
+
+.carouselName{
+  font-family: 'Qwigley', cursive;
+  font-size: 90px;
+  margin-left: 10%;
+}
+
+
+.carouselDes{
+  font-family: 'Poppins', sans-serif;
+  font-size: 25px;
+  font-style: italic;
+  margin-left: 10%;
+}
+
 
 /* from below here it is css of home componenet of Popular added by jackie lhowa */
 /* *, *::before, *::after {
@@ -15,50 +33,83 @@
     padding: 0;
   } */
 
-.PopularHeading {
-  text-align: center;
-  margin-top: 50px;
-}
+  .PopularHeading{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    position: relative;
+  }
 
-.cards-container {
-  display: flex;
-  color: #333;
-  background: #eee;
-  padding: 1rem;
-  overflow-x: auto;
-  position: relative;
-}
+  .PopularHeading::after{
+    position: absolute;
+    content: '';
+    height: 3px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: -10px; 
+    width: 10%;
+    background: #E75A03;
+  }
+  
+  
+  
+  .cards-container {
+    display: flex;
+    height: fit-content;
+    color: #333;
+    background: #eee;
+    padding: 1rem;
+    overflow-x: auto;
+    position: relative;
+  }
 
-.cards-container::-webkit-scrollbar {
-  display: none;
-}
+  .cards-container::-webkit-scrollbar{
+      display: none;
+  }
+  
+  .cardPop {
+    /* flex: 1 0 300px; */
+    width: fit-content;
+    min-width: 400px;
+    height: auto;
+    box-shadow: 0 1px 1rem -4px #000;
+    background: #fff;
+    margin: 1rem;
+    overflow: hidden;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 250ms ease-in-out;  
+  }
 
-.card {
-  flex: 1 0 450px;
-  box-shadow: 0 1px 1rem -4px #000;
-  background: #fff;
-  margin: 1rem;
-  overflow: hidden;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 250ms ease-in-out;
-}
+  .cardPop:hover{
+    box-shadow: 0 4px 1rem -4px #000;
+    transform: translateY(-3px);    
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
 
-.card img {
-  width: 450px;
-  height: 420px;
-  object-fit: center;
-}
 
-.card:hover {
-  box-shadow: 0 4px 1rem -4px #000;
-  transform: translateY(-3px);
-}
+  @media only screen and (max-width: 600px) {
+    .PopularHeading{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .PopularHeading::after{ 
+      width: 45%;
+    }
 
-.card-content {
-  padding: 1rem;
-}
+    .cardPop {
+      /* flex: 1 0 300px; */
+      width: fit-content;
+      min-width: 250px;
+      height: 250px;
 
+    }
+  
+  }
 /* from below here it is css of home componenet of About us added by jackie lhowa */
 
 .About-container {
@@ -83,6 +134,21 @@
 .aboutContent h1 {
   width: 70%;
   text-align: center;
+  position: relative;
+  margin-bottom: 2rem;
+
+}
+
+.aboutContent h1::after{
+  position: absolute;
+  content: '';
+  height: 3px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: -5px; 
+  width: 20%;
+  background: #E75A03;
 }
 
 .aboutContent p {
@@ -99,9 +165,40 @@
   justify-content: center;
   align-items: center;
 }
-.aboutImg img {
-  width: 100%;
+.aboutImg img{
+  
+  min-width: 75%;
   height: 80%;
   object-fit: center;
   /* border: 1px solid #452562; */
+}
+
+@media only screen and (max-width: 600px) {
+  .About-container{
+   
+    
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    font-family: 'Poppins', sans-serif;
+  }
+  .aboutContent{
+    min-width: 100%;
+    margin: 0;
+  }  
+  .aboutContent p{
+    width: 100%;
+  }
+  .aboutImg{
+    visibility: hidden;
+    display: none;  
+    width: 0%;
+    max-width: 0px;
+  }
+  .aboutImg img{
+    visibility: hidden;
+    display: none;  
+    width: 0%;
+  }
+  
 }

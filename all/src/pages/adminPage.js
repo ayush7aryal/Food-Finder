@@ -75,7 +75,7 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { Image } from "cloudinary-react";
-// import "../css_styles/adminPage.css"
+import "../css_styles/adminPage.css"
 
 //for set Featured button
 const setFeatured = async (id) => {
@@ -155,14 +155,17 @@ const AdminPage = () => {
             key={result + index}
             cloudName="foodfinder"
             publicId={result.mainPhoto}
-            width="200"
+            width="250"
             height="150"
             crop="scale"/>
         </div>
         <div className = "text">{result.name}</div>
         {/* { console.log("Results: ",result)} */}
-        <button onClick = {()=>setFeatured(result.id)} className = "featureBtn">Feature This</button>
-        <button onClick = {()=>cancelFeatured()} className = "cancelBtn" >Cancel Feature</button>
+        {(result.featured !== 1) 
+        ? (<button onClick = {()=>setFeatured(result.id)} className = "featureBtn">Feature This</button>) 
+        :(<button className = "featureBtnAfter"> Featured Now </button>) 
+        }
+        {(result.featured === 1) &&<button onClick = {()=>cancelFeatured()} className = "cancelBtn" >Cancel Feature</button>}
         </div>
     )  
   }

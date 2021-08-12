@@ -217,4 +217,50 @@
     transform: translateY(-3px);    
   } 
 
+  @media only screen and (max-width: 600px){
+    .search-section {
+      width: 95%;
+      /* margin-left: 2rem; */
+      margin: auto;
+      margin-top: 50px;
+      border-radius: 30px;
+    }
+   
+    .search-change-section {
+      font-size: 16px;
+      padding: 10px 0px 10px 20px;
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+    .selection{
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      /* justify-content:flex-end; */
+      align-items:flex-end;
+      /* background: #6c6c6c; */
+      /* margin:15px ; */
+      font-size: 18px;
+    }
+
+    .selectionChild1{
+      width: 100px;
+      margin-top: 0.5rem;
+      margin-right: 0.5rem;
+      padding: 0;
+  
+    }
+    .selectionChild1 select{
+      font-size: 10px;
+      padding: 0.2rem;
+    }
+    .selection label{
+      margin:auto;
+      margin-top: 20px;
+    }
+    .selectionChild2{
+      margin: 20px 0px;
+    }
+  }
   

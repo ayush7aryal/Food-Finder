@@ -56,7 +56,8 @@ class dashboard extends Component {
         this.onChangeText =this.onChangeText.bind(this);
         this.onClickText =this.onClickText.bind(this);
 
-        this.filtering = this.filtering.bind(this);
+        this.filteringRestaurant = this.filteringRestaurant.bind(this);
+        this.filteringMenu = this.filteringMenu.bind(this);
         this.onSorting = this.onSorting.bind(this);
         this.calculateDistance = this.calculateDistance.bind(this);
         this.rendersuggestions = this.rendersuggestions.bind(this);
@@ -108,12 +109,18 @@ class dashboard extends Component {
     }
 
     // filteringsection left cuz  of no catagory in menu
-    filtering(category) {
+    filteringRestaurant(category) {
         
         let filtered = this.state.holdSuggestion.filter(result => result.category.includes(category));
         console.log(filtered);
         console.log(category);
         
+        this.setState(() => ({suggestions: filtered}));
+    }
+    filteringMenu(catagoryName){
+        let filtered = this.state.holdSuggestion.filter(result => result.menu.catagory.includes(catagoryName));
+        console.log(filtered);
+        console.log(catagoryName);
         this.setState(() => ({suggestions: filtered}));
     }
 
@@ -193,11 +200,11 @@ class dashboard extends Component {
                 </div>
 
                 <label>Catagories</label>
-                
+          
                 <div className="selectionChild2">
                     {this.state.menuCatagory.map((cata,index) => (
                         <div key={index} className="Particularcata" 
-                        // onClick={()=>this.filtering(cata.name)} 
+                        onClick={()=>this.filteringMenu(cata.name)} 
                         activeStyle={{
                             fontWeight: "bold",
                             color: "red"
@@ -310,7 +317,7 @@ class dashboard extends Component {
                     </div>
                     <div className="search-select2">
                         <input className="search-input" value={this.state.text} onChange={this.onChangeText} placeholder={`Enter ${this.state.searchTerm} name...`}/>
-                        <button className="search-btn" onClick={this.onClickText}><img src={searchIcon}/></button>                        
+                        <button className="search-btn" onClick={this.onClickText}><img alt="" src={searchIcon}/></button>                        
                     </div>
                     
                 </div>
@@ -344,4 +351,3 @@ function calcCrow(latitude1, lon1, latitude2, lon2)
     {
         return Value * Math.PI / 180;
     }
-

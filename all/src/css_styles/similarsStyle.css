@@ -195,6 +195,19 @@
   /* border: 1px solid #452562; */
 }
 
+.container:hover{
+  cursor: pointer;
+}
+
+.menu-item-wrapper>.container{
+  width: 200px;
+  overflow: hidden;
+}
+
+.similarText{
+  word-wrap: break-word;
+}
+
 /* .container{
     height: auto;
     width: 180px;
