@@ -210,14 +210,6 @@ class restaurant extends Component {
     }
   }
 
-  getMenu(menu) {
-    const res = { ...this.state.Restaurant };
-    res.menus.push(menu);
-    this.setState({
-      Restaurant: res,
-    });
-  }
-
   //showMore(){
   //    this.setState((load)=>{
   //const added = this.state.Restaurant.menus.map((count) => { return count = count + 1 }, 0)
@@ -351,6 +343,15 @@ class restaurant extends Component {
       return <div className="Menu">{menus}</div>;
     };
 
+    function getMenu(menu) {
+      const res = { ...this.state.Restaurant };
+      res.menus.push(menu);
+      this.setState({
+        Restaurant: res,
+      });
+      editRestaurant();
+    }
+
     const menuButton = () => {
       return (
         <div
@@ -361,7 +362,7 @@ class restaurant extends Component {
           }}
           className="menuTxt">
           <label>Menu</label>
-          <Menu style={{ marginRight: 10 }} sendDataToParent={this.getMenu} />
+          <Menu style={{ marginRight: 10 }} sendDataToParent={getMenu} dataFromParent={this.state.Restaurant.id} />
         </div>
       );
     };
