@@ -289,7 +289,18 @@ class restaurant extends Component {
         </h1>
         <div className="info">
           <div className="Images">{renderImages()}</div>
+          <div>
+            <ul>
+                  <li key="contact" className="contacts">
+                    Contact: <u>{this.state.Restaurant.contact}</u>
+                  </li>
+                  <li key="email" className="contacts">
+                    {this.state.Restaurant.email}
+                  </li>
+            </ul>
+          </div>
           <div style={{ marginLeft: 25 }}>{renderCategory()}</div>
+          
           <div className="text" id="description">
             <div style={{ fontSize: 18 }}>Description</div>
             {this.state.Restaurant.description}
@@ -347,14 +358,7 @@ class restaurant extends Component {
             </div>
             <div id="catcon">
               <div id="bestSellerTitle">
-                <ul>
-                  <li key="contact" className="contacts">
-                    Contact: <u>{this.state.Restaurant.contact}</u>
-                  </li>
-                  <li key="email" className="contacts">
-                    {this.state.Restaurant.email}
-                  </li>
-                </ul>
+               
               </div>
             </div>
           </div>

@@ -4,6 +4,8 @@ import axios from "axios";
 import Carousel from "react-material-ui-carousel";
 import "../css_styles/homeComponent.css";
 import AboutFood from "./images/foodAbout.png";
+import "../css_styles/adminPage.css"
+
 
 class home extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class home extends Component {
         description: "",
         contact: "",
         photo: [],
+        mainPhoto: ""
       },
       Restaurant: [
         {
@@ -115,13 +118,14 @@ class home extends Component {
       await axios
         .get("http://localhost:5000/admin/getFeatured")
         .then((result) => {
-          if (!result.data.msg) {
+          //if (!result.data.msg) {
             const fRes = result.data;
             this.state.featuredRes.id = fRes.id;
             this.state.featuredRes.name = fRes.name;
             this.state.featuredRes.description = fRes.description;
             this.state.featuredRes.contact = fRes.contact;
-          }
+            this.state.featuredRes.mainPhoto = fRes.mainPhoto;
+            //}
           console.log(this.state.featuredRes)
         });
       if (this.state.featuredRes.id !== '') {
@@ -139,29 +143,44 @@ class home extends Component {
 
   render() {
 
-    const renderImages = () => {
-      const images = this.state.images.map((result, index) => {
-        return (
+    const renderFeatured = () =>{
+
+      return(
+        <div className = "featureBody">
+          <div className = "featureImg">
           <Image
-            key={result + index}
+            style={{width:"100%",height:"100%"}}
+            key={this.state.featuredRes.id}
             cloudName="foodfinder"
-            publicId={result}
-            width="1400"
-            height="700"
+            publicId={this.state.featuredRes.mainPhoto}
+            width="700"
+            height="300"
             crop="scale"
           />
-        );
-      });
-
-      // return (<Carousel slides={images} autoplay={true} interval={1000}/>)
-      return (
-        <div className="Carousel">
-          <Carousel navButtonsAlwaysVisible="true" animation="slide">
-            {images}
-          </Carousel>
+          </div>
+          <div className = "featureRestaurant">
+            <div className="featureRestaurantSec">
+              <span className="featureSpan1">{this.state.featuredRes.name}</span>
+              <span className="featureSpan2">{this.state.featuredRes.description}</span>
+              <button 
+                onClick = {() => window.location = `http://localhost:3000/restaurant/${this.state.featuredRes.id}`} 
+                className="viewMoreBtn">
+                <span>View More</span> 
+                <svg width="13px" height="10px" viewBox="0 0 13 10">
+                  <path d="M1,5 L11,5"></path>
+                  <polyline points="8 1 12 5 8 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <svg class="arrows">
+							<path class="a1" d="M0 0 L30 32 L60 0"></path>
+							<path class="a2" d="M0 20 L30 52 L60 20"></path>
+							<path class="a3" d="M0 40 L30 72 L60 40"></path>
+						</svg>
+          </div>
         </div>
       );
-    };
+    }
 
     const renderPopularity = () => {
       // console.log("state: ", this.state.cardsData[0].name);
@@ -171,13 +190,15 @@ class home extends Component {
       }
 
       const Card = (props) => (
-        <div className="card" onClick={() => handlingClickedCard(props)}>
+        <div className="cardPop" onClick={() => handlingClickedCard(props)}>
           <Image
+            style={{width:"100%",height:"80%"}}
             key={props.id}
             cloudName="foodfinder"
             publicId={props.imgUrl}
-            width="450"
-            height="420"
+            width="500"
+            height="500"
+            responsive="true"
             crop="scale"
           />
           <div className="card-content">
@@ -216,7 +237,7 @@ class home extends Component {
         <div className="About-container">
           <div className="aboutContent">
             <h1>About us</h1>
-            <hr style={{ width: "40%" }} />
+            
             <p>
               The problem with this syntax is that a different callback is
               created each time the LoggingButton renders. In most cases, this
@@ -234,7 +255,7 @@ class home extends Component {
     };
     return (
       <div>
-        <div>{renderImages()}</div>
+        <div>{renderFeatured()}</div>
         {this.state.cardsData[0] && <div>{renderPopularity()}</div>}
         <div>{renderAboutUs()}</div>
       </div>

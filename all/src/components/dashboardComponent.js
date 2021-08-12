@@ -200,7 +200,7 @@ class dashboard extends Component {
                 </div>
 
                 <label>Catagories</label>
-                
+          
                 <div className="selectionChild2">
                     {this.state.menuCatagory.map((cata,index) => (
                         <div key={index} className="Particularcata" 
@@ -351,4 +351,3 @@ function calcCrow(lat1, lon1, lat2, lon2)
     {
         return Value * Math.PI / 180;
     }
-

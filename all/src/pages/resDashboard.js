@@ -14,13 +14,13 @@ const Restaurant = () => {
     const config = {
       withCredentials: true,
     };
-    if (localStorage.getItem("isLogged") === "true") {
-      axios
-        .get("http://localhost:5000/user/refreshToken", config)
-        .then((res) => {
+    if(localStorage.getItem("isLogged") === "true")
+      {
+        axios.get("http://localhost:5000/user/refreshToken", config).then((res) => {
           setRole(res.data.user.role);
         });
-    }
+      }
+
   });
 
   const TabsRender = () => {
