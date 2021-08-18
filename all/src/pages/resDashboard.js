@@ -14,13 +14,13 @@ const Restaurant = () => {
     const config = {
       withCredentials: true,
     };
-    if(localStorage.getItem("isLogged") === "true")
-      {
-        axios.get("http://localhost:5000/user/refreshToken", config).then((res) => {
+    if (localStorage.getItem("isLogged") === "true") {
+      axios
+        .get("http://localhost:5000/user/refreshToken", config)
+        .then((res) => {
           setRole(res.data.user.role);
         });
-      }
-
+    }
   });
 
   const TabsRender = () => {
@@ -32,14 +32,16 @@ const Restaurant = () => {
               className={toggle ? "tab tab-active" : "tab"}
               onClick={() => {
                 setToggle(true);
-              }}>
+              }}
+            >
               Info
             </li>
             <li
               className={toggle ? "tab" : "tab  tab-active"}
               onClick={() => {
                 setToggle(false);
-              }}>
+              }}
+            >
               Order
             </li>
           </ul>

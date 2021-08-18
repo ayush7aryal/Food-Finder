@@ -1,11 +1,11 @@
-.location h3{
-    margin: 2rem 0 0 1rem ;
+.location h3 {
+  margin: 2rem 0 0 1rem;
 }
 /* .mapcontainer{
     margin: 0;
     height: 60vh;
     max-height: 500px; */
-    /* width: 90vw;
+/* width: 90vw;
 }
 
 /* .map-gl{
@@ -30,28 +30,28 @@
     max-width: 800px;
 }
 
-
-.getloc{
-    /* position: relative; */
-    position: absolute;
-    bottom: 95%;
-    left: 80%;
+.getloc {
+  /* position: relative; */
+  position: absolute;
+  bottom: 95%;
+  left: 80%;
 }
 
-
-
-.latitude,.longitude{
-    padding: 20px;
-    font-size: 1.3rem;
+.latitude,
+.longitude {
+  padding: 20px;
+  font-size: 1.3rem;
 }
 
-.latitude input,.longitude input{
-    margin: 5px;
-    border: 2px solid #999;
-    padding: 5px;
+.latitude input,
+.longitude input {
+  margin: 5px;
+  border: 2px solid #999;
+  padding: 5px;
 }
 
-.latitude input:focus,.longitude input:focus{
-    outline: none;
-    border: 2px solid #2596be;
+.latitude input:focus,
+.longitude input:focus {
+  outline: none;
+  border: 2px solid #2596be;
 }

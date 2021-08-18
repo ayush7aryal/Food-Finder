@@ -249,7 +249,7 @@ export default class resRegister extends Component {
         { id: this.state.id },
         config
       );
-      window.location= `http://localhost:3000/restaurant/${this.state.id}`;
+      window.location = `http://localhost:3000/restaurant/${this.state.id}`;
     } catch (err) {
       alert(err);
     }
@@ -353,48 +353,7 @@ export default class resRegister extends Component {
   }
 
 
-  renderMenu(){
-    const { menu } = this.state;
-    const CardContainer = (props) => (
-      <div className="card-container">
-        {menu.map((item, index) => 
-              <Card 
-                  itemProp = {item}
-                  title={item.title} 
-                  imgUrl={item.image}
-                  key = {item.index}
-                  />  
-          )}
-      </div>
-    );
-
-    const Card = (props) => (
-        <div className='cardItem' onClick = {()=> this.menuSelected(props.itemProp)}>  
-            <Image
-                    key={props.key}
-                    cloudName='foodfinder'
-                    publicId={props.imgUrl}
-                    width='250'
-                    height='250'
-                    crop='scale'
-                />
-            <div className="card-content">
-            <h2>{ props.title }</h2>
-            </div>
-        </div>
-    );
-
-    return<CardContainer/>
-  }
   
-  menuSelected(value){
-    this.setState({
-      text : value.title,
-      suggestions: [],
-    });
-    console.log(value)
-    window.location = `http://localhost:3000/restaurant/${value.id}`
-}
 
   render() {
     const Checkbox = (props) => (
