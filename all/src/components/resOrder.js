@@ -9,6 +9,7 @@ const ResOrder = () => {
   var [orderList, setList] = useState([]);
   const [tabToggle, setTab] = useState("Pending");
   const [popActive, setPop] = useState(false);
+  const [popMap, setPopMap] = useState(-1);
 
   useEffect(() => {
     let config = {
@@ -29,25 +30,13 @@ const ResOrder = () => {
     return;
   });
 
-  const popOpen = () => {
-    setPop(true);
-  };
   const popClose = () => {
     setPop(false);
+    setPopMap(-1);
   };
 
   const userInfo = (result) => {
     return (
-      // <div>
-      //   <div>
-      //     <label>
-      //       {result.user.firstName} {result.user.lastName}
-      //     </label>
-      //     <label>{result.user.email}</label>
-      //     <label>{result.user.phone}</label>
-      //   </div>
-      //   <Map getty={result.location} />
-      // </div>
       <>
         <div
           className={
@@ -61,14 +50,22 @@ const ResOrder = () => {
             </button>
           </div>
           <div className="pop-body flex-pop">
-            <div className="popBody-info">
-              <label>
-                {result.user.firstName} {result.user.lastName}
-              </label>
-              <label>{result.user.email}</label>
-              <label>{result.user.phone}</label>
+            <div className="popBody-info" style={{ minWidth: "600px" }}>
+              <Map sendLocation={(e) => {}} getty={result.location} />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  fontSize: "20px",
+                  fontWeight: "650",
+                }}>
+                <label>
+                  Name: {result.user.firstName} {result.user.lastName}
+                </label>
+                <label>Email: {result.user.email}</label>
+                <label>Phone: {result.user.phone}</label>
+              </div>
             </div>
-            <Map getty={result.location} />
           </div>
         </div>
         <div
@@ -127,10 +124,8 @@ const ResOrder = () => {
     const orders = filtered.map((result, index) => {
       return (
         <>
-          <div style={{cursor: 'pointer'}}
-            onClick={() => {
-              setPop(true);
-            }}
+          <div
+            style={{ cursor: "pointer" }}
             key={index + "key"}
             className="order">
             <div className="orderInfos">
@@ -142,7 +137,12 @@ const ResOrder = () => {
                 width="200"
                 crop="scale"
               />
-              <div className="orderInfo">
+              <div
+                onClick={() => {
+                  setPop(true);
+                  setPopMap(index);
+                }}
+                className="orderInfo">
                 <label>Title: {result.menu.title}</label>
                 <br />
                 <label>Quantity: {result.quantity}</label>
@@ -154,15 +154,40 @@ const ResOrder = () => {
             </div>
 
             {tabToggle === "Pending" && (
-              <div className="btns" style={{display: 'flex', flexDirection: 'column', padding: '25px'}}>
-                <button style={{border: 'none', fontWeight: '700', marginBottom: '10px', background: 'none', backgroundColor: 'green', color: 'white', padding:'10px', borderRadius: '24px'}}
+              <div
+                className="btns"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "25px",
+                }}>
+                <button
+                  style={{
+                    border: "none",
+                    fontWeight: "700",
+                    marginBottom: "10px",
+                    background: "none",
+                    backgroundColor: "green",
+                    color: "white",
+                    padding: "10px",
+                    borderRadius: "24px",
+                  }}
                   value="Accepted"
                   onClick={(e) => {
                     order(index, e);
                   }}>
                   Accept Order
                 </button>
-                <button style={{border: 'none', fontWeight: '700',background: 'none', backgroundColor: 'red', color: 'white', padding:'10px', borderRadius: '24px'}}
+                <button
+                  style={{
+                    border: "none",
+                    fontWeight: "700",
+                    background: "none",
+                    backgroundColor: "red",
+                    color: "white",
+                    padding: "10px",
+                    borderRadius: "24px",
+                  }}
                   value="Rejected"
                   onClick={(e) => {
                     order(index, e);
@@ -172,7 +197,7 @@ const ResOrder = () => {
               </div>
             )}
           </div>
-          {popActive && userInfo(result)}
+          {popActive && (popMap == index) && userInfo(result)}
         </>
       );
     });
@@ -223,12 +248,37 @@ const ResOrder = () => {
       </div>
       {renderOrders()}
       {tabToggle === "Pending" && (
-        <div style={{display: 'flex', margin: '15px 50px'}}>
-          <button style={{border: 'none', minWidth: '100px', fontWeight: '700', marginRight: '15px' ,background: 'none', backgroundColor: 'green', color: 'white', padding:'10px', borderRadius: '24px'}} value="Accepted" onClick={allClick}>
+        <div style={{ display: "flex", margin: "15px 50px" }}>
+          <button
+            style={{
+              border: "none",
+              minWidth: "100px",
+              fontWeight: "700",
+              marginRight: "15px",
+              background: "none",
+              backgroundColor: "green",
+              color: "white",
+              padding: "10px",
+              borderRadius: "24px",
+            }}
+            value="Accepted"
+            onClick={allClick}>
             Accept All
           </button>
-          
-          <button style={{border: 'none', minWidth: '100px', fontWeight: '700', background: 'none', backgroundColor: 'red', color: 'white', padding:'10px', borderRadius: '24px'}} value="Rejected" onClick={allClick}>
+
+          <button
+            style={{
+              border: "none",
+              minWidth: "100px",
+              fontWeight: "700",
+              background: "none",
+              backgroundColor: "red",
+              color: "white",
+              padding: "10px",
+              borderRadius: "24px",
+            }}
+            value="Rejected"
+            onClick={allClick}>
             Reject All
           </button>
         </div>

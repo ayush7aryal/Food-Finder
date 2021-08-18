@@ -55,6 +55,10 @@
   padding: 10px 15px;
 }
 
+.mapBody{
+  min-width: 700px;
+}
+
 .pop-body > * {
   width: 100%;
   overflow: hidden;

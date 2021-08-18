@@ -102,16 +102,16 @@ const Cart = () => {
     });
   };
 
-  const setLoc = () => {
+  const setLoc = async() => {
     let config = {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     };
-    const tLoc = tempLoc;
+    const tLoc = {...tempLoc};
     setLocation(tLoc);
     setPop(false);
-    axios.post(
+    await axios.post(
       "http://localhost:5000/user/update",
       {
         dLoc,
@@ -255,8 +255,8 @@ const Cart = () => {
             &times;
           </button>
         </div>
-        <div className="pop-body">
-          <Map  sendLocation={sendLocation} />
+        <div className="pop-body mapBody">
+          <Map sendLocation={sendLocation} />
         </div>
         <div onClick={setLoc} className="pop-setBtn">Set Location</div>
       </div>

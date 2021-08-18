@@ -38,7 +38,7 @@ const Order = () => {
   const renderItems = () => {
     if (order[0] !== undefined || order[0] || order[0] !== null) {
       var items = order.map((result, index) => (
-        <div key={"0" + index} className="order user_order">
+        <div key={"0" + index} className="order">
           <Image
             key={index}
             cloudName="foodfinder"

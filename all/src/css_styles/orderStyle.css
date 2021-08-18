@@ -183,6 +183,7 @@ ul {
   }
   .order {
     max-width: 225px;
+    flex-direction: column;
   }
 
   .order:nth-child(even) {
