@@ -83,7 +83,7 @@ class dashboard extends Component {
         const value = this.state.text;
         let suggestions = [];
         if(value.length > 0){
-            const regex = new RegExp(`${value}`, 'i');
+            const regex = new RegExp(`^${value}`, 'i');
             if(this.state.searchTerm === 'restaurant'){
                 // console.log(this.state.restaurants);
                 suggestions = this.state.restaurants.sort().filter(v => regex.test(v.name));

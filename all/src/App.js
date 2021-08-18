@@ -81,13 +81,14 @@ function App() {
               </Link>}
               
           </ul>
+          
           </nav>
+          <hr/>
           <Switch>
           <Route exact path='/' component = {home} />
             <Route exact path="/dashboard" component={dashboard} />
             <Route exact path="/user/login" component={login} />
-            <Route exact path="/user/register" component={register} />
-           
+            <Route exact path="/user/register" component={register} />           
             <Route exact path="/restaurant/register" component={resRegister} />
             <Route exact path="/restaurant/:id" component={restaurant} />
             <Route exact path="/cart" component={CARTnORDER} />

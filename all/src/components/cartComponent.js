@@ -196,13 +196,13 @@ const Cart = () => {
   const renderCart = (total) => {
     const menus = cart.map((result, index) => {
       return (
-        <div key={"0" + index} className="container">
+        <div key={"0" + index} className="container" >
           {/*Change this &times to gps button */}
           <div>
             <div onClick={askLocation} className="locBtn">
               &times;
             </div>
-            <Image
+            <Image style={{minWidth: '200px'}}
               key={index}
               cloudName="foodfinder"
               publicId={result.menu.image}
@@ -211,7 +211,7 @@ const Cart = () => {
             />
             <div className="labels">
               <label>{result.menu.title}</label> <br />
-              <label>{result.menu.description}</label> <br />
+              {/* <label>{result.menu.description}</label> <br /> */}
               <label>Price: {result.menu.price}</label> <br />
             </div>
             <div>
@@ -222,7 +222,9 @@ const Cart = () => {
               <button onClick={() => add(index)}>+</button>
             </div>
             Price: {result.menu.price * total[index]}
-            <button onClick={() => remove(index)}>Remove from Cart</button>
+            
+          </div>
+          <button onClick={() => remove(index)}>Remove from Cart</button>
             <button
               onClick={() => {
                 if (!dLoc) {
@@ -233,7 +235,6 @@ const Cart = () => {
               }}>
               Order
             </button>
-          </div>
         </div>
       );
     });
@@ -243,8 +244,6 @@ const Cart = () => {
 
   return (
     <div>
-      <h2>Cart</h2>
-      <hr />
       {renderCart(total)}
       {cart[0] && <button onClick={() => orderAll()}>Order All</button>}
       <div

@@ -561,7 +561,7 @@ export default class resRegister extends Component {
             />
             <div>{this.renderMenu()}</div> 
           </div>
-          <input type="submit" />
+          <input className="tab tab-active" type="submit" />
         </form>
       </>
     );

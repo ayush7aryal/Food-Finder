@@ -133,7 +133,7 @@ class register extends Component {
                 <div className="formContainer">
 
                     <form onSubmit= {this.onSubmit} className="form">
-                    <h2>Register Page</h2>
+                    <h2>Register</h2>
 
                     <div class="form-control">
                         <input 

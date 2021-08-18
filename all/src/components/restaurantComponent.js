@@ -780,7 +780,7 @@ class restaurant extends Component {
         <div className="info">
           
             <div className='headName'>
-              <h1 className="text" style={{ fontSize: 30, width: 300, marginLeft: 60 }}>
+              <h1 className="text" style={{ fontSize: 30, width: 1000, marginLeft: 60 }}>
                 {this.state.Restaurant.name.toUpperCase()}
               </h1>
               <div className='editDiv'>
@@ -862,14 +862,19 @@ class restaurant extends Component {
           </div>
 
           <div className="mapElements">
-            <div className="mapImg">
+            <div className="mapImg" style={{width: '100%', minWidth: '600px'}}>
               {mapButton()}
               <Map sendLocation={(e) => {}} getty={location} />
             </div>
-            <div id="catcon">
-              <div id="bestSellerTitle">
-               
-              </div>
+            <div id="catcon" style={{float: "left", width: "80%"}}>
+            <div id="bestSellerTitle" style={{color:"white", margin: '0', width: '100%'}}>
+                  CONTACTS
+                </div>
+                <div id="bestSellerDescription" style={{color:"white"}}>
+                  {this.state.Restaurant.contact}
+                  <br />
+                  {this.state.Restaurant.email}
+                </div>
             </div>
           </div>
 

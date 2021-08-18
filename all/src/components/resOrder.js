@@ -154,15 +154,15 @@ const ResOrder = () => {
             </div>
 
             {tabToggle === "Pending" && (
-              <div className="btns">
-                <button
+              <div className="btns" style={{display: 'flex', flexDirection: 'column', padding: '25px'}}>
+                <button style={{border: 'none', fontWeight: '700', marginBottom: '10px', background: 'none', backgroundColor: 'green', color: 'white', padding:'10px', borderRadius: '24px'}}
                   value="Accepted"
                   onClick={(e) => {
                     order(index, e);
                   }}>
                   Accept Order
                 </button>
-                <button
+                <button style={{border: 'none', fontWeight: '700',background: 'none', backgroundColor: 'red', color: 'white', padding:'10px', borderRadius: '24px'}}
                   value="Rejected"
                   onClick={(e) => {
                     order(index, e);
@@ -223,15 +223,15 @@ const ResOrder = () => {
       </div>
       {renderOrders()}
       {tabToggle === "Pending" && (
-        <>
-          <button value="Accepted" onClick={allClick}>
+        <div style={{display: 'flex', margin: '15px 50px'}}>
+          <button style={{border: 'none', minWidth: '100px', fontWeight: '700', marginRight: '15px' ,background: 'none', backgroundColor: 'green', color: 'white', padding:'10px', borderRadius: '24px'}} value="Accepted" onClick={allClick}>
             Accept All
           </button>
-          <br />
-          <button value="Rejected" onClick={allClick}>
+          
+          <button style={{border: 'none', minWidth: '100px', fontWeight: '700', background: 'none', backgroundColor: 'red', color: 'white', padding:'10px', borderRadius: '24px'}} value="Rejected" onClick={allClick}>
             Reject All
           </button>
-        </>
+        </div>
       )}
     </div>
   );

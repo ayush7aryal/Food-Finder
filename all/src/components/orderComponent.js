@@ -50,10 +50,10 @@ const Order = () => {
           <div className="order_desc">
             <div id="bar"></div>
             <div className="desc">
-              <h3>{result.restaurant.name}</h3>
+              <h2>{result.restaurant.name}</h2>
               <label>{result.menu.title}</label>
-              <label>{result.menu.description}</label>
-              <label>{result.menu.price}</label>
+              {/* <label>{result.menu.description}</label> */}
+              <label>Price: {result.menu.price}</label>
               <label>Quantity: {result.quantity}</label>
               <label>
                 Total: Rs.{parseInt(result.menu.price, 10) * result.quantity}
@@ -82,7 +82,7 @@ const Order = () => {
     }
   };
 
-  return <div>{renderItems()}</div>;
+  return <div className="orders">{renderItems()}</div>;
 };
 
 export default Order;
