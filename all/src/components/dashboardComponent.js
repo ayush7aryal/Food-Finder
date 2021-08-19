@@ -111,7 +111,7 @@ class dashboard extends Component {
     // filteringsection left cuz  of no catagory in menu
     filteringRestaurant(category) {
         
-        let filtered = this.state.holdSuggestion.filter(result => result.category.includes(category));
+        let filtered = this.state.suggestions.filter(result => result.category.includes(category));
         console.log(filtered);
         console.log(category);
         
@@ -134,8 +134,9 @@ class dashboard extends Component {
           })
 
         })
-
-        const near = this.state.suggestions.map((result)=>{
+        var near;
+        if(this.state.suggestions[0]){
+        near = this.state.suggestions.map((result)=>{
           let d=calcCrow(this.state.userLocation.latitude,this.state.userLocation.longitude,result.location.latitude,result.location.longitude);
           console.log(d,result.name);
        
@@ -145,6 +146,18 @@ class dashboard extends Component {
           }
           
           })
+        } else{
+            near = this.state.restaurants.map((result)=>{
+                let d=calcCrow(this.state.userLocation.latitude,this.state.userLocation.longitude,result.location.latitude,result.location.longitude);
+                console.log(d,result.name);
+             
+                return {
+                  ...result,
+                  distance: d
+                }
+                
+                })
+        }
           
         // await this.setState({suggestions: near},()=>{console.log(this.state.suggestions,"asynSuggestions")})
 
@@ -161,7 +174,7 @@ class dashboard extends Component {
             this.calculateDistance();
             console.log("inside if sort");
         }
-
+        
         let sortedList = [...this.state.suggestions].sort((a, b) => 
             b[option] - a[option]
         );
@@ -234,7 +247,7 @@ class dashboard extends Component {
                 <div className="selectionChild2">
                     <div className="selectionChild2">
                         {this.state.restaurantCatagory.map((cata,index) => (
-                            <div key={index} className="Particularcata" onClick={() => {this.filtering(cata.name);}}>
+                            <div key={index} className="Particularcata" onClick={() => {this.filteringRestaurant(cata.name);}}>
                                 <img alt="" src={cata.img}/>
                                 <span>{cata.name}</span>
                             </div>
@@ -252,8 +265,7 @@ class dashboard extends Component {
     }
 
     rendersuggestions(){
-        const { suggestions} = this.state;
-
+        var { suggestions} = this.state;
         const CardContainer = (props) => (
             <div className="card-container">
               {suggestions.map((item, index) => 
@@ -264,6 +276,7 @@ class dashboard extends Component {
                         key = {item.id ? item.id : item.id}
                         />  
                 )}
+                
             </div>
           );
 
@@ -283,9 +296,6 @@ class dashboard extends Component {
             </div>
         );
 
-        if (suggestions.length === 0 ){
-          return <div style={{height:"33vh"}}></div>;
-        }
         return <CardContainer/>  
     }
 

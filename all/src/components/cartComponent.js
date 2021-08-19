@@ -92,6 +92,7 @@ const Cart = () => {
         config
       );
     }
+    console.log("cart removed: ",cart_removed)
     return { cart_removed };
   };
 
@@ -100,6 +101,7 @@ const Cart = () => {
       latitude: location.latitude,
       longitude: location.longitude,
     });
+    console.log("temp temp loc: ", tempLoc);
   };
 
   const setLoc = async() => {
@@ -108,7 +110,9 @@ const Cart = () => {
         Authorization: localStorage.getItem("token"),
       },
     };
+    console.log("temp Loc: ",tempLoc)
     const tLoc = {...tempLoc};
+    
     setLocation(tLoc);
     setPop(false);
     await axios.post(
@@ -194,6 +198,9 @@ const Cart = () => {
   };
 
   const renderCart = (total) => {
+    if(!cart[0]){
+      return <div style={{fontSize: '20px', textAlign: 'center'}}>Nothing in the cart. Menus will be shown after they are added to the cart!</div>
+    }
     const menus = cart.map((result, index) => {
       return (
         <div key={"0" + index} className="container" >
@@ -243,7 +250,7 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div style={{minHeight: "500px"}}>
       {renderCart(total)}
       {cart[0] && <button onClick={() => orderAll()}>Order All</button>}
       <div

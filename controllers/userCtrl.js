@@ -100,8 +100,8 @@ const userCtrl = {
   },
   updateInfo: async (req, res) => {
     try {
-      const { dLoc } = req.body;
-      await Users.updateOne({ _id: req.user.id }, { $set: { dLoc: dLoc } });
+      const { tLoc } = req.body;
+      await Users.updateOne({ _id: req.user.id }, { $set: { dLoc: tLoc } });
       res.json({ msg: "Location set success!" });
     } catch (err) {
       return res
