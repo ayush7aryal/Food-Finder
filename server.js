@@ -10,10 +10,8 @@ app.use(
   cors({
     credentials: true,
     origin: [
-      "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/",
-    ],
-    methods: ["POST", "GET"],
-    optionsSuccessStatus: 200,
+      "https://food-finder-frontend-o585zdhl3-ayush7aryals-projects.vercel.app/",
+    ]
   })
 );
 app.use(cookieParser());
