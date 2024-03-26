@@ -46,6 +46,6 @@ app.get("/", (req, res) => {
   res.json({ msg: "Dashboard!" });
 });
 
-app.listen(5000, () => {
-  console.log("Running on server 5000!");
+app.listen(3000, () => {
+  console.log("Running on server 3000!");
 });
