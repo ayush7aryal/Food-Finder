@@ -2,7 +2,7 @@
     "version":2,
     "builds": [
         {
-            "src":"*.js","use":"@verce/node"
+            "src":"*.js","use":"@vercel/node"
         }
     ],
     "routes":[
