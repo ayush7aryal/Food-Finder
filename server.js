@@ -12,7 +12,8 @@ app.use(
     origin: [
       "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/",
     ],
-    methods:["POST",'GET']
+    methods: ["POST", "GET"],
+    optionsSuccessStatus: 200,
   })
 );
 app.use(cookieParser());
