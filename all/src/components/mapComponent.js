@@ -100,7 +100,7 @@ const Map = ({ sendLocation, getty }) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:5000/restaurant/",
+      url: "https://food-finder-seven.vercel.app/restaurant/",
     }).then((result) => {
       const all = result.data;
       setRestaurant(all);

@@ -58,7 +58,7 @@ class home extends Component {
     try {
       await axios({
         method: "get",
-        url: `http://localhost:5000/restaurant/`,
+        url: `https://food-finder-seven.vercel.app/restaurant/`,
       })
         .then((res) => {
           const Restaurant = res.data;
@@ -116,7 +116,7 @@ class home extends Component {
       });
 
       await axios
-        .get("http://localhost:5000/admin/getFeatured")
+        .get("https://food-finder-seven.vercel.app/admin/getFeatured")
         .then((result) => {
           //if (!result.data.msg) {
             const fRes = result.data;
@@ -130,7 +130,7 @@ class home extends Component {
         });
       if (this.state.featuredRes.id !== '') {
         await axios.get(
-          `http://localhost:5000/api/images/${this.state.featuredRes.id}`
+          `https://food-finder-seven.vercel.app/api/images/${this.state.featuredRes.id}`
         ).then((result)=>{
           this.state.featuredRes.photo = result.data;
           console.log("Photo: ", this.state.featuredRes.photo)

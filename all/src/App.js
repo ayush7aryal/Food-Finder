@@ -26,7 +26,7 @@ function App() {
       };
 
       await axios
-        .get("http://localhost:5000/user/refreshToken", config)
+        .get("https://food-finder-seven.vercel.app/user/refreshToken", config)
         .then((res) => {
           if (res.data.accesstoken !== null) {
             setRole(res.data.user.role);
@@ -48,7 +48,7 @@ function App() {
 
   const logout = async () => {
     await axios
-      .get("http://localhost:5000/user/logout", { withCredentials: true })
+      .get("https://food-finder-seven.vercel.app/user/logout", { withCredentials: true })
       .then((res) => {
         localStorage.removeItem("token");
       });

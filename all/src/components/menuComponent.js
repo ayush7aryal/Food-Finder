@@ -61,7 +61,7 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
         try {
               await axios({
                 method: 'post',
-                url: 'http://localhost:5000/api/upload/',
+                url: 'https://food-finder-seven.vercel.app/api/upload/',
                 data: {
                   fileStr : base64EncodedImage,
                   id: `${dataFromParent}/menus`
