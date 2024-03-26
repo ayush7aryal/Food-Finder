@@ -86,7 +86,7 @@ class login extends Component {
         });
         console.log("Logged In successfully");
         if (res.data.role === -2)
-          window.location = "http://localhost:3000/admin";
+          window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/admin";
         return res;
       });
 
@@ -125,7 +125,7 @@ class login extends Component {
             });
         }
       }
-      window.location = "http://localhost:3000/";
+      window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
     } catch (err) {
       alert(err);
     }

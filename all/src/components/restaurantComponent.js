@@ -160,7 +160,7 @@ class restaurant extends Component {
 
           if (!Restaurant) {
             alert("Could not find the restaurant you are looking for!");
-            window.location = "http://localhost:3000/";
+            window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
           } else {
             this.setState({
               Restaurant: Restaurant,
@@ -230,7 +230,7 @@ class restaurant extends Component {
     const renderSimilar = () => {
       const ren = this.state.similar.map((result, index) => {
         return (
-          <div onClick={()=>{window.location = `http://localhost:3000/restaurant/${result.id}`}} key={result.name + index} className="container">
+          <div onClick={()=>{window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${result.id}`}} key={result.name + index} className="container">
             <Image
               key={index}
               cloudName="foodfinder"

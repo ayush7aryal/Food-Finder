@@ -249,7 +249,7 @@ export default class resRegister extends Component {
         { id: this.state.id },
         config
       );
-      window.location = `http://localhost:3000/restaurant/${this.state.id}`;
+      window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${this.state.id}`;
     } catch (err) {
       alert(err);
     }
@@ -349,7 +349,7 @@ export default class resRegister extends Component {
       suggestions: [],
     });
     console.log(value)
-    window.location = `http://localhost:3000/restaurant/${value.id}`
+    window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${value.id}`
   }
 
 

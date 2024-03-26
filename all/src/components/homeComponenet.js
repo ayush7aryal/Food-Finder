@@ -70,7 +70,7 @@ class home extends Component {
 
           if (!Restaurant) {
             alert("Could not find the restaurant you are looking for!");
-            window.location = "http://localhost:3000/";
+            window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
           } else {
             this.setState({
               Restaurant: Restaurant,
@@ -163,7 +163,7 @@ class home extends Component {
               <span className="featureSpan1">{this.state.featuredRes.name}</span>
               <span className="featureSpan2">{this.state.featuredRes.description}</span>
               <button 
-                onClick = {() => window.location = `http://localhost:3000/restaurant/${this.state.featuredRes.id}`} 
+                onClick = {() => window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${this.state.featuredRes.id}`} 
                 className="viewMoreBtn">
                 <span>View More</span> 
                 <svg width="13px" height="10px" viewBox="0 0 13 10">
@@ -186,7 +186,7 @@ class home extends Component {
       // console.log("state: ", this.state.cardsData[0].name);
 
       function handlingClickedCard(props) {
-        window.location = `http://localhost:3000/restaurant/${props.id}`;
+        window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${props.id}`;
       }
 
       const Card = (props) => (

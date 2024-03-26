@@ -124,7 +124,7 @@ class register extends Component {
             alert(err)
         }
 
-        window.location = 'http://localhost:3000/'
+        window.location = 'https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/'
     }
 
     render(){

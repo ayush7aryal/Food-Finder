@@ -8,9 +8,9 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   const checkLogin = () => {
     if (localStorage.getItem("isLogged") === "true") {
-      window.location = "http://localhost:3000/restaurant/register";
+      window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/register";
     } else {
-       window.location = "http://localhost:3000/user/login";
+       window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/user/login";
     }
   };
 
@@ -56,7 +56,7 @@ const Footer = () => {
 
 const BrowseBtn = () => {
   return (
-    <button onClick={()=>window.location = "http://localhost:3000/dashboard"} className="browseBtn">
+    <button onClick={()=>window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/dashboard"} className="browseBtn">
       Browse all
     </button>
   );

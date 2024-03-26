@@ -340,7 +340,7 @@ class dashboard extends Component {
       suggestions: [],
     });
     console.log(value);
-    window.location = `http://localhost:3000/restaurant/${value.id}`;
+    window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${value.id}`;
   }
 
   changeSearchTerm(e) {
