@@ -108,7 +108,7 @@ class register extends Component {
     try {
       await axios({
         method: "post",
-        url: "/user/register/",
+        url: "https://food-finder-jade.vercel.app/user/register/",
         data: {
           firstName: this.state.firstName,
           lastName: this.state.lastName,
@@ -126,8 +126,7 @@ class register extends Component {
       alert(err);
     }
 
-    window.location =
-      "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
+    window.location = "https://food-finder-frontend.vercel.app/";
   }
 
   render() {
