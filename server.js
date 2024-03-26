@@ -9,8 +9,10 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin:
-      ["https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/"]
+    origin: [
+      "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/",
+    ],
+    methods:["POST",'GET']
   })
 );
 app.use(cookieParser());
