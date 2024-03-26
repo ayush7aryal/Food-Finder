@@ -9,7 +9,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://food-finder-three-smoky.vercel.app/",
   })
 );
 app.use(cookieParser());
