@@ -60,19 +60,19 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
     async function uploadImage(base64EncodedImage){ //for uploading images to cloudinary
         try {
               await axios({
-                method: 'post',
-                url: 'https://food-finder-jade.vercel.app/api/upload/',
+                method: "post",
+                url: "https://food-finder-jade.vercel.app/api/upload/",
                 data: {
-                  fileStr : base64EncodedImage,
-                  id: `${dataFromParent}/menus`
+                  fileStr: base64EncodedImage,
+                  id: `${dataFromParent}/menus`,
                 },
-                headers : {'content-Type': 'application/json'},
-            })
-                .then(res =>{
-                  console.log("From menu photo", res)
-                  image = res.data.public_id + '';
-                  console.log(image)
-                })
+                withCredentials: true,
+                headers: { "content-Type": "application/json" },
+              }).then((res) => {
+                console.log("From menu photo", res);
+                image = res.data.public_id + "";
+                console.log(image);
+              });
             setInput('')
             setPreview('')
             console.log("Uploaded successfully")

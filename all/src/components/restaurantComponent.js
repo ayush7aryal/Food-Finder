@@ -140,6 +140,9 @@ class restaurant extends Component {
         {
           cart: cart_item,
         },
+        {
+  withCredentials: true, // Include credentials in the request
+},
         config
       );
       console.log("Stored in database storage");
@@ -154,13 +157,15 @@ class restaurant extends Component {
       await axios({
         method: "get",
         url: `https://food-finder-jade.vercel.app/restaurant/${id}`,
+        withCredentials: true,
       })
         .then((res) => {
           const Restaurant = res.data;
 
           if (!Restaurant) {
             alert("Could not find the restaurant you are looking for!");
-            window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
+            window.location =
+              "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
           } else {
             this.setState({
               Restaurant: Restaurant,
@@ -179,6 +184,7 @@ class restaurant extends Component {
       await axios({
         method: "get",
         url: `https://food-finder-jade.vercel.app/api/images/${id}`,
+        withCredentials: true,
       })
         .then((res) => {
           const data = res.data;
@@ -192,6 +198,7 @@ class restaurant extends Component {
       await axios({
         method: "post",
         url: "https://food-finder-jade.vercel.app/restaurant/similar",
+        withCredentials: true,
         data: {
           id: id,
         },
@@ -416,7 +423,9 @@ class restaurant extends Component {
           Authorization: localStorage.getItem("token"),
         },
       };
-      await axios.post("https://food-finder-jade.vercel.app/api/destroy", publicId, config);
+      await axios.post("https://food-finder-jade.vercel.app/api/destroy", publicId,{
+  withCredentials: true, // Include credentials in the request
+}, config);
     };
 
     //edit function for all edits
@@ -432,6 +441,9 @@ class restaurant extends Component {
         .post(
           "https://food-finder-jade.vercel.app/restaurant/update",
           this.state.Restaurant,
+          {
+  withCredentials: true, // Include credentials in the request
+},
           config
         )
         .then((result, err) => {

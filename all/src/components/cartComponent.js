@@ -33,7 +33,11 @@ const Cart = () => {
         },
       };
       axios
-        .get("https://food-finder-jade.vercel.app/user/info", config)
+        .get(
+          "https://food-finder-jade.vercel.app/user/info",
+          { withCredentials: true },
+          config
+        )
         .then((res) => {
           var cart_temp = res.data.cart;
           var loc = res.data.dLoc;
@@ -89,10 +93,11 @@ const Cart = () => {
         {
           cart: temp,
         },
+        { withCredentials: true },
         config
       );
     }
-    console.log("cart removed: ",cart_removed)
+    console.log("cart removed: ", cart_removed);
     return { cart_removed };
   };
 
@@ -104,15 +109,15 @@ const Cart = () => {
     console.log("temp temp loc: ", tempLoc);
   };
 
-  const setLoc = async() => {
+  const setLoc = async () => {
     let config = {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     };
-    console.log("temp Loc: ",tempLoc)
-    const tLoc = {...tempLoc};
-    
+    console.log("temp Loc: ", tempLoc);
+    const tLoc = { ...tempLoc };
+
     setLocation(tLoc);
     setPop(false);
     await axios.post(
@@ -120,7 +125,8 @@ const Cart = () => {
       {
         dLoc,
       },
-      config
+      config,
+      { withCredentials: true }
     );
   };
 
@@ -153,7 +159,7 @@ const Cart = () => {
         "https://food-finder-jade.vercel.app/user/order",
         {
           ordered_item,
-        },
+        },{withCredentials: true,},
         config
       )
       .then((res) => {
@@ -189,7 +195,7 @@ const Cart = () => {
         "https://food-finder-jade.vercel.app/user/order",
         {
           ordered_item,
-        },
+        },{withCredentials: true,},
         config
       )
       .then((res) => {
@@ -198,18 +204,24 @@ const Cart = () => {
   };
 
   const renderCart = (total) => {
-    if(!cart[0]){
-      return <div style={{fontSize: '20px', textAlign: 'center'}}>Nothing in the cart. Menus will be shown after they are added to the cart!</div>
+    if (!cart[0]) {
+      return (
+        <div style={{ fontSize: "20px", textAlign: "center" }}>
+          Nothing in the cart. Menus will be shown after they are added to the
+          cart!
+        </div>
+      );
     }
     const menus = cart.map((result, index) => {
       return (
-        <div key={"0" + index} className="container" >
+        <div key={"0" + index} className="container">
           {/*Change this &times to gps button */}
           <div>
             <div onClick={askLocation} className="locBtn">
               &times;
             </div>
-            <Image style={{minWidth: '200px'}}
+            <Image
+              style={{ minWidth: "200px" }}
               key={index}
               cloudName="foodfinder"
               publicId={result.menu.image}
@@ -229,19 +241,19 @@ const Cart = () => {
               <button onClick={() => add(index)}>+</button>
             </div>
             Price: {result.menu.price * total[index]}
-            
           </div>
           <button onClick={() => remove(index)}>Remove from Cart</button>
-            <button
-              onClick={() => {
-                if (!dLoc) {
-                  askLocation();
-                } else {
-                  give_order(index);
-                }
-              }}>
-              Order
-            </button>
+          <button
+            onClick={() => {
+              if (!dLoc) {
+                askLocation();
+              } else {
+                give_order(index);
+              }
+            }}
+          >
+            Order
+          </button>
         </div>
       );
     });
@@ -250,12 +262,13 @@ const Cart = () => {
   };
 
   return (
-    <div style={{minHeight: "500px"}}>
+    <div style={{ minHeight: "500px" }}>
       {renderCart(total)}
       {cart[0] && <button onClick={() => orderAll()}>Order All</button>}
       <div
         className={popActive ? "pop-dialog-parent active" : "pop-dialog-parent"}
-        id="pop-dialog">
+        id="pop-dialog"
+      >
         <div className="pop-header">
           <div className="pop-title">DELIVERY LOCATION</div>
           <button onClick={popClose} className="pop-close">
@@ -265,9 +278,14 @@ const Cart = () => {
         <div className="pop-body mapBody">
           <Map sendLocation={sendLocation} />
         </div>
-        <div onClick={setLoc} className="pop-setBtn">Set Location</div>
+        <div onClick={setLoc} className="pop-setBtn">
+          Set Location
+        </div>
       </div>
-      <div onClick={popClose} className={popActive ? "overlay active" : "overlay"}></div>
+      <div
+        onClick={popClose}
+        className={popActive ? "overlay active" : "overlay"}
+      ></div>
     </div>
   );
 };

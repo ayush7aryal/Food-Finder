@@ -99,7 +99,11 @@ class login extends Component {
             },
           };
           await axios
-            .get("https://food-finder-jade.vercel.app/user/info", config)
+            .get(
+              "https://food-finder-jade.vercel.app/user/info",
+              { withCredentials: true },
+              config
+            )
             .then((res) => {
               var count = 0;
               var cart = cart_session.filter((result) => {
@@ -115,7 +119,7 @@ class login extends Component {
                   "https://food-finder-jade.vercel.app/user/addCart",
                   {
                     cart,
-                  },
+                  },{withCredentials: true,},
                   config
                 )
                 .then((res) => {

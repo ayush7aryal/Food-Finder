@@ -18,7 +18,9 @@ const ResOrder = () => {
       },
     };
     axios
-      .get("https://food-finder-jade.vercel.app/restaurant/get/order", config)
+      .get("https://food-finder-jade.vercel.app/restaurant/get/order",{
+  withCredentials: true, // Include credentials in the request
+}, config)
       .then((res) => {
         var t = res.data.orderList;
         var temp = orderList;
@@ -89,6 +91,9 @@ const ResOrder = () => {
         email: [orderList[index].user.email],
         orderList,
       },
+      {
+  withCredentials: true, // Include credentials in the request
+},
       config
     );
   };
@@ -112,6 +117,9 @@ const ResOrder = () => {
         email: email,
         orderList,
       },
+      {
+  withCredentials: true, // Include credentials in the request
+},
       config
     );
   };

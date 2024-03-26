@@ -67,6 +67,7 @@ class dashboard extends Component {
     await axios({
       method: "get",
       url: "https://food-finder-jade.vercel.app/restaurant/",
+      withCredentials: true,
     }).then((result) => {
       const all = result.data;
       this.setState({

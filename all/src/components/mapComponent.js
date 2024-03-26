@@ -101,6 +101,7 @@ const Map = ({ sendLocation, getty }) => {
     axios({
       method: "get",
       url: "https://food-finder-jade.vercel.app/restaurant/",
+      withCredentials: true,
     }).then((result) => {
       const all = result.data;
       setRestaurant(all);

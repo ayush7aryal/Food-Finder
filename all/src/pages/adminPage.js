@@ -86,7 +86,7 @@ const setFeatured = async (id) => {
     },
   };
   await axios
-    .post("https://food-finder-jade.vercel.app/admin/setFeatured", { id: id }, config)
+    .post("https://food-finder-jade.vercel.app/admin/setFeatured", { id: id },{withCredentials: true,}, config)
     .then((res) => {
       alert(res.data.msg);
     });
@@ -100,7 +100,7 @@ const cancelFeatured = async () => {
     },
   };
   await axios
-  .get("https://food-finder-jade.vercel.app/admin/cancelFeatured", config)
+  .get("https://food-finder-jade.vercel.app/admin/cancelFeatured",{withCredentials: true,}, config)
   .then((res) => {
     alert(res.data.msg);
   });
@@ -116,7 +116,7 @@ const AdminPage = () => {
     };
     if (localStorage.getItem("isLogged") === "true") {
       axios
-        .get("https://food-finder-jade.vercel.app/user/refreshToken", config)
+        .get("https://food-finder-jade.vercel.app/user/refreshToken",{withCredentials: true,}, config)
         .then((res) => {
             if(res.data.user.role === -2){
                 if(role !== true) setRole(true);
@@ -131,15 +131,14 @@ const AdminPage = () => {
     axios({
       method: "get",
       url: "https://food-finder-jade.vercel.app/restaurant/",
+      withCredentials: true,
     }).then((result) => {
       const all = result.data;
-      const temp = [...restaurants]
-      if(all !== temp)
-        {
-          setRestaurants(all) 
-        }
-      
-  });
+      const temp = [...restaurants];
+      if (all !== temp) {
+        setRestaurants(all);
+      }
+    });
     refresh();
   }
   );

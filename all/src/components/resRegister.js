@@ -192,6 +192,7 @@ export default class resRegister extends Component {
         method: "post",
         url: "https://food-finder-jade.vercel.app/api/upload/",
         data: { fileStr: base64EncodedImage, id: this.state.id },
+        withCredentials: true, // Include credentials in the request
         headers: { "content-Type": "application/json" },
       }).then((res) => {
         console.log("response from upload image", res);
@@ -236,6 +237,7 @@ export default class resRegister extends Component {
           bestSeller: this.state.menu[0],
           location: this.state.location,
         },
+        withCredentials: true, // Include credentials in the request
       }).then((res) => {
         console.log(res);
       });
@@ -247,6 +249,9 @@ export default class resRegister extends Component {
       await axios.post(
         "https://food-finder-jade.vercel.app/user/roleChange",
         { id: this.state.id },
+        {
+  withCredentials: true, // Include credentials in the request
+},
         config
       );
       window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${this.state.id}`;
@@ -282,6 +287,7 @@ export default class resRegister extends Component {
     axios({
       method: "get",
       url: "https://food-finder-jade.vercel.app/restaurant/getId",
+      withCredentials: true, // Include credentials in the request
     }).then((res) => {
       var id = res.data;
       console.log("from id call",res.data)

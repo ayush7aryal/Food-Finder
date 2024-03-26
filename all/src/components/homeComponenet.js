@@ -4,8 +4,7 @@ import axios from "axios";
 import Carousel from "react-material-ui-carousel";
 import "../css_styles/homeComponent.css";
 import AboutFood from "./images/foodAbout.png";
-import "../css_styles/adminPage.css"
-
+import "../css_styles/adminPage.css";
 
 class home extends Component {
   constructor(props) {
@@ -13,12 +12,12 @@ class home extends Component {
 
     this.state = {
       featuredRes: {
-        id: '',
+        id: "",
         name: "",
         description: "",
         contact: "",
         photo: [],
-        mainPhoto: ""
+        mainPhoto: "",
       },
       Restaurant: [
         {
@@ -70,7 +69,8 @@ class home extends Component {
 
           if (!Restaurant) {
             alert("Could not find the restaurant you are looking for!");
-            window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
+            window.location =
+              "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
           } else {
             this.setState({
               Restaurant: Restaurant,
@@ -85,6 +85,7 @@ class home extends Component {
         const val = await axios({
           method: "get",
           url: `http://www.mapquestapi.com/geocoding/v1/reverse?key=YoqS9w9cHGAvG28dQBhg19RhJmAZEm7G&location=${res.location.latitude},${res.location.longitude}&includeRoadMetadata=true&includeNearestIntersection=true`,
+          withCredentials: true,
         })
           .then((result) => {
             const link = result.data.results[0].locations[0];
@@ -116,25 +117,30 @@ class home extends Component {
       });
 
       await axios
-        .get("https://food-finder-jade.vercel.app/admin/getFeatured")
+        .get("https://food-finder-jade.vercel.app/admin/getFeatured", {
+          withCredentials: true,
+        })
         .then((result) => {
           //if (!result.data.msg) {
-            const fRes = result.data;
-            this.state.featuredRes.id = fRes.id;
-            this.state.featuredRes.name = fRes.name;
-            this.state.featuredRes.description = fRes.description;
-            this.state.featuredRes.contact = fRes.contact;
-            this.state.featuredRes.mainPhoto = fRes.mainPhoto;
-            //}
-          console.log(this.state.featuredRes)
+          const fRes = result.data;
+          this.state.featuredRes.id = fRes.id;
+          this.state.featuredRes.name = fRes.name;
+          this.state.featuredRes.description = fRes.description;
+          this.state.featuredRes.contact = fRes.contact;
+          this.state.featuredRes.mainPhoto = fRes.mainPhoto;
+          //}
+          console.log(this.state.featuredRes);
         });
-      if (this.state.featuredRes.id !== '') {
-        await axios.get(
-          `https://food-finder-jade.vercel.app/api/images/${this.state.featuredRes.id}`
-        ).then((result)=>{
-          this.state.featuredRes.photo = result.data;
-          console.log("Photo: ", this.state.featuredRes.photo)
-        })
+      if (this.state.featuredRes.id !== "") {
+        await axios
+          .get(
+            `https://food-finder-jade.vercel.app/api/images/${this.state.featuredRes.id}`,
+            { withCredentials: true }
+          )
+          .then((result) => {
+            this.state.featuredRes.photo = result.data;
+            console.log("Photo: ", this.state.featuredRes.photo);
+          });
       }
     } catch (err) {
       alert(err);
@@ -142,30 +148,35 @@ class home extends Component {
   }
 
   render() {
-
-    const renderFeatured = () =>{
-
-      return(
-        <div className = "featureBody">
-          <div className = "featureImg">
-          <Image
-            style={{width:"100%",height:"100%"}}
-            key={this.state.featuredRes.id}
-            cloudName="foodfinder"
-            publicId={this.state.featuredRes.mainPhoto}
-            width="700"
-            height="300"
-            crop="scale"
-          />
+    const renderFeatured = () => {
+      return (
+        <div className="featureBody">
+          <div className="featureImg">
+            <Image
+              style={{ width: "100%", height: "100%" }}
+              key={this.state.featuredRes.id}
+              cloudName="foodfinder"
+              publicId={this.state.featuredRes.mainPhoto}
+              width="700"
+              height="300"
+              crop="scale"
+            />
           </div>
-          <div className = "featureRestaurant">
+          <div className="featureRestaurant">
             <div className="featureRestaurantSec">
-              <span className="featureSpan1">{this.state.featuredRes.name}</span>
-              <span className="featureSpan2">{this.state.featuredRes.description}</span>
-              <button 
-                onClick = {() => window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${this.state.featuredRes.id}`} 
-                className="viewMoreBtn">
-                <span>View More</span> 
+              <span className="featureSpan1">
+                {this.state.featuredRes.name}
+              </span>
+              <span className="featureSpan2">
+                {this.state.featuredRes.description}
+              </span>
+              <button
+                onClick={() =>
+                  (window.location = `https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/restaurant/${this.state.featuredRes.id}`)
+                }
+                className="viewMoreBtn"
+              >
+                <span>View More</span>
                 <svg width="13px" height="10px" viewBox="0 0 13 10">
                   <path d="M1,5 L11,5"></path>
                   <polyline points="8 1 12 5 8 9"></polyline>
@@ -173,14 +184,14 @@ class home extends Component {
               </button>
             </div>
             <svg class="arrows">
-							<path class="a1" d="M0 0 L30 32 L60 0"></path>
-							<path class="a2" d="M0 20 L30 52 L60 20"></path>
-							<path class="a3" d="M0 40 L30 72 L60 40"></path>
-						</svg>
+              <path class="a1" d="M0 0 L30 32 L60 0"></path>
+              <path class="a2" d="M0 20 L30 52 L60 20"></path>
+              <path class="a3" d="M0 40 L30 72 L60 40"></path>
+            </svg>
           </div>
         </div>
       );
-    }
+    };
 
     const renderPopularity = () => {
       // console.log("state: ", this.state.cardsData[0].name);
@@ -192,7 +203,7 @@ class home extends Component {
       const Card = (props) => (
         <div className="cardPop" onClick={() => handlingClickedCard(props)}>
           <Image
-            style={{width:"100%",height:"80%"}}
+            style={{ width: "100%", height: "80%" }}
             key={props.id}
             cloudName="foodfinder"
             publicId={props.imgUrl}
@@ -237,7 +248,7 @@ class home extends Component {
         <div className="About-container">
           <div className="aboutContent">
             <h1>About us</h1>
-            
+
             <p>
               The problem with this syntax is that a different callback is
               created each time the LoggingButton renders. In most cases, this

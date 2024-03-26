@@ -105,21 +105,21 @@ class register extends Component {
 
         try {
             await axios({
-                method: 'post',
-                url: 'https://food-finder-jade.vercel.app/user/register/',
-                data: {
-                    firstName: this.state.firstName,
-                    lastName: this.state.lastName,
-                    email: this.state.email,
-                    phone: parseInt(this.state.phone, 10),
-                    password: this.state.password
-                },
-                headers : {'content-Type': 'application/json'},
-            })
-                .then((res)=>{
-                    // console.log(res.data)
-                    localStorage.setItem('token', res.data.accesstoken)
-                })
+              method: "post",
+              url: "https://food-finder-jade.vercel.app/user/register/",
+              data: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                phone: parseInt(this.state.phone, 10),
+                password: this.state.password,
+              },
+              withCredentials: true,
+              headers: { "content-Type": "application/json" },
+            }).then((res) => {
+              // console.log(res.data)
+              localStorage.setItem("token", res.data.accesstoken);
+            });
         } catch (err) {
             alert(err)
         }
