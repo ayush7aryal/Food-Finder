@@ -11,7 +11,7 @@ const Order = () => {
         Authorization: localStorage.getItem("token"),
       },
     };
-    axios.get("https://food-finder-seven.vercel.app/user/getOrder", config).then((res) => {
+    axios.get("https://food-finder-jade.vercel.app/user/getOrder", config).then((res) => {
       const temp_data = res.data.order;
       const temp_order = order;
       if (temp_data.order !== temp_order) {
@@ -27,7 +27,7 @@ const Order = () => {
       },
     };
     const temp = [...order];
-    axios.post("https://food-finder-seven.vercel.app/user/cancel",{
+    axios.post("https://food-finder-jade.vercel.app/user/cancel",{
       order: temp, 
       index
     },config).then((res)=>{

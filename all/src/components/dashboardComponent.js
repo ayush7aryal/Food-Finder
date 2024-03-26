@@ -66,7 +66,7 @@ class dashboard extends Component {
   async componentDidMount() {
     await axios({
       method: "get",
-      url: "https://food-finder-seven.vercel.app/restaurant/",
+      url: "https://food-finder-jade.vercel.app/restaurant/",
     }).then((result) => {
       const all = result.data;
       this.setState({

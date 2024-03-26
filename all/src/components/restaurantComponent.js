@@ -136,7 +136,7 @@ class restaurant extends Component {
       console.log("Stored in session storage");
     } else {
       axios.post(
-        "https://food-finder-seven.vercel.app/user/addCart",
+        "https://food-finder-jade.vercel.app/user/addCart",
         {
           cart: cart_item,
         },
@@ -153,7 +153,7 @@ class restaurant extends Component {
       //const RestroName= this.state.Restaurant.name;
       await axios({
         method: "get",
-        url: `https://food-finder-seven.vercel.app/restaurant/${id}`,
+        url: `https://food-finder-jade.vercel.app/restaurant/${id}`,
       })
         .then((res) => {
           const Restaurant = res.data;
@@ -178,7 +178,7 @@ class restaurant extends Component {
         .catch((err) => console.error(err));
       await axios({
         method: "get",
-        url: `https://food-finder-seven.vercel.app/api/images/${id}`,
+        url: `https://food-finder-jade.vercel.app/api/images/${id}`,
       })
         .then((res) => {
           const data = res.data;
@@ -191,7 +191,7 @@ class restaurant extends Component {
 
       await axios({
         method: "post",
-        url: "https://food-finder-seven.vercel.app/restaurant/similar",
+        url: "https://food-finder-jade.vercel.app/restaurant/similar",
         data: {
           id: id,
         },
@@ -416,7 +416,7 @@ class restaurant extends Component {
           Authorization: localStorage.getItem("token"),
         },
       };
-      await axios.post("https://food-finder-seven.vercel.app/api/destroy", publicId, config);
+      await axios.post("https://food-finder-jade.vercel.app/api/destroy", publicId, config);
     };
 
     //edit function for all edits
@@ -430,7 +430,7 @@ class restaurant extends Component {
 
       await axios
         .post(
-          "https://food-finder-seven.vercel.app/restaurant/update",
+          "https://food-finder-jade.vercel.app/restaurant/update",
           this.state.Restaurant,
           config
         )

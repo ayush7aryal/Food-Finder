@@ -33,7 +33,7 @@ const Cart = () => {
         },
       };
       axios
-        .get("https://food-finder-seven.vercel.app/user/info", config)
+        .get("https://food-finder-jade.vercel.app/user/info", config)
         .then((res) => {
           var cart_temp = res.data.cart;
           var loc = res.data.dLoc;
@@ -85,7 +85,7 @@ const Cart = () => {
         },
       };
       await axios.post(
-        "https://food-finder-seven.vercel.app/user/changeCart",
+        "https://food-finder-jade.vercel.app/user/changeCart",
         {
           cart: temp,
         },
@@ -116,7 +116,7 @@ const Cart = () => {
     setLocation(tLoc);
     setPop(false);
     await axios.post(
-      "https://food-finder-seven.vercel.app/user/update",
+      "https://food-finder-jade.vercel.app/user/update",
       {
         dLoc,
       },
@@ -150,7 +150,7 @@ const Cart = () => {
     console.log(ordered_item);
     await axios
       .post(
-        "https://food-finder-seven.vercel.app/user/order",
+        "https://food-finder-jade.vercel.app/user/order",
         {
           ordered_item,
         },
@@ -186,7 +186,7 @@ const Cart = () => {
 
     await axios
       .post(
-        "https://food-finder-seven.vercel.app/user/order",
+        "https://food-finder-jade.vercel.app/user/order",
         {
           ordered_item,
         },

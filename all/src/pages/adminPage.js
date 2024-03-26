@@ -10,7 +10,7 @@
 //     },
 //   };
 //   await axios
-//     .post("https://food-finder-seven.vercel.app/admin/setFeatured", { id: id }, config)
+//     .post("https://food-finder-jade.vercel.app/admin/setFeatured", { id: id }, config)
 //     .then((res) => {
 //       alert(res.data.msg);
 //     });
@@ -23,7 +23,7 @@
 //       Authorization: localStorage.getItem("token"),
 //     },
 //   };
-//   await axios.get("https://food-finder-seven.vercel.app/admin/cancel", config).then((res) => {
+//   await axios.get("https://food-finder-jade.vercel.app/admin/cancel", config).then((res) => {
 //     alert(res.data.msg);
 //   });
 // };
@@ -38,7 +38,7 @@
 //     };
 //     if (localStorage.getItem("isLogged") === "true") {
 //       axios
-//         .get("https://food-finder-seven.vercel.app/user/refreshToken", config)
+//         .get("https://food-finder-jade.vercel.app/user/refreshToken", config)
 //         .then((res) => {
 //             if(res.data.user.role === -2){
 //                 if(role !== true) setRole(true);
@@ -52,7 +52,7 @@
 //   useEffect(() => {
 //     axios({
 //       method: "get",
-//       url: "https://food-finder-seven.vercel.app/restaurant/",
+//       url: "https://food-finder-jade.vercel.app/restaurant/",
 //     }).then((result) => {
 //       const all = result.data;
 //       setRestaurants(all);
@@ -86,7 +86,7 @@ const setFeatured = async (id) => {
     },
   };
   await axios
-    .post("https://food-finder-seven.vercel.app/admin/setFeatured", { id: id }, config)
+    .post("https://food-finder-jade.vercel.app/admin/setFeatured", { id: id }, config)
     .then((res) => {
       alert(res.data.msg);
     });
@@ -100,7 +100,7 @@ const cancelFeatured = async () => {
     },
   };
   await axios
-  .get("https://food-finder-seven.vercel.app/admin/cancelFeatured", config)
+  .get("https://food-finder-jade.vercel.app/admin/cancelFeatured", config)
   .then((res) => {
     alert(res.data.msg);
   });
@@ -116,7 +116,7 @@ const AdminPage = () => {
     };
     if (localStorage.getItem("isLogged") === "true") {
       axios
-        .get("https://food-finder-seven.vercel.app/user/refreshToken", config)
+        .get("https://food-finder-jade.vercel.app/user/refreshToken", config)
         .then((res) => {
             if(res.data.user.role === -2){
                 if(role !== true) setRole(true);
@@ -130,7 +130,7 @@ const AdminPage = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: "https://food-finder-seven.vercel.app/restaurant/",
+      url: "https://food-finder-jade.vercel.app/restaurant/",
     }).then((result) => {
       const all = result.data;
       const temp = [...restaurants]

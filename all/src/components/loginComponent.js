@@ -70,7 +70,7 @@ class login extends Component {
       await axios(
         {
           method: "post",
-          url: "https://food-finder-seven.vercel.app/user/login/",
+          url: "https://food-finder-jade.vercel.app/user/login/",
           data: {
             email: this.state.email,
             password: this.state.password,
@@ -99,7 +99,7 @@ class login extends Component {
             },
           };
           await axios
-            .get("https://food-finder-seven.vercel.app/user/info", config)
+            .get("https://food-finder-jade.vercel.app/user/info", config)
             .then((res) => {
               var count = 0;
               var cart = cart_session.filter((result) => {
@@ -112,7 +112,7 @@ class login extends Component {
               console.log(cart);
               axios
                 .post(
-                  "https://food-finder-seven.vercel.app/user/addCart",
+                  "https://food-finder-jade.vercel.app/user/addCart",
                   {
                     cart,
                   },

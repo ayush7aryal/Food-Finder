@@ -18,7 +18,7 @@ const ResOrder = () => {
       },
     };
     axios
-      .get("https://food-finder-seven.vercel.app/restaurant/get/order", config)
+      .get("https://food-finder-jade.vercel.app/restaurant/get/order", config)
       .then((res) => {
         var t = res.data.orderList;
         var temp = orderList;
@@ -84,7 +84,7 @@ const ResOrder = () => {
     console.log(e.target.value);
     orderList[index].status = e.target.value;
     axios.post(
-      "https://food-finder-seven.vercel.app/restaurant/updateOrder",
+      "https://food-finder-jade.vercel.app/restaurant/updateOrder",
       {
         email: [orderList[index].user.email],
         orderList,
@@ -107,7 +107,7 @@ const ResOrder = () => {
       }
     }
     await axios.post(
-      "https://food-finder-seven.vercel.app/restaurant/updateOrder",
+      "https://food-finder-jade.vercel.app/restaurant/updateOrder",
       {
         email: email,
         orderList,

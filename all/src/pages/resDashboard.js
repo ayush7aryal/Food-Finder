@@ -16,7 +16,7 @@ const Restaurant = () => {
     };
     if (localStorage.getItem("isLogged") === "true") {
       axios
-        .get("https://food-finder-seven.vercel.app/user/refreshToken", config)
+        .get("https://food-finder-jade.vercel.app/user/refreshToken", config)
         .then((res) => {
           setRole(res.data.user.role);
         });

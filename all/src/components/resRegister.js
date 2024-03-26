@@ -190,7 +190,7 @@ export default class resRegister extends Component {
     try {
       const img = await axios({
         method: "post",
-        url: "https://food-finder-seven.vercel.app/api/upload/",
+        url: "https://food-finder-jade.vercel.app/api/upload/",
         data: { fileStr: base64EncodedImage, id: this.state.id },
         headers: { "content-Type": "application/json" },
       }).then((res) => {
@@ -223,7 +223,7 @@ export default class resRegister extends Component {
       //because the last uploaded photo becomes the mainPhoto as written in uploadImage function
       await axios({
         method: "post",
-        url: "https://food-finder-seven.vercel.app/restaurant/post",
+        url: "https://food-finder-jade.vercel.app/restaurant/post",
         data: {
           id: this.state.id,
           name: this.state.name,
@@ -245,7 +245,7 @@ export default class resRegister extends Component {
         },
       };
       await axios.post(
-        "https://food-finder-seven.vercel.app/user/roleChange",
+        "https://food-finder-jade.vercel.app/user/roleChange",
         { id: this.state.id },
         config
       );
@@ -281,7 +281,7 @@ export default class resRegister extends Component {
   componentDidMount() {
     axios({
       method: "get",
-      url: "https://food-finder-seven.vercel.app/restaurant/getId",
+      url: "https://food-finder-jade.vercel.app/restaurant/getId",
     }).then((res) => {
       var id = res.data;
       console.log("from id call",res.data)
