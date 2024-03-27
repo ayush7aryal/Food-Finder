@@ -13,7 +13,9 @@
       "methods": ["GET", "POST", "PUT", "DELETE"],
       "dest": "/server.js",
       "headers":{
-        "Access-Control-Allow-Origin":"*"
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Credentials":"true",
+        "Access-Control-Allow-Headers":"Access-Control-Allow-Headers"
       }
     }
   ]
