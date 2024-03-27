@@ -43,7 +43,7 @@ mongoose.connect(
 );
 
 app.get("/", (req, res) => {
-  res.json({ msg: "Dashboard!" });
+  res.json({ msg: "Dashboard! JSON FILE" });
 });
 
 const PORT = process.env.PORT || 3000;
