@@ -3,6 +3,14 @@ const Restaurant = require("../models/restaurantModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const createAccessToken = (user) => {
+  return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: "12h" });
+};
+
+const createRefreshToken = (user) => {
+  return jwt.sign(user, process.env.REFRESH_TOKEN, { expiresIn: "7d" });
+};
+
 const userCtrl = {
   register: async (req, res) => {
     try {
@@ -59,10 +67,14 @@ const userCtrl = {
       const accesstoken = createAccessToken({ id: user._id, role: user.role });
       const refreshtoken = createRefreshToken({
         id: user._id,
-        role: user.role,
+        role: user.role
       });
 
-      res.json({ accesstoken: accesstoken, refreshtoken: refreshtoken, role: user.role });
+      res.json({
+        accesstoken: accesstoken,
+        refreshtoken: refreshtoken,
+        role: user.role
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -255,14 +267,6 @@ const userCtrl = {
     );
     res.json({ msg: "Order canceled successfully!" });
   },
-};
-
-const createAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: "12h" });
-};
-
-const createRefreshToken = (user) => {
-  return jwt.sign(user, process.env.REFRESH_TOKEN, { expiresIn: "7d" });
 };
 
 module.exports = userCtrl;
