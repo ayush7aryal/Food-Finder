@@ -17,6 +17,15 @@
         "Access-Control-Allow-Credentials":"true",
         "Access-Control-Allow-Headers":"Access-Control-Allow-Headers"
       }
+    },
+    {
+      "src": "/user/login",
+      "methods": ["GET", "POST", "PUT", "DELETE"],
+      "headers":{
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Credentials":"true",
+        "Access-Control-Allow-Headers":"Access-Control-Allow-Headers"
+      }
     }
   ]
 }
