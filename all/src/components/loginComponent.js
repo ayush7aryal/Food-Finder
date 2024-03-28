@@ -129,7 +129,8 @@ class login extends Component {
             });
         }
       }
-      window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
+      window.location = "https://food-finder-frontend.vercel.app/";
+      // window.location = "https://food-finder-frontend-21sfvanyy-ayush7aryals-projects.vercel.app/";
     } catch (err) {
       alert(err);
     }
