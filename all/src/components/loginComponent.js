@@ -98,6 +98,7 @@ class login extends Component {
               Authorization: localStorage.getItem("token"),
             },
           };
+          // removed the /api/api to /api only 
           await axios
             .get(
               "/api/user/info",
