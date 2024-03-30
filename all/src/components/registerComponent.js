@@ -108,7 +108,7 @@ class register extends Component {
     try {
       await axios({
         method: "post",
-        url: "https://food-finder-jade.vercel.app/user/register/",
+        url: "/api/user/register/",
         data: {
           firstName: this.state.firstName,
           lastName: this.state.lastName,

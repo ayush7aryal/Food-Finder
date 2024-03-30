@@ -70,7 +70,7 @@ class login extends Component {
       await axios(
         {
           method: "post",
-          url: "https://food-finder-jade.vercel.app/user/login/",
+          url: "/api/user/login/",
           data: {
             email: this.state.email,
             password: this.state.password,
@@ -100,7 +100,7 @@ class login extends Component {
           };
           await axios
             .get(
-              "https://food-finder-jade.vercel.app/user/info",
+              "/api/user/info",
               { withCredentials: true },
               config
             )
@@ -116,7 +116,7 @@ class login extends Component {
               console.log(cart);
               axios
                 .post(
-                  "https://food-finder-jade.vercel.app/user/addCart",
+                  "/api/user/addCart",
                   {
                     cart,
                   },{withCredentials: true,},

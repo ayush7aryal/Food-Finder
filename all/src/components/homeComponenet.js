@@ -57,7 +57,7 @@ class home extends Component {
     try {
       await axios({
         method: "get",
-        url: `https://food-finder-jade.vercel.app/restaurant/`,
+        url: `/api/restaurant/`,
       })
         .then((res) => {
           const Restaurant = res.data;
@@ -117,7 +117,7 @@ class home extends Component {
       });
 
       await axios
-        .get("https://food-finder-jade.vercel.app/admin/getFeatured", {
+        .get("/api/admin/getFeatured", {
           withCredentials: true,
         })
         .then((result) => {
@@ -134,7 +134,7 @@ class home extends Component {
       if (this.state.featuredRes.id !== "") {
         await axios
           .get(
-            `https://food-finder-jade.vercel.app/api/images/${this.state.featuredRes.id}`,
+            `/api/api/images/${this.state.featuredRes.id}`,
             { withCredentials: true }
           )
           .then((result) => {

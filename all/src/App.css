@@ -1,4 +1,10 @@
 /* rgba(255,179,71,0.7)*/
+
+iframe {
+  pointer-events: none;
+ }
+ 
+
 .pages {
   background-color: #f1f9fb;
   width: 96.5%;

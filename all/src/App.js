@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import register from "./components/registerComponent";
 import login from "./components/loginComponent";
@@ -17,7 +17,6 @@ import cart from './components/images/shopping-cart.svg';
 
 
 
-
 function App() {
     const [role,setRole] =  useState(-1); 
     const refresh = async () => {
@@ -26,7 +25,7 @@ function App() {
       };
 
       await axios
-        .get("https://food-finder-jade.vercel.app/user/refreshToken", config)
+        .get("/api/user/refreshToken", config)
         .then((res) => {
           if (res.data.accesstoken !== null) {
             setRole(res.data.user.role);
@@ -37,19 +36,22 @@ function App() {
         });
     };
 
+    useEffect(()=>{
+    // const [userId, setUserId] = useState('');
+    if (localStorage.getItem("isLogged") !== "false") {
+      refresh();
+      setInterval(async function () {
+        refresh();
+      }, 1000 * 60 * 60 * 12); //after 12 hrs
+    }     
+  }, []);
     
 
-  // const [userId, setUserId] = useState('');
-  if (localStorage.getItem("isLogged") !== "false") {
-    refresh();
-    setInterval(async function () {
-      refresh();
-    }, 1000 * 60 * 60 * 12); //after 12 hrs
-  }
+ 
 
   const logout = async () => {
     await axios
-      .get("https://food-finder-jade.vercel.app/user/logout", { withCredentials: true })
+      .get("/api/user/logout", { withCredentials: true })
       .then((res) => {
         localStorage.removeItem("token");
       });

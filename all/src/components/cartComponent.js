@@ -34,7 +34,7 @@ const Cart = () => {
       };
       axios
         .get(
-          "https://food-finder-jade.vercel.app/user/info",
+          "/api/user/info",
           { withCredentials: true },
           config
         )
@@ -89,7 +89,7 @@ const Cart = () => {
         },
       };
       await axios.post(
-        "https://food-finder-jade.vercel.app/user/changeCart",
+        "/api/user/changeCart",
         {
           cart: temp,
         },
@@ -121,7 +121,7 @@ const Cart = () => {
     setLocation(tLoc);
     setPop(false);
     await axios.post(
-      "https://food-finder-jade.vercel.app/user/update",
+      "/api/user/update",
       {
         dLoc,
       },
@@ -156,7 +156,7 @@ const Cart = () => {
     console.log(ordered_item);
     await axios
       .post(
-        "https://food-finder-jade.vercel.app/user/order",
+        "/api/user/order",
         {
           ordered_item,
         },{withCredentials: true,},
@@ -192,7 +192,7 @@ const Cart = () => {
 
     await axios
       .post(
-        "https://food-finder-jade.vercel.app/user/order",
+        "/api/user/order",
         {
           ordered_item,
         },{withCredentials: true,},
