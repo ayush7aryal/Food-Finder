@@ -3,7 +3,7 @@ import RestaurantInfo from "../components/restaurantComponent";
 import Order from "../components/resOrder";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "axios";
+import axios from "../api/instance";
 
 const Restaurant = () => {
   const [toggle, setToggle] = useState(true);

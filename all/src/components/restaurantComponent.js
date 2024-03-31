@@ -136,7 +136,7 @@ class restaurant extends Component {
       console.log("Stored in session storage");
     } else {
       axios.post(
-        "/api/user/addCart",
+        "/user/addCart",
         {
           cart: cart_item,
         },
@@ -156,7 +156,7 @@ class restaurant extends Component {
       //const RestroName= this.state.Restaurant.name;
       await axios({
         method: "get",
-        url: `/api/restaurant/${id}`,
+        url: `/restaurant/${id}`,
         withCredentials: true,
       })
         .then((res) => {
@@ -183,7 +183,7 @@ class restaurant extends Component {
         .catch((err) => console.error(err));
       await axios({
         method: "get",
-        url: `/api/api/images/${id}`,
+        url: `/api/images/${id}`,
         withCredentials: true,
       })
         .then((res) => {
@@ -197,7 +197,7 @@ class restaurant extends Component {
 
       await axios({
         method: "post",
-        url: "/api/restaurant/similar",
+        url: "/restaurant/similar",
         withCredentials: true,
         data: {
           id: id,
@@ -423,7 +423,7 @@ class restaurant extends Component {
           Authorization: localStorage.getItem("token"),
         },
       };
-      await axios.post("/api/api/destroy", publicId,{
+      await axios.post("/api/destroy", publicId,{
   withCredentials: true, // Include credentials in the request
 }, config);
     };
@@ -439,7 +439,7 @@ class restaurant extends Component {
 
       await axios
         .post(
-          "/api/restaurant/update",
+          "/restaurant/update",
           this.state.Restaurant,
           {
   withCredentials: true, // Include credentials in the request

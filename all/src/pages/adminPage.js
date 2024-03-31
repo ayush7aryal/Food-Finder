@@ -73,7 +73,7 @@
 
 
 import { React, useState, useEffect } from "react";
-import axios from "axios";
+  import axios from "../api/instance";
 import { Image } from "cloudinary-react";
 import "../css_styles/adminPage.css"
 

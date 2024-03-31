@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from '../api/instance';
 import Cookies from "js-cookie";
 import { BrowserRouter as Route, Link } from "react-router-dom";
 import "../css_styles/loginComponent.css";
@@ -70,7 +70,7 @@ class login extends Component {
       await axios(
         {
           method: "post",
-          url: "/api/user/login/",
+          url: "/user/login/",
           data: {
             email: this.state.email,
             password: this.state.password,
@@ -98,10 +98,10 @@ class login extends Component {
               Authorization: localStorage.getItem("token"),
             },
           };
-          // removed the /api/api to /api only 
+          // removed the  to  only 
           await axios
             .get(
-              "/api/user/info",
+              "/user/info",
               { withCredentials: true },
               config
             )
@@ -117,7 +117,7 @@ class login extends Component {
               console.log(cart);
               axios
                 .post(
-                  "/api/user/addCart",
+                  "/user/addCart",
                   {
                     cart,
                   },{withCredentials: true,},

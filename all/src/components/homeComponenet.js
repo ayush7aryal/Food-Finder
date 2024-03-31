@@ -57,7 +57,7 @@ class home extends Component {
     try {
       await axios({
         method: "get",
-        url: `/api/restaurant/`,
+        url: `/restaurant/`,
       })
         .then((res) => {
           const Restaurant = res.data;
@@ -117,7 +117,7 @@ class home extends Component {
       });
 
       await axios
-        .get("/api/admin/getFeatured", {
+        .get("/admin/getFeatured", {
           withCredentials: true,
         })
         .then((result) => {
@@ -134,7 +134,7 @@ class home extends Component {
       if (this.state.featuredRes.id !== "") {
         await axios
           .get(
-            `/api/api/images/${this.state.featuredRes.id}`,
+            `/images/${this.state.featuredRes.id}`,
             { withCredentials: true }
           )
           .then((result) => {

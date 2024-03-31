@@ -18,7 +18,7 @@ const ResOrder = () => {
       },
     };
     axios
-      .get("/api/restaurant/get/order",{
+      .get("/restaurant/get/order",{
   withCredentials: true, // Include credentials in the request
 }, config)
       .then((res) => {
@@ -86,7 +86,7 @@ const ResOrder = () => {
     console.log(e.target.value);
     orderList[index].status = e.target.value;
     axios.post(
-      "/api/restaurant/updateOrder",
+      "/restaurant/updateOrder",
       {
         email: [orderList[index].user.email],
         orderList,
@@ -112,7 +112,7 @@ const ResOrder = () => {
       }
     }
     await axios.post(
-      "/api/restaurant/updateOrder",
+      "/restaurant/updateOrder",
       {
         email: email,
         orderList,

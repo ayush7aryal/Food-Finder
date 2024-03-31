@@ -100,7 +100,7 @@ const Map = ({ sendLocation, getty }) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: "/api/restaurant/",
+      url: "/restaurant/",
       withCredentials: true,
     }).then((result) => {
       const all = result.data;

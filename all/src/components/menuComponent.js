@@ -61,7 +61,7 @@ export default function FormDialog({sendDataToParent, dataFromParent}) {
         try {
               await axios({
                 method: "post",
-                url: "/api/api/upload/",
+                url: "/api/upload/",
                 data: {
                   fileStr: base64EncodedImage,
                   id: `${dataFromParent}/menus`,

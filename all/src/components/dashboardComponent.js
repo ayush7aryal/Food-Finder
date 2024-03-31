@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../api/instance';
 import React, { Component } from "react";
 import { Image } from "cloudinary-react";
 import searchIcon from "./images/search-solid.svg";
@@ -66,7 +66,7 @@ class dashboard extends Component {
   async componentDidMount() {
     await axios({
       method: "get",
-      url: "/api/restaurant",
+      url: "/restaurant",
       withCredentials: true,
     }).then((result) => {
       const all = result.data;

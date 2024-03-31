@@ -190,7 +190,7 @@ export default class resRegister extends Component {
     try {
       const img = await axios({
         method: "post",
-        url: "/api/api/upload/",
+        url: "/api/upload/",
         data: { fileStr: base64EncodedImage, id: this.state.id },
         withCredentials: true, // Include credentials in the request
         headers: { "content-Type": "application/json" },
@@ -224,7 +224,7 @@ export default class resRegister extends Component {
       //because the last uploaded photo becomes the mainPhoto as written in uploadImage function
       await axios({
         method: "post",
-        url: "/api/restaurant/post",
+        url: "/restaurant/post",
         data: {
           id: this.state.id,
           name: this.state.name,
@@ -247,7 +247,7 @@ export default class resRegister extends Component {
         },
       };
       await axios.post(
-        "/api/user/roleChange",
+        "/user/roleChange",
         { id: this.state.id },
         {
   withCredentials: true, // Include credentials in the request
@@ -286,7 +286,7 @@ export default class resRegister extends Component {
   componentDidMount() {
     axios({
       method: "get",
-      url: "/api/restaurant/getId",
+      url: "/restaurant/getId",
       withCredentials: true, // Include credentials in the request
     }).then((res) => {
       var id = res.data;

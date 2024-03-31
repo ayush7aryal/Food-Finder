@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from '../api/instance';
 import { Image } from "cloudinary-react";
 import "../css_styles/similarsStyle.css";
 import Map from "./mapComponent";
@@ -34,7 +35,7 @@ const Cart = () => {
       };
       axios
         .get(
-          "/api/user/info",
+          "/user/info",
           { withCredentials: true },
           config
         )
@@ -89,7 +90,7 @@ const Cart = () => {
         },
       };
       await axios.post(
-        "/api/user/changeCart",
+        "/user/changeCart",
         {
           cart: temp,
         },
@@ -121,7 +122,7 @@ const Cart = () => {
     setLocation(tLoc);
     setPop(false);
     await axios.post(
-      "/api/user/update",
+      "/user/update",
       {
         dLoc,
       },
@@ -156,7 +157,7 @@ const Cart = () => {
     console.log(ordered_item);
     await axios
       .post(
-        "/api/user/order",
+        "/user/order",
         {
           ordered_item,
         },{withCredentials: true,},
@@ -192,7 +193,7 @@ const Cart = () => {
 
     await axios
       .post(
-        "/api/user/order",
+        "/user/order",
         {
           ordered_item,
         },{withCredentials: true,},

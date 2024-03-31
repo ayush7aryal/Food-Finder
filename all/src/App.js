@@ -8,7 +8,7 @@ import restaurant from "./pages/resDashboard";
 import resRegister from "./components/resRegister";
 import CARTnORDER from "./pages/cartNorder";
 import AdminPage from "./pages/adminPage";
-import axios from "axios";
+import axios from "./api/instance";
 import "./App.css";
 import { Footer } from "./components/Elements";
 import logo from './components/images/logoSVG.svg';
@@ -25,7 +25,7 @@ function App() {
       };
 
       await axios
-        .get("/api/user/refreshToken", config)
+        .get("/user/refreshToken", config)
         .then((res) => {
           if (res.data.accesstoken !== null) {
             setRole(res.data.user.role);
@@ -51,7 +51,7 @@ function App() {
 
   const logout = async () => {
     await axios
-      .get("/api/user/logout", { withCredentials: true })
+      .get("/user/logout", { withCredentials: true })
       .then((res) => {
         localStorage.removeItem("token");
       });
