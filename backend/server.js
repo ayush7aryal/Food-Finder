@@ -8,12 +8,14 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 var corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:5500',
+  credentials : true,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
+
 app.use(cors(corsOptions));
-app.options('*', cors()) // include before other routes
+// app.options('*', cors()) // include before other routes
 app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
